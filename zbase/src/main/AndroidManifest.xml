@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zbase">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />获取网络信息状态，如当前的网络连接是否有效
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />改变网络状态如是否能联网
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />获取当前WiFi接入的状态以及WLAN热点的信息
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />允许程序写入外部存储，如SD卡上写文件
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />允许程序读取外部存储，如SD卡上读文件
+    <uses-permission android:name="android.permission.INTERNET" />访问网络连接，可能产生GPRS流量
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />安装桌面快捷方式
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />打开设置界面
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />下载管理器
+
+    <application>
+        <activity android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />图片选择，可以单选，多选，拍照，报红没关系
+        <activity android:name=".activity.PhotoViewActivity" />通用查看图片界面
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+
+        <service android:name=".service.AppUpgradeService" />
+
+    </application>
+</manifest>

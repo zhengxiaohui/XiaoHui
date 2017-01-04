@@ -1,0 +1,9 @@
+接入步骤：
+1.manifest看以下情况是否需要配置
+<!-- 友盟统计添加UmengAppkey -->
+        <!--<meta-data-->
+            <!--android:name="UMENG_APPKEY"-->
+            <!--android:value="57d2310fe0f55a2c9f00077c" />修改-->如果已经接入友盟分享等友盟的产品，这里就不用解开，不用配置UMENG_APPKEY了，可以用同一个，如果没有则要解开并配置
+        <!-- UMENG_CHANNEL 来标注应用推广渠道，不同渠道可以设置不同ID来区分   默认Umeng平台 -->
+2.MyApplication中调用：
+UMengAnalyticsConfig.init(debugMode);//友盟统计

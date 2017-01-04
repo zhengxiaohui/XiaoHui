@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/alipay" />
+            <option value="$PROJECT_DIR$/baidumap" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/customshapeimageview" />
+            <option value="$PROJECT_DIR$/imageloader" />
+            <option value="$PROJECT_DIR$/jpush" />
+            <option value="$PROJECT_DIR$/juhe" />
+            <option value="$PROJECT_DIR$/kanwheel" />
+            <option value="$PROJECT_DIR$/multi-image-selector" />
+            <option value="$PROJECT_DIR$/nineoldandroids" />
+            <option value="$PROJECT_DIR$/okhttputils" />
+            <option value="$PROJECT_DIR$/ptr-lib" />
+            <option value="$PROJECT_DIR$/umenganalytics" />
+            <option value="$PROJECT_DIR$/umengsocialshare" />
+            <option value="$PROJECT_DIR$/zbase" />
+            <option value="$PROJECT_DIR$/zdemo" />
+            <option value="$PROJECT_DIR$/zxing" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

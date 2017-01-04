@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zdemo">
+
+    <application
+        android:name=".global.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.zdemo.activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.AnimationActivity" />列表和图片的3D左右旋转
+        <activity android:name=".activity.HtmlTextActivity" />HTML文本显示
+        <activity android:name=".activity.PopupWinowActivity" />各种自定义popupWindow
+        <activity android:name=".activity.MyDialogActivity" />自定义对话框，布局样式都自定义
+        <activity android:name=".activity.ViewPagerActivity" />普通ViewPager带标题
+        <activity android:name=".activity.ViewPagerWeiBoActivity" />仿微博ViewPager，标题自定义位置和动画
+        <activity android:name=".activity.LaunchActivity" />启动页
+        <activity android:name=".activity.GuideActivity" />引导页
+        <activity android:name=".activity.CustomProgressDialogActivity" />自定义转圈对话框
+        <activity android:name=".activity.AsynchHttpActivity" />AsynchHttp网络访问
+        <activity android:name=".activity.ServerCRUDActivity" />服务端增删改查
+        <activity android:name=".activity.AreaCNWheelActivity" />中国地区滚轮选择对话框
+        <activity android:name=".activity.CustomShapeImageViewActivity" />自定义形状
+        <activity android:name=".activity.ColorMatrixActivity" />颜色矩阵变幻滤镜
+        <activity android:name=".activity.SlidingMenuActivity" />列表向左滑出菜单
+        <activity android:name=".activity.ReportActivity" />报表各种形状图
+        <activity android:name=".activity.CategoryListViewActivity" />带分类标题的ListView
+        <activity android:name=".activity.WheelDateTimeActivity" />滚轮日期时间选择器
+        <activity android:name=".activity.MaskableFrameLayoutActivity" />蒙版效果MaskableFrameLayout
+        <activity android:name=".activity.UMengShareActivity" />友盟分享
+        <activity android:name=".activity.BaiduMapActivity" />百度地图
+        <activity android:name=".activity.JuheActivity" />聚合数据
+        <activity android:name=".activity.UltraPullToRefreshActivity" />通用下拉刷新UltraPullToRefresh
+        <activity android:name=".activity.DownloadManagerActivity" />DownloadManager下载
+        <activity android:name=".activity.ObservableHorizontalScrollViewActivity" />监控HorizontalScrollView的滑动状态
+        <activity android:name=".activity.AutoCycleSlideViewActivity" />AutoCycleSlideView自定义自动滚动幻灯片
+        <activity android:name=".activity.MultiImageSelectActivity" />图库单选多选拍摄图片
+        <activity android:name=".activity.PasswordViewActivity" />密码输入框控件
+        <activity android:name=".activity.QRCodeActivity" />扫一扫
+        <activity android:name=".activity.SeePhotoViewActivity" />图片缩放移动查看
+        <activity android:name=".activity.MultiWheelViewActivity" />多个WheelView滚轮控件
+        <activity android:name=".activity.AdapterSelectActivity" />列表单选，多选，全选，取消全选
+        <activity android:name=".activity.LongClickLinearLayoutActivity" />长按布局控件结合录音播放计时等
+        <activity android:name=".activity.SwitchButtonActivity" />SwitchButton滑动开关
+        <activity android:name=".activity.FewUseWidgetActivity" />很少用到的系统控件使用示例
+        <activity android:name=".activity.RegisterAndLoginActivity" />自定义注册和登录控件
+        <activity android:name=".activity.LanguageSwitchActivity" />切换语言环境
+        <activity android:name=".activity.DashBoardActivity" />各种样式的表盘
+        <activity android:name=".activity.ProgressImageFrameLayoutActivity" />带加载动画的图片控件（转圈圈）
+
+    </application>
+
+</manifest>

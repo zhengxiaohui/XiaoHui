@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion as Integer
+    buildToolsVersion rootProject.ext.buildToolsVersion as String
+
+    defaultConfig {
+        applicationId "com.zdemo"
+        minSdkVersion rootProject.ext.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        oranllc {}
+        xiaomi {}
+        _360 {}
+        wandoujia {}
+        yingyongbao {}
+        baidu {}
+        oppo {}
+        meizu {}
+        vivo {}
+        huawei {}
+        lianxiang {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-" + new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC")) + ".apk")
+//                def fileName = outputFile.name.replace("app-release.apk", "${defaultConfig.applicationId}"+"-${defaultConfig.versionName}-" + releaseTime() + ".apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url "https://jitpack.io" }//MPAndroidChart或hellocharts用，必须有
+}
+
+dependencies {
+    compile 'com.wx.wheelview:wheelview:1.3.3' // https://github.com/venshine/WheelView
+    compile project(':zbase')
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+    compile project(':customshapeimageview')
+//    compile project(':nineoldandroids')
+    compile project(':kanwheel')
+    compile project(':umengsocialshare')
+    compile project(':jpush')
+    compile project(':juhe')
+    compile project(':baidumap')
+    compile project(':zxing')
+    compile 'com.czt.mp3recorder:library:1.0.4'
+    compile 'com.kyleduo.switchbutton:library:1.4.4'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
+}

@@ -1,0 +1,7 @@
+include ':umengsocialshare', ':jpush', ':umenganalytics', ':baidumap', ':juhe', ':common', ':kanwheel', ':multi-image-selector', ':ptr-lib', ':okhttputils', ':alipay'
+include ':zdemo'
+include ':zbase'
+include ':imageloader'
+include ':customshapeimageview'
+include ':nineoldandroids'
+include ':zxing'

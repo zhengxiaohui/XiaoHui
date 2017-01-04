@@ -1,0 +1,5 @@
+接入步骤：
+1.Manifest修改OpenId
+android:value="JH03e7e4d788fe696b467d75d09f034d7d" />修改OpenId
+2.MyApplication中调用：
+JuheConfig.init(this);//聚合数据

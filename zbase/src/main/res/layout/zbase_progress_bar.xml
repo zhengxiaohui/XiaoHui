@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProgressBar  xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="30dp"
+android:layout_height="30dp"
+android:indeterminateBehavior="repeat"
+android:indeterminateDrawable="@anim/zbase_process_dialog"
+android:indeterminateDuration="500"
+android:indeterminateOnly="true"
+android:interpolator="@android:anim/linear_interpolator" />

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zbase.view.AutoCycleSlideView
+        android:id="@+id/autoCycleSlideView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zbase.view.LinearDot
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            app:intervalDimension="8dp"
+            app:normalDimension="5dp"
+            app:normalDrawable="@drawable/dot_normal_black"
+            app:selectedDimension="6dp"
+            app:selectedDrawable="@drawable/dot_selected_white" />
+    </com.zbase.view.AutoCycleSlideView>
+</LinearLayout>

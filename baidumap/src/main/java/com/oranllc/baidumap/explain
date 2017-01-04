@@ -1,0 +1,36 @@
+接入步骤：
+1.修改Manifest文件的appkey，如下
+android:value="8sGUwqgPbm7SXLgDi0MrdOUH4miSHeGf" />修改成自己的API_KEY
+2.MyApplication中调用BaiduMapConfig.init(this);//百度地图
+3.用法大概如下：
+private BaseBaiduLocation baseBaiduLocation = new BaseBaiduLocation() {
+        @Override
+        protected void onLocationReceive(BDLocation location) {
+            if (location != null) {
+                city = location.getCity();
+                district = location.getDistrict();
+            }
+        }
+    };
+分两种场景使用方式
+（1）一进去就开始定位：
+@Override
+    protected void initValue() {
+        baseBaiduLocation.init(getMyApplication());
+        baseBaiduLocation.startLocation();
+    }
+
+（2）不是一进去就定位，而是点击的时候定位：
+@Override
+    protected void initValue() {
+        baseBaiduLocation.init(getMyApplication());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_location:
+                baseBaiduLocation.startLocation();
+                break;
+        }
+    }

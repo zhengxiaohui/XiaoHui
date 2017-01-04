@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="orange">#FFA500</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#FF00FF</color>
+
+    <color name="greye">#EEEEEE</color>
+    <color name="grey9">#999999</color>
+    <color name="grey5">#555555</color>
+    <color name="grey1">#111111</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent10">#1A000000</color><!--透明度10%-->
+    <color name="transparent20">#33000000</color><!--透明度20%-->
+    <color name="transparent30">#4D000000</color><!--透明度30%-->
+    <color name="transparent40">#66000000</color><!--透明度40%-->
+    <color name="transparent50">#80000000</color><!--透明度50%-->
+    <color name="transparent60">#99000000</color><!--透明度60%-->
+    <color name="transparent70">#B3000000</color><!--透明度70%-->
+    <color name="transparent80">#CC000000</color><!--透明度80%-->
+    <color name="transparent90">#E6000000</color><!--透明度90%-->
+
+    <color name="line_color">#dcdcdc</color>
+
+    <color name="colorPrimary">#00b4aa</color>
+    <color name="colorPrimaryDark">#00978f</color>
+    <color name="colorAccent">#FF6A6E</color>
+    <color name="color_red">#FF5722</color>
+    <color name="color_orange">#FF9800</color>
+    <color name="color_yellow">#FFC107</color>
+    <color name="color_green">#3FB830</color>
+    <color name="color_blue">#00BAED</color>
+    <color name="color_dark">#263238</color>
+    <color name="color_dark_light">#455A64</color>
+    <color name="color_light">#ECEFF1</color>
+
+</resources>

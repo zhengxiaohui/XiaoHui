@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+<TextView
+    android:id="@+id/tv_category"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="类别：打牌"
+    />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_category"
+        tools:text="内容：回乡下打牌"
+        />
+    <TextView
+        android:id="@+id/tv_site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        tools:text="地点：卜洲村"
+        />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_site"
+        android:layout_alignParentRight="true"
+        tools:text="时间：2016-02-17"
+        />
+</RelativeLayout>

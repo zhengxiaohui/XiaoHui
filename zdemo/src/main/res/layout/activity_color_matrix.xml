@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/colorView_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.zbase.view.ColorMatrixView
+                android:id="@+id/myColorMatrixView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/photo4" />
+
+            <LinearLayout
+                android:id="@+id/colorlayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Edit1"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/Edit2"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit3"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit4"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit5"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/colorlayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Edit6"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit7"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/Edit8"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit9"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit10"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/colorlayout3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Edit11"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit12"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit13"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/Edit14"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit15"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/colorlayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Edit16"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit17"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit18"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/Edit19"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/Edit20"
+                    style="@style/ColorMatrix"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="0" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/Button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="提交" />
+            <Button
+                android:id="@+id/Button2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="重置" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

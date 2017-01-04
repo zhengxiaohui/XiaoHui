@@ -1,0 +1,58 @@
+用法：
+用到的类中定义：
+private BaseAliPay aliPay = new BaseAliPay(this) {
+        @Override
+        public void onPaySucceed() {
+            ZLog.dZheng("onPaySucceed");
+            Intent intent = new Intent(context, RechargeSuccessActivity.class);
+            intent.putExtra(IntentConstant.MONEY, money);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        public void onPayWaitCountersign() {
+            ZLog.dZheng("onPayWaitCountersign");
+        }
+
+        @Override
+        public void onPayFailure() {
+            ZLog.dZheng("onPayFailure");
+        }
+    };
+调用：aliPay.startPay(payBean.getData().getPayInfo());//startPay传的是字符串类型的订单信息
+示例：
+/**
+     * 确认充值 接口
+     */
+    private void requestComfirmTopUp(String payType) {
+        money = et_input_amount.getText().toString();
+        if (!ll_pay_with_alipay.isSelected()) {
+            PopUtil.toast(context, R.string.please_set_the_payment);
+            return;
+        }
+        if (TextUtils.isEmpty(money)) {
+            return;
+        }
+        if (Double.valueOf(money) > 5000) {
+            PopUtil.toast(context, R.string.the_maximum_payment_limit_the_maximum_payment_limit);
+            return;
+        }
+        OkHttpUtils.post(HttpConstant.PAY_CHECK)
+                .tag(this)
+                .params("userId", getUserId())
+                .params("payType", payType)
+                .params("money", money)
+                .execute(new SignJsonCallback<PayBean>(context, PayBean.class, false) {
+                    @Override
+                    public void onResponse(boolean isFromCache, PayBean payBean, Request request, @Nullable Response response) {
+                        if (payBean.getCodeState() == 1) {
+                            PopUtil.toast(context, payBean.getMessage());
+                            aliPay.startPay(payBean.getData().getPayInfo());
+                        } else {
+                            PopUtil.toast(context, payBean.getMessage());
+                        }
+                    }
+                });
+
+    }

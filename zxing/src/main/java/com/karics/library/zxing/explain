@@ -1,0 +1,20 @@
+用法：
+@Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                QRCodeManager.scan(this);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        QRCodeManager.onActivityResult(requestCode, resultCode, data, new QRCodeManager.OnQRCodeObtainListener() {
+            @Override
+            public void onQRCodeObtain(String content) {
+                textView.setText(content);
+            }
+        });
+    }

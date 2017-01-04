@@ -1,0 +1,4 @@
+<resources>
+    <item name="drop_down_head_text" type="id"/>
+    <item name="gridview" type="id"/>
+</resources>

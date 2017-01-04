@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">通用项目实例</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="skip">跳过</string>
+
+    <string name="enter_business_pwd">输入交易密码</string>
+    <string name="forgot_password_more">忘记密码></string>
+
+    <string name="hold_down_the_talk">按住说话</string>
+    <string name="loosen_the_stop">松开停止</string>
+</resources>

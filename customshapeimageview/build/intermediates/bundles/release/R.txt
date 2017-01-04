@@ -1,0 +1,21 @@
+int attr rx 0x7f010002
+int attr ry 0x7f010003
+int attr shape 0x7f010000
+int attr svg_raw_resource 0x7f010001
+int id circle 0x7f040000
+int id rectangle 0x7f040001
+int id svg 0x7f040002
+int raw shape_5 0x7f020000
+int raw shape_circle_2 0x7f020001
+int raw shape_flower 0x7f020002
+int raw shape_heart 0x7f020003
+int raw shape_star 0x7f020004
+int raw shape_star_2 0x7f020005
+int raw shape_star_3 0x7f020006
+int string app_name 0x7f030000
+int[] styleable CustomShapeImageView { 0x7f010000, 0x7f010001 }
+int styleable CustomShapeImageView_shape 0
+int styleable CustomShapeImageView_svg_raw_resource 1
+int[] styleable RoundRectangleImageView { 0x7f010002, 0x7f010003 }
+int styleable RoundRectangleImageView_rx 0
+int styleable RoundRectangleImageView_ry 1
