@@ -92,4 +92,8 @@
         <attr name="minLength" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="TransMaskFrameLayout">
+        <attr name="maskCorner" format="integer" />
+    </declare-styleable>
+
 </resources>
