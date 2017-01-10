@@ -5,10 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -66,7 +66,8 @@ public class TransMaskFrameLayout extends FrameLayout {
      */
     @Override
     protected void onFinishInflate() {
-        View childView = getChildAt(0);
+        super.onFinishInflate();
+        final View childView = getChildAt(0);
         childView.measure(0, 0);
         imageView = new ImageView(getContext());
         LayoutParams imageLayoutParams = new LayoutParams(childView.getMeasuredWidth(), childView.getMeasuredHeight());
@@ -75,25 +76,24 @@ public class TransMaskFrameLayout extends FrameLayout {
         float[] outerR = new float[]{maskCorner, maskCorner, maskCorner, maskCorner, maskCorner, maskCorner, maskCorner, maskCorner}; // 外部矩形弧度
         RectF inset = new RectF(0, 0, 0, 0); // 内部矩形与外部矩形的距离
         final RoundRectShape roundRectShape = new RoundRectShape(outerR, inset, null);
-        imageView.setOnTouchListener(new OnTouchListener() {
+
+        ShapeDrawable pressedDrawable = new ShapeDrawable(roundRectShape);
+        pressedDrawable.getPaint().setStyle(Paint.Style.FILL); // 指定填充模式
+        pressedDrawable.getPaint().setColor(getContext().getResources().getColor(R.color.transparent30));//指定填充颜色
+
+        ShapeDrawable normalDrawable = new ShapeDrawable(roundRectShape);
+        normalDrawable.getPaint().setStyle(Paint.Style.FILL); // 指定填充模式
+        normalDrawable.getPaint().setColor(getContext().getResources().getColor(R.color.transparent));//指定填充颜色
+
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);//有状态的必须写在上面
+        stateListDrawable.addState(new int[]{}, normalDrawable);//没有状态的必须写在下面
+
+        imageView.setBackground(stateListDrawable);
+        imageView.setOnClickListener(new OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                ShapeDrawable shapeDrawable;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        shapeDrawable = new ShapeDrawable(roundRectShape);
-                        shapeDrawable.getPaint().setStyle(Paint.Style.FILL); // 指定填充模式
-                        shapeDrawable.getPaint().setColor(getContext().getResources().getColor(R.color.transparent30));//指定填充颜色
-                        imageView.setBackground(shapeDrawable);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        shapeDrawable = new ShapeDrawable(roundRectShape);
-                        shapeDrawable.getPaint().setStyle(Paint.Style.FILL); // 指定填充模式
-                        shapeDrawable.getPaint().setColor(getContext().getResources().getColor(R.color.transparent));//指定填充颜色
-                        imageView.setBackground(shapeDrawable);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                childView.performClick();
             }
         });
         addView(imageView);
