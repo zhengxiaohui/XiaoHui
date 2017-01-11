@@ -383,20 +383,33 @@ public class AppUtil {
     }
 
     /**
-     * 打开第三方应用
+     * 打开其他的app
+     * @param context
+     * @param packageName 包名
+     */
+    public static void openOtherApp(Context context, String packageName) {
+        Intent intent = new Intent();
+        PackageManager packageManager = context.getPackageManager();
+        intent = packageManager.getLaunchIntentForPackage(packageName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 打开其他的app，指定打开界面
      *
      * @param activity
-     * @param sPackage
-     * @param uiClass
+     * @param packageName  包名
+     * @param activityName activity名
      */
     // 另：几个常用的Package命令：
     // 新浪微博（编辑界面）：com.sina.weibo //com.sina.weibo.EditActivity
     // 腾讯微博（编辑界面）：com.tencent.WBlog// com.tencent.WBlog.activity.MicroblogInput
     // 微信： com.tencent.mm //com.tencent.mm.ui.LauncherUI
     // QQ: com.tencent.mobileqq// com.tencent.mobileqq.activity.HomeActivity
-    public static void openLauncherPlatfrom(Activity activity, String sPackage, String uiClass) {
+    public static void openOtherApp(Activity activity, String packageName, String activityName) {
         Intent intent = new Intent();
-        ComponentName cmp = new ComponentName(sPackage, uiClass);
+        ComponentName cmp = new ComponentName(packageName, activityName);
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
