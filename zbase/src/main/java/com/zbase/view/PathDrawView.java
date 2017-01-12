@@ -43,14 +43,8 @@ public class PathDrawView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.PathDrawView, defStyle, 0);
-
-        pathDrawFillColor = a.getColor(
-                R.styleable.PathDrawView_pathDrawFillColor,
-                pathDrawFillColor);
-
+        final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PathDrawView, defStyle, 0);
+        pathDrawFillColor = a.getColor(R.styleable.PathDrawView_pathDrawFillColor,pathDrawFillColor);
         a.recycle();
         loadViews();
     }

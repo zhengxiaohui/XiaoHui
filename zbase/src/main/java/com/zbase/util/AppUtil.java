@@ -418,23 +418,34 @@ public class AppUtil {
     }
 
     /**
+     * 打开浏览器
+     * @param context
+     * @param url
+     */
+    public static void openBrowser(Context context, String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
+    }
+
+    /**
      * 下载新版本apk并更新，文件名默认为应用程序名称ApplicationName
      *
      * @param context
      * @param apkUrl
      */
     public static void updateApk(final Context context, String apkUrl) {
-        updateApk(context, apkUrl, getApplicationName(context));
+        downloadApkAndInstall(context, apkUrl, getApplicationName(context));
     }
 
     /**
-     * 下载新版本apk并更新，文件名自定义
+     * 下载apk并安装，文件名自定义
      *
      * @param context
      * @param apkUrl
      * @param apkName
      */
-    public static void updateApk(final Context context, String apkUrl, String apkName) {
+    public static void downloadApkAndInstall(final Context context, String apkUrl, String apkName) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -443,6 +454,14 @@ public class AppUtil {
         progressDialog.setMessage("正在下载,请稍后...");
         progressDialog.show();
         OkHttpUtils.get(apkUrl).tag(context).execute(new FileCallback(new StringBuffer(apkName).append(".apk").toString()) {
+
+            @Override
+            public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(isFromCache, call, response, e);
+                PopUtil.toast(context, "下载失败");
+                progressDialog.dismiss();
+            }
+
             @Override
             public void onResponse(boolean isFromCache, File file, Request request, @Nullable Response response) {
                 progressDialog.dismiss();
@@ -457,11 +476,46 @@ public class AppUtil {
                 progressDialog.setProgressNumberFormat("%1d KB/%2d KB");
                 progressDialog.setProgress((int) currentSizes);
             }
+        });
+    }
 
+    /**
+     * 下载文件，文件名自定义
+     *
+     * @param context
+     * @param url
+     * @param fileName
+     */
+    public static void downloadFileWithProgressDialog(final Context context, String url, String fileName) {
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setTitle("下载");
+        progressDialog.setMessage("正在下载,请稍后...");
+        progressDialog.show();
+        OkHttpUtils.get(url).tag(context).execute(new FileCallback(fileName) {
+
+            @Override
             public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
                 super.onError(isFromCache, call, response, e);
                 PopUtil.toast(context, "下载失败");
                 progressDialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(boolean isFromCache, File file, Request request, @Nullable Response response) {
+                PopUtil.toast(context, "下载完成");
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void downloadProgress(long currentSize, long totalSize, float progress, long networkSpeed) {
+                double currentSizes = FileUtil.FormetFileSize(currentSize, FileUtil.SIZETYPE_KB);
+                double totalSizes = FileUtil.FormetFileSize(totalSize, FileUtil.SIZETYPE_KB);
+                progressDialog.setMax((int) totalSizes);
+                progressDialog.setProgressNumberFormat("%1d KB/%2d KB");
+                progressDialog.setProgress((int) currentSizes);
             }
         });
     }

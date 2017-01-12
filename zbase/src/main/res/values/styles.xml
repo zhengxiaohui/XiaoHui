@@ -81,8 +81,6 @@
         <item name="android:fadingEdge">none</item>
         <item name="android:smoothScrollbar">true</item>
         <item name="android:listSelector">#00000000</item>
-        <item name="android:divider">@color/greye</item>
-        <item name="android:dividerHeight">0.5dp</item>
     </style>
 
     <!-- 自定义loading dialog -->
