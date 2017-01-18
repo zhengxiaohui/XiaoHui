@@ -100,7 +100,7 @@ public class DateTimeUtil {
          * 详细设计： 1.被400整除是闰年，否则： 2.不能被4整除则不是闰年 3.能被4整除同时不能被100整除则是闰年
          * 3.能被4整除同时能被100整除则不是闰年
          */
-        Date d = stringToDate(ddate,YMDHMS);
+        Date d = stringToDate(ddate, YMDHMS);
         GregorianCalendar gc = (GregorianCalendar) Calendar.getInstance();
         gc.setTime(d);
         int year = gc.get(Calendar.YEAR);
@@ -159,6 +159,18 @@ public class DateTimeUtil {
             hour = "0" + hour;
         }
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+    }
+
+    /**
+     * 计算两个日期相差的天数
+     *
+     * @param smallDate
+     * @param bigDate
+     * @return
+     */
+    public static int differDays(Date smallDate, Date bigDate) {
+        int days = (int) ((bigDate.getTime() - smallDate.getTime()) / (1000 * 3600 * 24));
+        return days;
     }
 
 }

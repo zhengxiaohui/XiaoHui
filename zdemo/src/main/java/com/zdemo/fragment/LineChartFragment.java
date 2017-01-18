@@ -81,7 +81,7 @@ public class LineChartFragment extends BaseFragment {
         lineData.setValueFormatter(new ValueFormatter() {//格式化显示的数据
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return new DecimalFormat("#.00").format(value);
+                return new DecimalFormat("0.00").format(value);
             }
         });
 
@@ -121,7 +121,7 @@ public class LineChartFragment extends BaseFragment {
 //        leftAxis.setValueFormatter(new YAxisValueFormatter() {//y轴坐标显示格式
 //            @Override
 //            public String getFormattedValue(float value, YAxis yAxis) {
-//                return new DecimalFormat("#.00").format(value);
+//                return new DecimalFormat("0.00").format(value);
 //            }
 //        });
 

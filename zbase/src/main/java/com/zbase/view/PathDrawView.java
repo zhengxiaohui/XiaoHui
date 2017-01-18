@@ -43,8 +43,9 @@ public class PathDrawView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PathDrawView, defStyle, 0);
-        pathDrawFillColor = a.getColor(R.styleable.PathDrawView_pathDrawFillColor,pathDrawFillColor);
+        pathDrawFillColor = a.getColor(R.styleable.PathDrawView_pathDrawFillColor, pathDrawFillColor);
         a.recycle();
         loadViews();
     }
@@ -75,15 +76,16 @@ public class PathDrawView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (pointList.size() == 0) {
-            return;
+            setMeasuredDimension(100, 100);
+        } else {
+            int width = 0;
+            int height = 0;
+            for (int i = 0; i < pointList.size(); i++) {
+                width = Math.max(width, pointList.get(i).x);
+                height = Math.max(height, pointList.get(i).y);
+            }
+            setMeasuredDimension(width, height);
         }
-        int width = 0;
-        int height = 0;
-        for (int i = 0; i < pointList.size(); i++) {
-            width = Math.max(width, pointList.get(i).x);
-            height = Math.max(height, pointList.get(i).y);
-        }
-        setMeasuredDimension(width, height);
     }
 
     public int getPathDrawFillColor() {

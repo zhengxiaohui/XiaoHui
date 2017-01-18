@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.lzy.okhttputils.OkHttpUtils;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.analytics.MobclickAgent;
 import com.zbase.activity.AbstractBaseActivity;
+import com.zbase.common.BaseApplication;
 import com.zbase.common.Const;
 import com.zbase.common.GlobalBroadcastReceiver;
 import com.zbase.imagedispose.PhotoPicker;
@@ -173,6 +175,8 @@ public abstract class AbstractBaseFragment extends Fragment implements View.OnCl
     @Override
     public void onDestroy() {
         super.onDestroy();
+        RefWatcher refWatcher = BaseApplication.getRefWatcher(context);
+        refWatcher.watch(this);
         unRegisterGlobleReceiver();
         //Activity销毁时，取消网络请求
         OkHttpUtils.getInstance().cancelTag(this);

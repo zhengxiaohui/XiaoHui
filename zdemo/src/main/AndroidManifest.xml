@@ -62,6 +62,7 @@
         <activity android:name=".activity.DashBoardActivity" />各种样式的表盘
         <activity android:name=".activity.ProgressImageFrameLayoutActivity" />带加载动画的图片控件（转圈圈）
         <activity android:name=".activity.TransMaskActivity" />按下显示半透明遮罩控件
+        <activity android:name=".activity.PathDrawViewActivity" />正三角形和点路径集合的自定义图形
 
     </application>
 

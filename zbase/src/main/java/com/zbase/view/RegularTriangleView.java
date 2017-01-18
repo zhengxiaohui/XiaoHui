@@ -39,18 +39,9 @@ public class RegularTriangleView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.RegularTriangleView, defStyle, 0);
-
-        triangleRadius = a.getDimensionPixelOffset(
-                R.styleable.RegularTriangleView_triangleRadius,
-                triangleRadius);
-
-        triangleFillColor = a.getColor(
-                R.styleable.RegularTriangleView_triangleFillColor,
-                triangleFillColor);
-
+        final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RegularTriangleView, defStyle, 0);
+        triangleRadius = a.getDimensionPixelOffset(R.styleable.RegularTriangleView_triangleRadius,triangleRadius);
+        triangleFillColor = a.getColor(R.styleable.RegularTriangleView_triangleFillColor,triangleFillColor);
         a.recycle();
         loadViews();
     }

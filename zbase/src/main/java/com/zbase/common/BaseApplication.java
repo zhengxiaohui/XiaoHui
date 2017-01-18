@@ -1,6 +1,7 @@
 package com.zbase.common;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.lzy.okhttputils.OkHttpUtils;
@@ -13,6 +14,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zbase.manager.ActivityStackManager;
 
 /**
@@ -29,10 +32,18 @@ public abstract class BaseApplication extends Application {
     }
 
     public static boolean debugMode = true;//是否是debug模式，默认true。控制打印日志，极光推送模式等。打包APK的时候要设置成false
+    private RefWatcher refWatcher;
+
+    public static RefWatcher getRefWatcher(Context context) {
+        BaseApplication application = (BaseApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        refWatcher = LeakCanary.install(this);
+//        refWatcher = RefWatcher.DISABLED;//正式发布的时候要把上面的那句换成这句，使LeakCanary失效
         CrashHandler.getInstance().init(this);
         activityStack = ActivityStackManager.getInstance();
         activityStack.setOnAppDisplayListener(new ActivityStackManager.OnAppDisplayListener() {
