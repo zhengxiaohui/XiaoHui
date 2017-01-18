@@ -95,7 +95,7 @@ public class LineChartFragment extends BaseFragment {
 //      mLegend.setTypeface(mTf);// 字体
 
 
-        lineChart.setDrawBorders(true);  //是否在折线图上添加边框
+//        lineChart.setDrawBorders(true);  //是否在折线图上添加边框
         // no description text
         lineChart.setDescription("");// 数据描述
         // 如果没有数据的时候，会显示这个，类似listview的emtpyview
@@ -116,8 +116,8 @@ public class LineChartFragment extends BaseFragment {
         lineChart.getAxisRight().setEnabled(false); // 隐藏右边的坐标轴
 
         YAxis leftAxis = lineChart.getAxisLeft();
-        lineChart.getAxisLeft().setDrawGridLines(false);//隐藏左边坐标轴横网格线
-        leftAxis.setAxisMaxValue(12f);
+        leftAxis.setDrawGridLines(false);//隐藏左边坐标轴横网格线
+        leftAxis.setSpaceTop(30f);//设置图表中的最高值的顶部间距占最高值的值的百分比（设置的百分比 = 最高柱顶部间距/最高柱的值）。默认值是10f，即10%
 //        leftAxis.setValueFormatter(new YAxisValueFormatter() {//y轴坐标显示格式
 //            @Override
 //            public String getFormattedValue(float value, YAxis yAxis) {
@@ -136,6 +136,8 @@ public class LineChartFragment extends BaseFragment {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
         lineChart.getXAxis().setGridColor(getResources().getColor(R.color.transparent));//设置表格透明
         lineChart.getXAxis().setDrawGridLines(false);//隐藏X轴竖网格线
+        //        lineChart.getXAxis().setSpaceBetweenLabels(1);//设置标签字符间的空隙，默认characters间隔是4
+        lineChart.getXAxis().setAvoidFirstLastClipping(true); //重要，如果设置为true，则在绘制时会避免“剪掉”在x轴上的图表或屏幕边缘的第一个和最后一个坐标轴标签项。
 //        lineChart.getXAxis().setValueFormatter(new XAxisValueFormatter() {
 //            @Override
 //            public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
