@@ -117,7 +117,8 @@ public class LineChartFragment extends BaseFragment {
 
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);//隐藏左边坐标轴横网格线
-        leftAxis.setSpaceTop(30f);//设置图表中的最高值的顶部间距占最高值的值的百分比（设置的百分比 = 最高柱顶部间距/最高柱的值）。默认值是10f，即10%
+        //leftAxis.setAxisMaxValue(100);有时候要设置固定最大值，比如100%
+        leftAxis.setSpaceTop(30f);//设置图表中的最高值的顶部间距占最高值的值的百分比（设置的百分比 = 最高柱顶部间距/最高柱的值）。默认值是10f，即10%（注意:y轴最大值也会跟着变）
 //        leftAxis.setValueFormatter(new YAxisValueFormatter() {//y轴坐标显示格式
 //            @Override
 //            public String getFormattedValue(float value, YAxis yAxis) {
