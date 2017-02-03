@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
 
+import com.zbase.activity.AbstractBaseActivity;
 import com.zbase.listener.AllSelectedListener;
 import com.zbase.listener.ItemClickListener;
 import com.zbase.listener.NotAllSelectedListener;
@@ -29,6 +30,7 @@ import java.util.List;
 public abstract class ZBaseAdapter<T> extends BaseAdapter {
 
     protected Context context;
+    protected AbstractBaseActivity abstractBaseActivity;
     protected List<T> list = new ArrayList<T>();
     protected View.OnClickListener onClickListener;
     protected ItemClickListener itemClickListener;
@@ -39,6 +41,7 @@ public abstract class ZBaseAdapter<T> extends BaseAdapter {
 
     public ZBaseAdapter(Context context) {
         this.context = context;
+        abstractBaseActivity=(AbstractBaseActivity)context;
     }
 
     @Override

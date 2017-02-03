@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.zbase.R;
+import com.zbase.activity.AbstractBaseActivity;
 import com.zbase.listener.AllSelectedListener;
 import com.zbase.listener.ItemClickListener;
 import com.zbase.listener.NotAllSelectedListener;
@@ -29,6 +30,7 @@ import java.util.List;
 public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected Context context;
+    protected AbstractBaseActivity abstractBaseActivity;
     protected List<T> list = new ArrayList<>();
     protected View.OnClickListener onClickListener;
     protected ItemClickListener itemClickListener;
@@ -60,6 +62,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
 
     public ZBaseRecyclerAdapter(Context context) {
         this.context = context;
+        abstractBaseActivity=(AbstractBaseActivity)context;
         init(false);//默认垂直方向
     }
 
@@ -70,6 +73,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      */
     public ZBaseRecyclerAdapter(Context context,boolean isHorizontal) {
         this.context = context;
+        abstractBaseActivity=(AbstractBaseActivity)context;
         init(isHorizontal);
     }
 
