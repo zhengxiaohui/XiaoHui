@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.lzy.okhttputils.callback.AbsCallback;
 import com.lzy.okhttputils.request.BaseRequest;
 import com.zbase.R;
+import com.zbase.activity.AbstractBaseActivity;
 import com.zbase.strategy.PopStrategy;
 import com.zbase.util.NetWorkUtil;
 import com.zbase.util.PopUtil;
@@ -26,17 +27,20 @@ import okhttp3.Response;
  */
 public abstract class JsonCallback<T> extends AbsCallback<T> {
 
-    private Context context;
-    private Class<T> clazz;
-    private boolean showProgress = true;//是否显示转圈圈，默认为显示，传false是不显示
+    protected Context context;
+    protected AbstractBaseActivity abstractBaseActivity;
+    protected Class<T> clazz;
+    protected boolean showProgress = true;//是否显示转圈圈，默认为显示，传false是不显示
 
     public JsonCallback(Context context, Class<T> clazz) {
         this.context = context;
+        this.abstractBaseActivity = (AbstractBaseActivity) context;
         this.clazz = clazz;
     }
 
     public JsonCallback(Context context, Class<T> clazz, boolean showProgress) {
         this.context = context;
+        this.abstractBaseActivity = (AbstractBaseActivity) context;
         this.clazz = clazz;
         this.showProgress = showProgress;
     }

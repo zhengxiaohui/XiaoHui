@@ -25,6 +25,7 @@ public abstract class BaseWebViewActivity extends AbstractBaseActivity {
     public static final String URL = "url";
     private FrameLayout fl_top;//头部内容，由子类实现
     protected FrameLayout fl_main;//包含webview的中间布局,子类可以直接在里面添加View
+    public static final String WEB_VIEW_TITLE = "web_view_title";
 
     @Override
     protected int inflateBaseLayoutId() {

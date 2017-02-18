@@ -34,7 +34,6 @@ import com.zbase.common.ZSharedPreferences;
 import com.zbase.imagedispose.PhotoPicker;
 import com.zbase.interfaces.IGlobalReceiver;
 import com.zbase.manager.ActivityStackManager;
-import com.zbase.manager.FragmentStackManager;
 import com.zbase.service.AppUpgradeService;
 import com.zbase.util.AppUtil;
 import com.zbase.util.ImageUtil;
@@ -57,7 +56,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
     private Fragment[] fragments;//多个Fragment，用于隐藏显示切换
     private int currentTab;//MyTabWidget登录之前的索引
     protected PhotoPicker photoPicker;//拍照和图库选择器
-    public FragmentStackManager fragmentStackManager;//Fragment栈管理器
 
     public int getCurrentTab() {
         return currentTab;
@@ -76,7 +74,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//全部竖屏，防止横竖屏切换
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);//不自动弹出软键盘
         registerGlobleReceiver();//注册全局广播
-        fragmentStackManager = new FragmentStackManager(this);
         initBaseView(getWindow().getDecorView());//初始化头部公共布局
         initView(getWindow().getDecorView());//查找控件
         setListener();//设置监听
@@ -510,6 +507,17 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
      */
     protected void cancelLogin(String loginDoCode) {
 
+    }
+
+    /**
+     * 登出，注销
+     */
+    public void logout(){
+        getMyApplication().clearUser();
+        getZSharedPreferences().putJsonBean(Const.USER, null);
+        sendLogoutBroadcast();
+        jumpToLogin();
+        finish();
     }
 
     @Override

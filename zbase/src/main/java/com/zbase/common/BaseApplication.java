@@ -149,4 +149,9 @@ public abstract class BaseApplication extends Application {
      */
     public abstract boolean isLoggedIn();
 
+    /**
+     * 清空Application中保存的用户数据
+     */
+    public abstract void clearUser();
+
 }

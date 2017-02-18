@@ -62,9 +62,11 @@ public abstract class BaseLaunchActivity extends AbstractBaseActivity {
                         startActivity(intent);
                     } else {
                         boolean isAppFirstLaunch = ZSharedPreferences.getInstance(BaseLaunchActivity.this).getBoolean(Const.FIRST_LAUNCH, true);//是否第一次启动，默认true
-                        if (isAppFirstLaunch && imageUrlList != null && imageUrlList.size() > 0) {
+                        if (isAppFirstLaunch) {
                             Intent intent = new Intent(BaseLaunchActivity.this, getGuideActivityClass());
-                            intent.putStringArrayListExtra(BaseGuideActivity.IMAGE_URL_LIST, imageUrlList);
+                            if (imageUrlList != null && imageUrlList.size() > 0) {
+                                intent.putStringArrayListExtra(BaseGuideActivity.IMAGE_URL_LIST, imageUrlList);
+                            }
                             startActivity(intent);
                         } else {
                             startActivity(new Intent(BaseLaunchActivity.this, getHomeActivityClass()));

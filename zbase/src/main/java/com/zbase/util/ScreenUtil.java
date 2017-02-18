@@ -1,6 +1,13 @@
 package com.zbase.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.zbase.common.XYWH;
 
@@ -62,6 +69,24 @@ public class ScreenUtil {
 			result = context.getResources().getDimensionPixelSize(resourceId);
 		}
 		return result;
+	}
+
+	/**
+	 * 设置状态栏颜色
+	 * @param activity
+	 * @param resid 颜色id，如R.id.c3
+	 */
+	public void setStatusBar(Activity activity, int resid) {
+		Window window = activity.getWindow();
+		window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		ViewGroup decorViewGroup = (ViewGroup) window.getDecorView();
+		View statusBarView = new View(window.getContext());
+		int statusBarHeight = getStatusBarHeight(window.getContext());
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight);
+		params.gravity = Gravity.TOP;
+		statusBarView.setLayoutParams(params);
+		statusBarView.setBackgroundResource(resid);
+		decorViewGroup.addView(statusBarView);
 	}
 	
 }
