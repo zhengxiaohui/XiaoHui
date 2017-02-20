@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="5dp"
+        android:padding="15dp"
+        android:text="@string/skip" />
+
+    <com.zbase.view.LinearDot
+        android:id="@+id/linearDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:paddingBottom="50dp"
+        app:intervalDimension="8dp"
+        app:normalDimension="10dp"
+        app:normalDrawable="@drawable/dot_normal_black"
+        app:selectedDimension="10dp"
+        app:selectedDrawable="@drawable/dot_selected_white" />
+
+</FrameLayout>

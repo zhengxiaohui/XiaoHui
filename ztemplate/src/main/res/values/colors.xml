@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="c1">#3c3c3c</color>默认黑色字体
+    <color name="c2">#ffffff</color>
+    <color name="c3">#a19068</color>
+    <color name="c4">#f0f0f0</color>主背景颜色
+    <color name="c5">#dcdcdc</color>线条颜色
+    <color name="c6">#b0b0b0</color>灰态字体
+    <color name="c7">#707070</color>
+    <color name="c8">#ff2f2f</color>
+    <color name="c9">#A19068</color>
+
+    <color name="trans5b">#E45B5B5B</color>
+</resources>

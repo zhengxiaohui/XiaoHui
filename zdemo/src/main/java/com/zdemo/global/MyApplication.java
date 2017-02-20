@@ -40,4 +40,9 @@ public class MyApplication extends BaseApplication {
 		return false;
 	}
 
+	@Override
+	public void clearUser() {
+
+	}
+
 }
