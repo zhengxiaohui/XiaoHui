@@ -29,6 +29,12 @@ public class GetRequestPage extends BaseGetRequestPage {
     }
 
     @Override
+    public void setLastId(String lastId) {
+        getParams().removeUrl("lastId");
+        getParams().put("lastId", String.valueOf(lastId));
+    }
+
+    @Override
     public PageType getPageType() {
         return PageType.START_PAGE1;
     }

@@ -17,6 +17,8 @@ public abstract class BaseGetRequestPage extends GetRequest {
 
     public abstract void setPageIndex(int pageIndex);
 
+    public abstract void setLastId(String lastId);
+
     /**
      * 分页模式，从0开始，从1开始，使用lastId分页
      *

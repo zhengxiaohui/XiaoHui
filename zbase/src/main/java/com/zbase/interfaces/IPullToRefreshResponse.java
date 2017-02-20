@@ -11,4 +11,6 @@ public interface IPullToRefreshResponse<T> {
     boolean isSuccess();
 
     List<T> getList();
+
+    String getLastId();
 }

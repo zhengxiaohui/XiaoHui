@@ -193,7 +193,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                 baseGetRequestPage.setPageIndex(1);
                 break;
             case LAST_ID:
-
+                baseGetRequestPage.setLastId("");
                 break;
         }
         requestList(RefreshType.INIT_REFRESH);
@@ -214,7 +214,11 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                     Response response) {
                 if (t != null && t.isSuccess()) {//请求状态成功
                     if (t.getList() != null && t.getList().size() > 0) {
-                        baseGetRequestPage.setPageIndex(baseGetRequestPage.getPageIndex() + 1);
+                        if(baseGetRequestPage.getPageType()== BaseGetRequestPage.PageType.LAST_ID){
+                            baseGetRequestPage.setLastId(t.getLastId());
+                        }else {
+                            baseGetRequestPage.setPageIndex(baseGetRequestPage.getPageIndex() + 1);
+                        }
                         if (onObtainDataListener != null) {
                             onObtainDataListener.onObtainData(t);
                         }
