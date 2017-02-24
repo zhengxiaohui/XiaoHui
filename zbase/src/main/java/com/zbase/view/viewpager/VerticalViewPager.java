@@ -1,11 +1,5 @@
 package com.zbase.view.viewpager;
 
-/**
- * 创建人：郑晓辉
- * 创建日期：2016/10/10
- * 描述：
- */
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -18,6 +12,11 @@ import android.view.View;
  *
  * Requires API 11+
  *
+ */
+/**
+ * 创建人：郑晓辉
+ * 创建日期：2016/10/10
+ * 描述：垂直的ViewPager
  */
 public class VerticalViewPager extends ViewPager {
 

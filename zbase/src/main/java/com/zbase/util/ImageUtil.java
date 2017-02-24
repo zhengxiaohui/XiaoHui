@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.zbase.assist.FastBlur;
+import com.zbase.imagedispose.FastBlur;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

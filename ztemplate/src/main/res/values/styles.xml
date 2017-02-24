@@ -1,17 +1,232 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="BaseAppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/c4</item>默认全局背景颜色
     </style>
 
     <!-- 全局头部标题样式 -->
     <style name="top_title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c1_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+    <style name="c1_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+
+    <style name="c1_text_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+    <style name="c1_text_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+    <style name="c2_text_7">
+        <item name="android:textSize">7sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c2_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c2_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c2_text_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c2_text_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c6_text_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c6_text_17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c6_text_9">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c1_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+    <style name="c2_text_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c2_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c2</item>
+    </style>
+
+    <style name="c3_text_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c3_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c3_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c3_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c3_text_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c1_text_18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
+    <style name="c3_text_18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c3_text_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c3</item>
+    </style>
+
+    <style name="c6_text_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c8_text_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/c8</item>
+    </style>
+
+    <style name="c6_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c6_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c6_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c6_text_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c6</item>
+    </style>
+
+    <style name="c7_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="c8_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c8</item>
+    </style>
+
+
+    <style name="c8_text_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c8</item>
+    </style>
+
+    <style name="c8_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c8</item>
+    </style>
+
+
+    <style name="c7_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="c7_text_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="c7_text_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="c7_text_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="edit_text_c7_16_hint_c6">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/c6</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="edit_text_c7_15_hint_c6">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColorHint">@color/c6</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="edit_text_c1_15_hint_c6">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColorHint">@color/c6</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+    <!--AppBarLayout在安卓5.0以上的版本是有阴影的，有一种分层效果，但是5.0以下没有，这边重写style，去掉分层效果-->
+    <style name="Widget.Design.AppBarLayout" parent="android:Widget">
+        <item name="elevation">0dp</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
 </resources>

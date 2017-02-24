@@ -3,7 +3,7 @@ package com.zdemo.fragment;
 import android.view.View;
 
 import com.zbase.util.PopUtil;
-import com.zbase.view.CustomEditText;
+import com.zbase.view.VerifyEditText;
 import com.zdemo.R;
 
 /**
@@ -13,9 +13,9 @@ import com.zdemo.R;
  */
 public class RegisterFragment extends BaseFragment {
 
-    private CustomEditText phoneEditText;
-    private CustomEditText passwordEditText;
-    private CustomEditText affirmPasswordEditText;
+    private VerifyEditText phoneEditText;
+    private VerifyEditText passwordEditText;
+    private VerifyEditText affirmPasswordEditText;
 
     @Override
     protected int inflateMainLayoutId() {
@@ -24,9 +24,9 @@ public class RegisterFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        phoneEditText = (CustomEditText) view.findViewById(R.id.phoneEditText);
-        passwordEditText = (CustomEditText) view.findViewById(R.id.passwordEditText);
-        affirmPasswordEditText = (CustomEditText) view.findViewById(R.id.affirmPasswordEditText);
+        phoneEditText = (VerifyEditText) view.findViewById(R.id.phoneEditText);
+        passwordEditText = (VerifyEditText) view.findViewById(R.id.passwordEditText);
+        affirmPasswordEditText = (VerifyEditText) view.findViewById(R.id.affirmPasswordEditText);
 
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override

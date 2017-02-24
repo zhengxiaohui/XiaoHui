@@ -1,4 +1,4 @@
-package com.zbase.view.adapterview;
+package com.zbase.view.layoutmanager;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

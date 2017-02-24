@@ -20,9 +20,11 @@
         <activity
             android:name=".activity.HomeActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"></activity>主页
-        <activity android:name=".activity.RegisterActivity"></activity>注册页
-        <activity android:name=".activity.LoginActivity"></activity>登录页
-        <activity android:name=".activity.WebViewActivity"></activity>浏览器页
+        <activity android:name=".activity.RegisterActivity"></activity>注册
+        <activity android:name=".activity.LoginActivity"></activity>登录
+        <activity android:name=".activity.WebViewActivity"></activity>浏览器
+        <activity android:name=".activity.SettingActivity"></activity>设置
+
 
     </application>
 </manifest>

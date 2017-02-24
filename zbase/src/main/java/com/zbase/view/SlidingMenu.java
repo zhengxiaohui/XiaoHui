@@ -11,7 +11,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 /**
- * Created by android2 on 2016/3/22.
+ * 创建人：郑晓辉
+ * 创建日期：2016/6/14
+ * 描述：列表左滑出现菜单，配合BaseSlidingMenuAdapter使用
  */
 public class SlidingMenu extends LinearLayout {
 

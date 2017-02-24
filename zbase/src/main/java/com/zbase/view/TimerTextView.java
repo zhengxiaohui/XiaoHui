@@ -16,7 +16,7 @@ import com.zbase.listener.OnTimeEndListener;
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/12/15
- * 描述：计时TextView控件，单位秒，可以正计时，也可以倒计时。
+ * 描述：计时TextView控件，单位秒，可以正计时，也可以倒计时。拥有功能：开始，停止，暂停，继续，时间结束回调
  */
 public class TimerTextView extends TextView {
 
@@ -175,6 +175,9 @@ public class TimerTextView extends TextView {
         }
     }
 
+    /**
+     * 把jointText中的"%"替换成需要当前秒数currentSecond
+     */
     private void setFormatText() {
         if (!TextUtils.isEmpty(jointText) && jointText.contains("%")) {
             String formatText = jointText.replace("%", String.valueOf(currentSecond));

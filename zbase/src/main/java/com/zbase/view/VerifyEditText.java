@@ -19,31 +19,31 @@ import com.zbase.util.RegexUtil;
  * 创建日期：2016/12/26
  * 描述：注册，登录使用的账号输入框
  */
-public class CustomEditText extends EditText {
+public class VerifyEditText extends EditText {
 
     public enum InputEnum {ACCOUNT, PHONE, EMAIL, PASSWORD}//普通账号，手机号，邮箱账号，密码
 
     private InputEnum inputEnum = InputEnum.ACCOUNT;//默认是普通账号
     private int minLength;//最小长度
 
-    public CustomEditText(Context context) {
+    public VerifyEditText(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public CustomEditText(Context context, AttributeSet attrs) {
+    public VerifyEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public CustomEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public VerifyEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomEditText, defStyle, 0);
-        int direction = a.getInt(R.styleable.CustomEditText_inputEnum, 0);
+        final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.VerifyEditText, defStyle, 0);
+        int direction = a.getInt(R.styleable.VerifyEditText_inputEnum, 0);
         switch (direction) {
             case 0:
                 inputEnum = InputEnum.ACCOUNT;
@@ -58,7 +58,7 @@ public class CustomEditText extends EditText {
                 inputEnum = InputEnum.PASSWORD;
                 break;
         }
-        minLength = a.getInt(R.styleable.CustomEditText_minLength, 0);
+        minLength = a.getInt(R.styleable.VerifyEditText_minLength, 0);
         a.recycle();
         loadViews();
     }
@@ -67,9 +67,6 @@ public class CustomEditText extends EditText {
         setMaxLines(1);
         switch (inputEnum) {
             case ACCOUNT:
-                if (TextUtils.isEmpty(getHint())) {
-                    setHint(getContext().getString(R.string.please_enter_the_account));
-                }
                 String accountDigits = getContext().getString(R.string.account_digits);
                 setKeyListener(DigitsKeyListener.getInstance(accountDigits));
                 if (getFilters().length == 0) {//如果布局中没有设置最大长度，则默认最大长度20
@@ -77,18 +74,12 @@ public class CustomEditText extends EditText {
                 }
                 break;
             case PHONE:
-                if (TextUtils.isEmpty(getHint())) {
-                    setHint(getContext().getString(R.string.please_enter_the_phone_number));
-                }
                 setInputType(InputType.TYPE_CLASS_NUMBER);//只能输入数字
                 if (getFilters().length == 0) {//如果布局中没有设置最大长度，则默认最大长度11
                     setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
                 }
                 break;
             case EMAIL:
-                if (TextUtils.isEmpty(getHint())) {
-                    setHint(getContext().getString(R.string.please_enter_the_email_address));
-                }
                 String emailDigits = getContext().getString(R.string.email_digits);
                 setKeyListener(DigitsKeyListener.getInstance(emailDigits));
                 if (getFilters().length == 0) {//如果布局中没有设置最大长度，则默认最大长度20

@@ -1,4 +1,4 @@
-package com.zbase.assist;
+package com.zbase.imagedispose;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

@@ -13,7 +13,7 @@ import android.widget.TextView;
  * 描述：验证码60秒倒计时TextView控件
  * 注意：宽度最好设置成固定dp，如果是wrap会因为文字变少而宽度减少
  */
-public class VerifyCodeTextView extends TextView {
+public class CountDownTextView extends TextView {
 
     private static final int TOTAL_TIME = 59;//总时间60秒,59-0
     private int total = TOTAL_TIME;
@@ -29,17 +29,17 @@ public class VerifyCodeTextView extends TextView {
 
     private OnVerifyCodeStateListener onVerifyCodeStateListener;
 
-    public VerifyCodeTextView(Context context) {
+    public CountDownTextView(Context context) {
         super(context);
         init();
     }
 
-    public VerifyCodeTextView(Context context, AttributeSet attrs) {
+    public CountDownTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public VerifyCodeTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CountDownTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

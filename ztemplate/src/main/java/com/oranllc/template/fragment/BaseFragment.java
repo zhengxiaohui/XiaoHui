@@ -55,7 +55,7 @@ public abstract class BaseFragment extends AbstractBaseFragment {
         base_ll_middle = (LinearLayout) view.findViewById(R.id.base_ll_middle);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
         fl_content.addView(LayoutInflater.from(context).inflate(inflateMainLayoutId(), null));
-
+        setTopLeftGone();
     }
 
     /**

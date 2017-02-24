@@ -82,7 +82,7 @@
         <attr name="jointText" format="string|reference" />
     </declare-styleable>
 
-    <declare-styleable name="CustomEditText">
+    <declare-styleable name="VerifyEditText">
         <attr name="inputEnum">
             <enum name="normal" value="0" />
             <enum name="phone" value="1" />

@@ -10,28 +10,18 @@ import com.zbase.request.BaseGetRequestPage;
  */
 public class GetRequestPage extends BaseGetRequestPage {
 
-    private int pageIndex;
-
     public GetRequestPage(String url) {
         super(url);
     }
 
     @Override
-    public int getPageIndex() {
-        return pageIndex;
+    protected String getIndexKey() {
+        return "index";
     }
 
     @Override
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
-        getParams().removeUrl("index");
-        getParams().put("index", String.valueOf(pageIndex));
-    }
-
-    @Override
-    public void setLastId(String lastId) {
-        getParams().removeUrl("lastId");
-        getParams().put("lastId", String.valueOf(lastId));
+    protected String getLastIdKey() {
+        return "lastId";
     }
 
     @Override
