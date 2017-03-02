@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_thickness"
+        android:layout_height="@dimen/line"
         android:background="@color/line_color" />
 
     <com.zbase.view.MyTabWidget

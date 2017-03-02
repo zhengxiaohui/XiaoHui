@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:divider="@color/line_color"
-        android:dividerHeight="@dimen/line_thickness" />
+        android:dividerHeight="@dimen/line" />
 
     <Button
         android:id="@+id/button"

@@ -84,7 +84,7 @@
 
     <declare-styleable name="VerifyEditText">
         <attr name="inputEnum">
-            <enum name="normal" value="0" />
+            <enum name="account" value="0" />
             <enum name="phone" value="1" />
             <enum name="email" value="2" />
             <enum name="password" value="3" />

@@ -3,6 +3,7 @@ package com.zbase.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -173,4 +174,29 @@ public class LinearDot extends LinearLayout {
         this.selectedPosition = selectedPosition;
         loadViews();
     }
+
+    /**
+     * 设置ViewPager对个数和选中位置进行关联
+     * @param viewPager
+     */
+    public void setViewPager(final ViewPager viewPager) {
+        setDotCount(viewPager.getAdapter().getCount());
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setSelectedPosition(position % viewPager.getAdapter().getCount());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
 }

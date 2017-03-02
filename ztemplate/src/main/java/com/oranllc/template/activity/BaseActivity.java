@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AbstractBaseActivity {
         base_ll_right = (LinearLayout) findViewById(R.id.base_ll_right);
         base_ll_middle = (LinearLayout) findViewById(R.id.base_ll_middle);
         fl_content = (FrameLayout) findViewById(R.id.fl_content);
-        fl_content.addView(LayoutInflater.from(context).inflate(inflateMainLayoutId(), null));
+        LayoutInflater.from(context).inflate(inflateMainLayoutId(), fl_content, true);
     }
 
     @Override
@@ -72,13 +72,6 @@ public abstract class BaseActivity extends AbstractBaseActivity {
         base_rl_top.setVisibility(View.GONE);
     }
 
-    /**
-     * 隐藏头部左边返回键
-     */
-    protected void setTopLeftGone() {
-        base_iv_back.setVisibility(View.GONE);
-    }
-
     protected void setTopTitle(int topTitleResId) {
         base_tv_title.setText(getString(topTitleResId));
     }
@@ -87,59 +80,16 @@ public abstract class BaseActivity extends AbstractBaseActivity {
         base_tv_title.setText(topTitle);
     }
 
-    /**
-     * 设置顶部左边里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopLeftView(View view) {
-        base_ll_left.removeAllViews();
-        base_ll_left.addView(view);
+    protected LinearLayout getTopLeftLinearLayout() {
+        return base_ll_left;
     }
 
-    /**
-     * 设置顶部中间里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopMiddleView(View view) {
-        base_ll_middle.removeAllViews();
-        base_ll_middle.addView(view);
+    protected LinearLayout getTopMiddleLinearLayout() {
+        return base_ll_middle;
     }
 
-    /**
-     * 设置顶部右边里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopRightView(View view) {
-        base_ll_right.removeAllViews();
-        base_ll_right.addView(view);
-    }
-
-
-    /**
-     * 隐藏头部右边
-     */
-    protected void setTopRightGone() {
-        base_ll_right.setVisibility(View.GONE);
-
-    }
-
-    /**
-     * 显示头部右边
-     */
-    protected void setTopRightVisible() {
-        base_ll_right.setVisibility(View.VISIBLE);
-
-    }
-
-    protected View getTopRightView() {
-        return base_ll_right.getChildAt(0);
-    }
-
-    protected View getTopLeftView() {
-        return base_ll_left.getChildAt(0);
+    protected LinearLayout getTopRightLinearLayout() {
+        return base_ll_right;
     }
 
     @Override

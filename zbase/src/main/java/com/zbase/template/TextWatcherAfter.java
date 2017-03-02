@@ -5,7 +5,7 @@ import android.text.TextWatcher;
 /**
  * Created by Administrator on 2015/11/12.
  */
-public abstract class AfterTextWatcher implements TextWatcher {
+public abstract class TextWatcherAfter implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }

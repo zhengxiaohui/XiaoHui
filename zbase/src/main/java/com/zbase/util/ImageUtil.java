@@ -308,6 +308,13 @@ public class ImageUtil {
         return getDisplayImageOptions(defaultImageRes, 0, null);
     }
 
+    /**
+     * 构造ImageLoader的Options
+     * @param defaultImageRes 加载，空，失败的默认图
+     * @param diameterDP 圆角直径
+     * @param context
+     * @return
+     */
     public static DisplayImageOptions getDisplayImageOptions(int defaultImageRes, float diameterDP, Context context) {
         DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cloneFrom(DisplayImageOptions.createSimple())
                 .bitmapConfig(Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).cacheOnDisk(true).considerExifParams(true);

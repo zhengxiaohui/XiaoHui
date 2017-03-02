@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.zbase.R;
-import com.zbase.view.adapterview.BaseLoadMoreFooter;
 
 /**
  * 创建人：郑晓辉

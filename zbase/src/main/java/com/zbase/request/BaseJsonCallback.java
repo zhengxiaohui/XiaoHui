@@ -25,20 +25,20 @@ import okhttp3.Response;
  * 修订历史：
  * ================================================
  */
-public abstract class JsonCallback<T> extends AbsCallback<T> {
+public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
 
     protected Context context;
     protected AbstractBaseActivity abstractBaseActivity;
     protected Class<T> clazz;
     protected boolean showProgress = true;//是否显示转圈圈，默认为显示，传false是不显示
 
-    public JsonCallback(Context context, Class<T> clazz) {
+    public BaseJsonCallback(Context context, Class<T> clazz) {
         this.context = context;
         this.abstractBaseActivity = (AbstractBaseActivity) context;
         this.clazz = clazz;
     }
 
-    public JsonCallback(Context context, Class<T> clazz, boolean showProgress) {
+    public BaseJsonCallback(Context context, Class<T> clazz, boolean showProgress) {
         this.context = context;
         this.abstractBaseActivity = (AbstractBaseActivity) context;
         this.clazz = clazz;

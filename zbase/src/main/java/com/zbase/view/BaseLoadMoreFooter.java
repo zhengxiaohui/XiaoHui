@@ -4,7 +4,7 @@
  * @author Maxwin
  * @description XListView's footer
  */
-package com.zbase.view.adapterview;
+package com.zbase.view;
 
 
 import android.content.Context;

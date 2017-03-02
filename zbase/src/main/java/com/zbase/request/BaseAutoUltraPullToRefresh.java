@@ -86,13 +86,13 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     }
 
     /**
-     * ListView下拉刷新的构造方法
-     *
+     * RecyclerView下拉刷新和滚动到底自动加载更多的构造方法
      * @param context
-     * @param baseGetRequestPage   下拉刷新的请求参数
-     * @param clazz                返回的Json类的clazz对象
-     * @param recyclerView         数据为空显示提示的RecyclerView
-     * @param zBaseRecyclerAdapter 适配器
+     * @param baseGetRequestPage 请求分页的类型
+     * @param clazz 返回的Json类的clazz对象
+     * @param ptrClassicFrameLayout 下拉刷新控件，如果传null则没有下拉刷新的功能，只有滚动到底自动加载更多的功能
+     * @param recyclerView
+     * @param zBaseRecyclerAdapter
      */
     public BaseAutoUltraPullToRefresh(Context context, BaseGetRequestPage baseGetRequestPage, Class<T> clazz,
                                       PtrClassicFrameLayout ptrClassicFrameLayout, RecyclerView recyclerView, ZBaseRecyclerAdapter zBaseRecyclerAdapter) {
@@ -107,6 +107,9 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
         setZPullToRefreshWithHttp();
     }
 
+    /**
+     * 子类可以覆盖，设置不同的LoadMoreFooter自由设置布局和背景颜色等
+     */
     protected void setLoadMoreFooter(){
         zBaseRecyclerAdapter.setLoadMoreFooter(new LoadMoreFooter(context));
     }
@@ -201,7 +204,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     }
 
     private void requestList(final RefreshType refreshType) {
-        baseGetRequestPage.execute(new JsonCallback<T>(context, clazz, showProgress) {
+        baseGetRequestPage.execute(new BaseJsonCallback<T>(context, clazz, showProgress) {
 
             @Override
             public void onBefore(BaseRequest request) {

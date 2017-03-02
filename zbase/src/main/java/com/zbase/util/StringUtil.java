@@ -1,6 +1,9 @@
 package com.zbase.util;
 
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
@@ -119,6 +122,35 @@ public class StringUtil {
             e.printStackTrace();
         }
         return length;
+    }
+
+    /**
+     * 设置EditText的hint文字大小（还没测试）
+     * @param editText
+     * @param hintTextSize
+     */
+    public static void setHintTextSize(final EditText editText, final float hintTextSize) {
+        final float inputTextSize = editText.getTextSize();
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int start, int before, int count) {
+                if (arg0.length() == 0) {
+                    editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, hintTextSize);
+                } else {
+                    editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, inputTextSize);
+                }
+            }
+        });
     }
 
 }

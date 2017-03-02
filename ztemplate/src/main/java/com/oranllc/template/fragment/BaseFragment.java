@@ -54,8 +54,8 @@ public abstract class BaseFragment extends AbstractBaseFragment {
         base_ll_right = (LinearLayout) view.findViewById(R.id.base_ll_right);
         base_ll_middle = (LinearLayout) view.findViewById(R.id.base_ll_middle);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
-        fl_content.addView(LayoutInflater.from(context).inflate(inflateMainLayoutId(), null));
-        setTopLeftGone();
+        LayoutInflater.from(context).inflate(inflateMainLayoutId(), fl_content, true);
+        base_iv_back.setVisibility(View.GONE);
     }
 
     /**
@@ -63,13 +63,6 @@ public abstract class BaseFragment extends AbstractBaseFragment {
      */
     protected void setTopVisible() {
         base_rl_top.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 隐藏头部左边返回键
-     */
-    protected void setTopLeftGone() {
-        base_iv_back.setVisibility(View.GONE);
     }
 
     /**
@@ -86,34 +79,16 @@ public abstract class BaseFragment extends AbstractBaseFragment {
         base_tv_title.setText(topTitle);
     }
 
-    /**
-     * 设置顶部左边里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopLeftView(View view) {
-        base_ll_left.removeAllViews();
-        base_ll_left.addView(view);
+    protected LinearLayout getTopLeftLinearLayout() {
+        return base_ll_left;
     }
 
-    /**
-     * 设置顶部中间里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopMiddleView(View view) {
-        base_ll_middle.removeAllViews();
-        base_ll_middle.addView(view);
+    protected LinearLayout getTopMiddleLinearLayout() {
+        return base_ll_middle;
     }
 
-    /**
-     * 设置顶部右边里面的控件,如果有多个控件，最好是inflate整个多控件的布局进去，当成一个整体
-     *
-     * @param view
-     */
-    protected void setTopRightView(View view) {
-        base_ll_right.removeAllViews();
-        base_ll_right.addView(view);
+    protected LinearLayout getTopRightLinearLayout() {
+        return base_ll_right;
     }
 
     public MyApplication getMyApplication() {

@@ -17,7 +17,7 @@ import com.zbase.listener.AllSelectedListener;
 import com.zbase.listener.ItemClickListener;
 import com.zbase.listener.NotAllSelectedListener;
 import com.zbase.util.ScreenUtil;
-import com.zbase.view.adapterview.BaseLoadMoreFooter;
+import com.zbase.view.BaseLoadMoreFooter;
 
 import java.util.ArrayList;
 import java.util.List;

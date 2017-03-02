@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lzy.okhttputils.OkHttpUtils;
-import com.zbase.request.JsonCallback;
+import com.zbase.request.BaseJsonCallback;
 import com.zbase.util.PopUtil;
 import com.zdemo.R;
 import com.zdemo.bean.User;
@@ -85,7 +85,7 @@ public class ServerCRUDActivity extends BaseActivity {
         OkHttpUtils.get(HttpConstant.ADD_USER_URL)
                 .tag(this)
                 .params("name", editText.getText().toString().trim())
-                .execute(new JsonCallback<UserJson>(context, UserJson.class) {
+                .execute(new BaseJsonCallback<UserJson>(context, UserJson.class) {
                     @Override
                     public void onResponse(boolean isFromCache, UserJson userJson, Request request, @Nullable Response response) {
                         if (userJson.isSuccess()) {
@@ -101,7 +101,7 @@ public class ServerCRUDActivity extends BaseActivity {
         OkHttpUtils.get(HttpConstant.DELETE_USER_URL)
                 .tag(this)
                 .params("id", id)
-                .execute(new JsonCallback<UserJson>(context, UserJson.class) {
+                .execute(new BaseJsonCallback<UserJson>(context, UserJson.class) {
                     @Override
                     public void onResponse(boolean isFromCache, UserJson userJson, Request request, @Nullable Response response) {
                         if (userJson.isSuccess()) {
@@ -118,7 +118,7 @@ public class ServerCRUDActivity extends BaseActivity {
                 .tag(this)
                 .params("id", id)
                 .params("name", editText.getText().toString().trim())
-                .execute(new JsonCallback<UserJson>(context, UserJson.class) {
+                .execute(new BaseJsonCallback<UserJson>(context, UserJson.class) {
                     @Override
                     public void onResponse(boolean isFromCache, UserJson userJson, Request request, @Nullable Response response) {
                         if (userJson.isSuccess()) {
@@ -133,7 +133,7 @@ public class ServerCRUDActivity extends BaseActivity {
     private void requestQuery() {
         OkHttpUtils.get(HttpConstant.QUERY_USER_URL)
                 .tag(this)
-                .execute(new JsonCallback<UserJson>(context, UserJson.class) {
+                .execute(new BaseJsonCallback<UserJson>(context, UserJson.class) {
                     @Override
                     public void onResponse(boolean isFromCache, UserJson userJson, Request request, @Nullable Response response) {
                         if (userJson.isSuccess()) {

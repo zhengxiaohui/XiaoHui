@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lzy.okhttputils.OkHttpUtils;
-import com.zbase.request.JsonCallback;
+import com.zbase.request.BaseJsonCallback;
 import com.zbase.util.PopUtil;
 import com.zdemo.R;
 import com.zdemo.bean.Person;
@@ -66,7 +66,7 @@ public class AsynchHttpActivity extends BaseActivity {
                 .tag(this)
                 .params("pageIndex", "0")
                 .params("pageSize", "10")
-                .execute(new JsonCallback<PersonJson>(context, PersonJson.class) {
+                .execute(new BaseJsonCallback<PersonJson>(context, PersonJson.class) {
                     @Override
                     public void onResponse(boolean isFromCache, PersonJson personJson, Request request, @Nullable Response response) {
                         if (response != null && personJson.isSuccess()) {

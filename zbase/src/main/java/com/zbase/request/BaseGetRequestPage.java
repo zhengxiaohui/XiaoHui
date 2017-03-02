@@ -5,7 +5,7 @@ import com.lzy.okhttputils.request.GetRequest;
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/8/1
- * 描述：请求分页类型
+ * 描述：请求分页的类型
  */
 public abstract class BaseGetRequestPage extends GetRequest {
 

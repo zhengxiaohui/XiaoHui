@@ -124,6 +124,7 @@ public class TimerTextView extends TextView {
 
     /**
      * 跳转到第几秒，不能大于最大秒数，continueTo的变种，还没测试
+     *
      * @param second
      */
     public void seekTo(int second) {
@@ -182,6 +183,8 @@ public class TimerTextView extends TextView {
         if (!TextUtils.isEmpty(jointText) && jointText.contains("%")) {
             String formatText = jointText.replace("%", String.valueOf(currentSecond));
             setText(formatText);
+        } else {
+            setText(String.valueOf(currentSecond));
         }
     }
 

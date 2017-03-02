@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.lzy.okhttputils.request.BaseRequest;
-import com.zbase.request.JsonCallback;
+import com.zbase.request.BaseJsonCallback;
 
 import org.json.JSONObject;
 
@@ -16,7 +16,7 @@ import okhttp3.Response;
  * 创建日期：2016/8/3
  * 描述：
  */
-public abstract class SignJsonCallback<T> extends JsonCallback<T> {
+public abstract class SignJsonCallback<T> extends BaseJsonCallback<T> {
 
     public SignJsonCallback(Context context, Class<T> clazz) {
         super(context, clazz);

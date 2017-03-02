@@ -6,6 +6,7 @@
     <dimen name="text_size_22">22sp</dimen><!--标题-->
 
     <dimen name="line_thickness">0.5dp</dimen><!--线厚度-->
+    <dimen name="line">0.5dp</dimen><!--默认的线厚度，一般1px的线用这个-->
     <dimen name="top_height">50dp</dimen><!--全局头部高度-->
 
     <dimen name="one_dp">1dp</dimen>
