@@ -41,12 +41,20 @@ public class TimerTextView extends TextView {
         this.maxSecond = maxSecond;
     }
 
+    public String getOriginalText() {
+        return originalText;
+    }
+
     public String getJointText() {
         return jointText;
     }
 
     public void setJointText(String jointText) {
         this.jointText = jointText;
+    }
+
+    public void setDirectionEnum(DirectionEnum directionEnum) {
+        this.directionEnum = directionEnum;
     }
 
     public TimerTextView(Context context) {
@@ -75,7 +83,7 @@ public class TimerTextView extends TextView {
                 directionEnum = DirectionEnum.REVERSE;
                 break;
         }
-        maxSecond = a.getInt(R.styleable.TimerTextView_maxSecond, 0);
+        maxSecond = a.getInt(R.styleable.TimerTextView_maxSecond, 60);
         jointText = a.getString(R.styleable.TimerTextView_jointText);
         a.recycle();
         loadViews();

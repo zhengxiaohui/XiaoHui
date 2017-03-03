@@ -99,8 +99,7 @@ public class VerifyEditText extends EditText {
 
     /**
      * 验证账号，包括非空判断，最短字符串判断，格式验证
-     *
-     * @return
+     * @return 验证通过返回true
      */
     public boolean verify() {
         String text = getString();

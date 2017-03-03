@@ -15,12 +15,12 @@ import java.util.List;
  * 创建日期：2017/3/2
  * 描述：监听多个EditText的文本变化，当都不为空的时候按钮可点击
  */
-public class EditTextsChangeManager {
+public class EditTextListNoticeViewManager {
 
     private List<EditText> editTextList = new ArrayList<>();//多个监听的EditText
     private View view;//按钮
 
-    public EditTextsChangeManager(List<EditText> editTextList, View view) {
+    public EditTextListNoticeViewManager(List<EditText> editTextList, View view) {
         this.editTextList = editTextList;
         this.view = view;
         addTextChangedListener();

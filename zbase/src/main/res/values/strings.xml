@@ -34,6 +34,9 @@
     <string name="search">搜索</string>
     <string name="complete">完成</string>
     <string name="submit">提交</string>
+    <string name="title">标题</string>
+    <string name="release">发布</string>
+    <string name="save">保存</string>
 
     <string name="wipe_cache">清除缓存</string>
     <string name="head">头像</string>
