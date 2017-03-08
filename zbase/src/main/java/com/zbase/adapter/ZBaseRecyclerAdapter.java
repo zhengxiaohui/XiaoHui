@@ -13,9 +13,11 @@ import android.widget.LinearLayout;
 
 import com.zbase.R;
 import com.zbase.activity.AbstractBaseActivity;
+import com.zbase.interfaces.ISelectPosition;
 import com.zbase.listener.AllSelectedListener;
 import com.zbase.listener.ItemClickListener;
 import com.zbase.listener.NotAllSelectedListener;
+import com.zbase.manager.AdapterSelectPositionManager;
 import com.zbase.util.ScreenUtil;
 import com.zbase.view.BaseLoadMoreFooter;
 
@@ -27,7 +29,7 @@ import java.util.List;
  * 创建日期：2016/7/5
  * 描述：默认有头部和尾部，尾部默认有加载更多，只是隐藏了
  */
-public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ISelectPosition {
 
     protected Context context;
     protected AbstractBaseActivity abstractBaseActivity;
@@ -39,10 +41,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     private BaseLoadMoreFooter baseLoadMoreFooter;//加载更多,定义抽象类，传子类进来
     private OnLoadMoreListener onLoadMoreListener;
     private View emptyView;
-    protected List<Boolean> selectList = new ArrayList<>();//多选每个位置的状态（false没选中，true选中）
-    public List<Boolean> getSelectList() {
-        return selectList;
-    }
+    private AdapterSelectPositionManager adapterSelectPositionManager;
 
     public View inflateHeaderView(@LayoutRes int resource) {
         View headView = LayoutInflater.from(context).inflate(resource, headerFrameLayout, false);
@@ -63,6 +62,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     public ZBaseRecyclerAdapter(Context context) {
         this.context = context;
         abstractBaseActivity=(AbstractBaseActivity)context;
+        adapterSelectPositionManager = new AdapterSelectPositionManager(this);
         init(false);//默认垂直方向
     }
 
@@ -74,6 +74,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     public ZBaseRecyclerAdapter(Context context,boolean isHorizontal) {
         this.context = context;
         abstractBaseActivity=(AbstractBaseActivity)context;
+        adapterSelectPositionManager = new AdapterSelectPositionManager(this);
         init(isHorizontal);
     }
 
@@ -303,6 +304,9 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     public void addList(List<T> addList) {
         if (addList != null && addList.size() > 0) {
             list.addAll(addList);
+            for (int i = 0; i < addList.size(); i++) {
+                adapterSelectPositionManager.getSelectList().add(false);//增加的List每个都默认false没选中
+            }
         }
         notifyDataSetChanged();
     }
@@ -316,6 +320,9 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
         list.clear();
         if (setList != null) {
             list = setList;
+            for (int i = 0; i < setList.size(); i++) {
+                adapterSelectPositionManager.getSelectList().add(false);//初始化每个项的选中状态，默认都是false
+            }
             if (setList.size() > 0) {//setList.size() > 0   分开判断是为了避免一开始没数据，后来添加数据后界面不显示的问题。
                 if (emptyView != null) {
                     emptyView.setVisibility(View.GONE);
@@ -340,6 +347,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      */
     public void removeItem(int position) {
         list.remove(position);
+        adapterSelectPositionManager.getSelectList().remove(position);
         notifyItemRemoved(position + 1);//默认头部占1个位置要加上
         if (position != list.size()) {// 这个判断的意义就是如果移除的是最后一个，就不用管它了
             notifyItemRangeChanged(position + 1, list.size() - position);
@@ -360,6 +368,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      */
     public void clear() {
         list.clear();
+        adapterSelectPositionManager.getSelectList().clear();
         setFooterNomal();
         notifyDataSetChanged();
     }
@@ -398,70 +407,20 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     /**
-     * 反向选择，如果没选中则选中，如果选中则取消选中
+     * 反向选择，如果没选中则选中，如果选中则取消选中,单选如果选择的是之前选中的，则返回
      *
      * @param reverseSelectPosition
      * @param single                是否单选
      */
     public void setReverseSelectPosition(int reverseSelectPosition, boolean single) {
-        if (single) {//单选
-            if (selectList.get(reverseSelectPosition)) {//如果选择的是之前选中的，则取消选中
-                selectList.set(reverseSelectPosition, false);
-            } else {//取消其他选中，当前选中
-                for (int i = 0; i < selectList.size(); i++) {
-                    selectList.set(i, false);
-                }
-                selectList.set(reverseSelectPosition, true);
-            }
-            notifyDataSetChanged();
-        } else {
-            selectList.set(reverseSelectPosition, !selectList.get(reverseSelectPosition));
-            notifyDataSetChanged();
-            if (isAllSelect()) {//全部选中
-                if (allSelectedListener != null) {
-                    allSelectedListener.onAllSelected();
-                }
-            } else {//没有全部选中
-                if (notAllSelectedListener != null) {
-                    notAllSelectedListener.onNotAllSelected();
-                }
-            }
-        }
+        adapterSelectPositionManager.setReverseSelectPosition(reverseSelectPosition, single);
     }
 
     /**
      * 反向选择全部，如果之前没有全选中，则变为全选中，反之则变成取消全选
      */
     public void reverseAllSelected() {
-        if (isAllSelect()) {//如果之前是全部选中的则取消所有选中
-            for (int i = 0; i < selectList.size(); i++) {
-                selectList.set(i, false);
-            }
-            if (notAllSelectedListener != null) {
-                notAllSelectedListener.onNotAllSelected();
-            }
-        } else {//全部选中
-            for (int i = 0; i < selectList.size(); i++) {
-                selectList.set(i, true);
-            }
-            if (allSelectedListener != null) {
-                allSelectedListener.onAllSelected();
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 是否全部选中
-     * @return
-     */
-    private boolean isAllSelect() {
-        for (int i = 0; i < selectList.size(); i++) {
-            if (!selectList.get(i)) {//如果有至少一个没有选中的，则状态为没有全部选中
-                return false;
-            }
-        }
-        return true;
+        adapterSelectPositionManager.reverseAllSelected();
     }
 
     /**
@@ -469,22 +428,19 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      * @return
      */
     public int getSingleSelectedPosition() {
-        for (int i = 0; i < selectList.size(); i++) {
-            if (selectList.get(i)) {
-                return i;
-            }
-        }
-        return -1;
+        return adapterSelectPositionManager.getSingleSelectedPosition();
     }
 
-    private AllSelectedListener allSelectedListener;
-    private NotAllSelectedListener notAllSelectedListener;
-
     public void setAllSelectedListener(AllSelectedListener allSelectedListener) {
-        this.allSelectedListener = allSelectedListener;
+        adapterSelectPositionManager.setAllSelectedListener(allSelectedListener);
     }
 
     public void setNotAllSelectedListener(NotAllSelectedListener notAllSelectedListener) {
-        this.notAllSelectedListener = notAllSelectedListener;
+        adapterSelectPositionManager.setNotAllSelectedListener(notAllSelectedListener);
+    }
+
+    @Override
+    public List<Boolean> getSelectList() {
+        return adapterSelectPositionManager.getSelectList();
     }
 }

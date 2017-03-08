@@ -46,7 +46,7 @@ public class ListViewAdapter extends ZBaseAdapterAdvance<String> {
 
         @Override
         protected void initValue(int position, String string) {
-            boolean select=selectList.get(position);
+            boolean select=getSelectList().get(position);
             if (select) {
                 imageView.setImageResource(R.mipmap.ic_joker);
             } else {
