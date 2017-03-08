@@ -12,7 +12,7 @@ import com.zbase.view.SlidingMenu;
  * 描述：列表左滑出现菜单
  * 子类要实现findSlidingMenuId方法，内部类要继承SlidingMenuItemViewHolder
  * 外部recyclerView要调用onScrolled方法，如下
- * recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+ recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 @Override
 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 super.onScrolled(recyclerView, dx, dy);

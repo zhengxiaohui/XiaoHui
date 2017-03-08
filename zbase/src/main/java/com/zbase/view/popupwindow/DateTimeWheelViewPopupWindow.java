@@ -318,13 +318,12 @@ public class DateTimeWheelViewPopupWindow extends MainStreamPopupWindow {
     }
 
     /**
-     * 这个返回格式一般是准备传给服务端的完整格式，显示一般不用这个，例如2016-12-06 11:49:00
-     * 返回显示格式请调用MultiWheelView的getConnectorString或者getDataList自行拼接
-     *
+     * 返回指定格式的日期时间
+     * @param format 日期时间格式，例如：DateTimeUtil.YMDHMS,DateTimeUtil.YMD等
      * @return
      */
-    public String getFormatDateTimeString() {
-        return DateTimeUtil.dateToString(selectCalendar.getTime(), DateTimeUtil.YMDHMS);
+    public String getFormatDateTimeString(String format) {
+        return DateTimeUtil.dateToString(selectCalendar.getTime(), format);
     }
 
     public static class Builder extends MainStreamBuilder {

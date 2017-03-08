@@ -14,11 +14,22 @@ import static android.app.Activity.RESULT_OK;
  * 创建人：郑晓辉
  * 创建日期：2016/9/8
  * 描述：拍照或者选择图库
- * 结合框架的用法：initPhotoPicker();
- * photoPicker.openCameraAndCrop();
- *
- * @Override protected void onPhotoPickerReturn(String imagePath) {
- * }
+ * 结合框架的用法：
+ initPhotoPicker();
+
+ switch (position) {
+ case 0:
+ photoPicker.openCameraAndCrop();
+ break;
+ case 1:
+ photoPicker.openPhotoAndCrop();
+ break;
+ }
+
+ protected void onPhotoPickerReturn(String imagePath) {
+ ImageLoader.getInstance().displayImage(Const.URI_PRE + imagePath, iv_photo, ImageUtil.getDisplayImageOptions(R.mipmap.list_item_default));
+ }
+
  */
 public class PhotoPicker implements CropHandler {
 
@@ -69,7 +80,7 @@ public class PhotoPicker implements CropHandler {
     }
 
     /**
-     * 清楚图片缓存，必须在activity的onDestroy调用
+     * 清理图片缓存，必须在activity的onDestroy调用
      * 示例：@Override
      * protected void onDestroy() {
      * photoCropper.onDestroy();

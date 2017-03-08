@@ -13,6 +13,16 @@ import java.math.BigDecimal;
  * 描述：主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
  */
 public class DataCleanUtil {
+
+    /**
+     * 获取内部cache缓存
+     * @param context
+     * @return
+     */
+    public static String getInternalCacheSize(Context context){
+        return getCacheSize(context.getCacheDir());
+    }
+
     /**
      * * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache) * *
      *
@@ -132,7 +142,7 @@ public class DataCleanUtil {
     // 获取文件
     //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
     //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
-    public static long getFolderSize(File file) throws Exception {
+    public static long getFolderSize(File file){
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -221,7 +231,7 @@ public class DataCleanUtil {
     }
 
 
-    public static String getCacheSize(File file) throws Exception {
+    public static String getCacheSize(File file){
         return getFormatSize(getFolderSize(file));
     }
 

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.zbase.enums.DateTimeLimitEnum;
 import com.zbase.enums.DateTimeModelEnum;
 import com.zbase.listener.OnConfirmClickListener;
+import com.zbase.util.DateTimeUtil;
 import com.zbase.view.MultiWheelView;
 import com.zbase.view.popupwindow.DateTimeWheelViewPopupWindow;
 import com.zbase.view.popupwindow.MultiWheelViewPopupWindow;
@@ -93,7 +94,7 @@ public class MultiWheelViewActivity extends BaseActivity {
             dateTimeWheelViewPopupWindow.setOnConfirmClickListener(new OnConfirmClickListener() {
                 @Override
                 public void onConfirmClick(View v) {
-                    textView.setText(dateTimeWheelViewPopupWindow.getFormatDateTimeString());
+                    textView.setText(dateTimeWheelViewPopupWindow.getFormatDateTimeString(DateTimeUtil.YMDHMS));
                 }
 
             });

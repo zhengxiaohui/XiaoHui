@@ -121,7 +121,6 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     public View inflaterEmptyViewWithHeight(@LayoutRes int resource, int height) {
         this.emptyView = LayoutInflater.from(context).inflate(resource, footerFrameLayout, false);
         emptyView.setVisibility(View.GONE);
-        //空内容布局的宽度为屏幕的宽度，高度为屏幕的高度-系统状态栏的高度-subtractHeight（通用头部的高度或者头部+尾部的高度）
         emptyView.setLayoutParams(new LinearLayout.LayoutParams(ScreenUtil.getScreenWidth(context), height));
         footerFrameLayout.addView(emptyView);
         return emptyView;

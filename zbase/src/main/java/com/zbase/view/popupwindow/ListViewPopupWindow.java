@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.zbase.adapter.ZBaseAdapterAdvance;
+import com.zbase.enums.Alignment;
+import com.zbase.manager.ListViewRememberPositionManager;
 
 /**
  * 创建人：郑晓辉
@@ -13,6 +15,8 @@ import com.zbase.adapter.ZBaseAdapterAdvance;
  * 注意:如果宽度不是充满屏幕，则ListView的宽度要设置成固定值多少dp,Adapter的TextView的宽度要设置成Match
  */
 public class ListViewPopupWindow extends MainStreamPopupWindow {
+
+    private ListViewRememberPositionManager listViewRememberPositionManager;
 
     private ListViewPopupWindow(Context context, View view) {
         super(context, view);
@@ -26,9 +30,18 @@ public class ListViewPopupWindow extends MainStreamPopupWindow {
         if (mainView instanceof ListView) {
             ListView listView = (ListView) mainView;
             if (listView != null) {
+                listView.setVerticalScrollBarEnabled(false);
                 listView.setAdapter(zBaseAdapterAdvance);
+                listViewRememberPositionManager = new ListViewRememberPositionManager(listView, Alignment.EXACT);
             }
         }
+    }
+
+    /**
+     * ListView恢复滚动的位置
+     */
+    public void recoverPosition() {
+        listViewRememberPositionManager.recoverPosition();
     }
 
     @Override

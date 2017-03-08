@@ -19,7 +19,15 @@ public class AlphaPopupWindow extends NormalPopupWindow {
 
     protected Context context;
     private float alpha = 1.0f;//默认背景不透明,透明度介于0.1-1.0之间，数值越低，透明度越低，就越暗
+    private AfterDismissListener afterDismissListener;
 
+    public void setAfterDismissListener(AfterDismissListener afterDismissListener) {
+        this.afterDismissListener = afterDismissListener;
+    }
+
+    public interface AfterDismissListener {
+        void afterDismiss();
+    }
 
     public AlphaPopupWindow(Context context, View view) {
         super(view);
@@ -42,6 +50,9 @@ public class AlphaPopupWindow extends NormalPopupWindow {
             @Override
             public void onDismiss() {
                 setWindowBackgroundTranslucence(false);
+                if (afterDismissListener != null) {
+                    afterDismissListener.afterDismiss();
+                }
             }
         });
     }

@@ -7,7 +7,6 @@ import android.widget.ListView;
 import com.zbase.listener.AllSelectedListener;
 import com.zbase.listener.ItemClickListener;
 import com.zbase.listener.NotAllSelectedListener;
-import com.zbase.util.PopUtil;
 import com.zdemo.R;
 import com.zdemo.adapter.ListViewAdapter;
 
@@ -39,7 +38,7 @@ public class AdapterSelectActivity extends BaseActivity {
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                adapter.setReverseSelectPosition(position,true);
+                adapter.setReverseSelectPosition(position,false);
             }
         });
         listView.setAdapter(adapter);
