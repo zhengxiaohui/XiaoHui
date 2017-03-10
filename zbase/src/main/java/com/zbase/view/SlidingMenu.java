@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
  * 创建人：郑晓辉
  * 创建日期：2016/6/14
  * 描述：列表左滑出现菜单，配合BaseSlidingMenuAdapter使用
+ * SlidingMenu控件子布局必须是2个！
  */
 public class SlidingMenu extends LinearLayout {
 

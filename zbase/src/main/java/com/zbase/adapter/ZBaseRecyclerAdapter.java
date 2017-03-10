@@ -153,8 +153,8 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
         }
     }
 
-    protected View inflate(@LayoutRes int resource, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(resource, viewGroup, false);
+    protected View inflate(@LayoutRes int resource) {
+        return LayoutInflater.from(context).inflate(resource, null);
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -228,7 +228,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
             case ItemViewType.HEADER:
                 return new HeadViewHolder(headerFrameLayout);
             case ItemViewType.ITEM:
-                return onCreateItemViewHolder(parent);
+                return onCreateItemViewHolder();
             case ItemViewType.FOOTER:
                 return new FooterViewHolder(footerFrameLayout);
             default:
@@ -236,7 +236,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
         }
     }
 
-    protected abstract RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent);
+    protected abstract RecyclerView.ViewHolder onCreateItemViewHolder();
 
 
     @Override

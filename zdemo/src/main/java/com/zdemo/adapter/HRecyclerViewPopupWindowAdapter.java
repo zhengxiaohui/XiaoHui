@@ -3,7 +3,6 @@ package com.zdemo.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zbase.adapter.ZBaseRecyclerAdapter;
@@ -24,8 +23,8 @@ public class HRecyclerViewPopupWindowAdapter extends ZBaseRecyclerAdapter<String
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
-        return new MyViewHolder(inflate(R.layout.adapter_listview_popupwindow, parent));
+    protected RecyclerView.ViewHolder onCreateItemViewHolder() {
+        return new MyViewHolder(inflate(R.layout.adapter_listview_popupwindow));
     }
 
     public class MyViewHolder extends ItemViewHolder {
