@@ -93,7 +93,7 @@ public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosi
     public void setList(List<T> setList) {
         list.clear();
         if (setList != null) {//这里不能加判断setList.size() > 0，否则有可能出现原来空数据的界面添加数据后显示不出来的情况。
-            list = setList;
+            list.addAll(setList);//这里必须用addAll，不然list嵌套的情况会出现第二次点击子list的时候数据为空的问题，也就是引用了原来的list对象地址
             for (int i = 0; i < setList.size(); i++) {
                 adapterSelectPositionManager.getSelectList().add(false);//初始化每个项的选中状态，默认都是false
             }
