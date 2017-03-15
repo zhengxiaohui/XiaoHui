@@ -10,7 +10,19 @@ import com.karics.library.zxing.android.CaptureActivity;
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/9/12
- * 描述：
+ * 描述：二维码扫描
+ * 用法：
+ * QRCodeManager.scan(this);
+ @Override
+ public void onActivityResult(int requestCode, int resultCode, Intent data) {
+super.onActivityResult(requestCode, resultCode, data);
+QRCodeManager.onActivityResult(requestCode, resultCode, data, new QRCodeManager.OnQRCodeObtainListener() {
+@Override
+public void onQRCodeObtain(String content) {
+textView.setText(content);
+}
+});
+}
  */
 public class QRCodeManager {
 

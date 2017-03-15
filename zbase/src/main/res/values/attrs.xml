@@ -96,4 +96,9 @@
         <attr name="maskCorner" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="SmartWrapLinearLayout">
+        <attr name="viewSpace" format="dimension" />
+        <attr name="lineSpace" format="dimension" />
+    </declare-styleable>
+
 </resources>

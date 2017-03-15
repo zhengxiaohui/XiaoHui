@@ -19,12 +19,17 @@ public interface ISelectPosition {
     public List<Boolean> getSelectList();
 
     /**
-     * 反向选择，如果没选中则选中，如果选中则取消选中,单选如果选择的是之前选中的，则返回
+     * 单选，点击之前选中的则不执行，点击不是之前选中的则取消其他选中，当前选中
      *
-     * @param reverseSelectPosition
-     * @param single                是否单选
+     * @param selectPosition
      */
-    public void setReverseSelectPosition(int reverseSelectPosition, boolean single);
+    public void setSelectPositionSingle(int selectPosition);
+
+    /**
+     * 多选，点击之前选中的则取消选中，点击不是之前选中的则选中
+     * @param selectPosition
+     */
+    public void setSelectPositionMulti(int selectPosition);
 
     /**
      * 反向选择全部，如果之前没有全选中，则变为全选中，反之则变成取消全选
@@ -36,6 +41,16 @@ public interface ISelectPosition {
      * @return
      */
     public int getSingleSelectedPosition();
+
+    /**
+     * 重置所有选中，即所有都没有选择
+     */
+    public void resetAllSelect();
+
+    /**
+     * 设置所有选中，即所有都选择
+     */
+    public void setAllSelect();
 
     public void setAllSelectedListener(AllSelectedListener allSelectedListener);
 

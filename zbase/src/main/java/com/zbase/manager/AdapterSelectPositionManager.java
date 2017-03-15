@@ -49,33 +49,36 @@ public class AdapterSelectPositionManager implements ISelectPosition {
     }
 
     /**
-     * 反向选择，如果没选中则选中，如果选中则取消选中,单选如果选择的是之前选中的，则返回
+     * 单选，点击之前选中的则不执行，点击不是之前选中的则取消其他选中，当前选中
      *
-     * @param reverseSelectPosition
-     * @param single                是否单选
+     * @param selectPosition
      */
-    public void setReverseSelectPosition(int reverseSelectPosition, boolean single) {
-        if (single) {//单选
-            if (selectList.get(reverseSelectPosition)) {//如果选择的是之前选中的，则返回
-                return;
-            } else {//取消其他选中，当前选中
-                for (int i = 0; i < selectList.size(); i++) {
-                    selectList.set(i, false);
-                }
-                selectList.set(reverseSelectPosition, true);
+    public void setSelectPositionSingle(int selectPosition) {
+        if (selectList.get(selectPosition)) {//如果选择的是之前选中的，则返回，不做任何操作
+            return;
+        } else {//取消其他选中，当前选中
+            for (int i = 0; i < selectList.size(); i++) {
+                selectList.set(i, false);
             }
-            notifyDataSetChanged();
-        } else {
-            selectList.set(reverseSelectPosition, !selectList.get(reverseSelectPosition));
-            notifyDataSetChanged();
-            if (isAllSelect()) {//全部选中
-                if (allSelectedListener != null) {
-                    allSelectedListener.onAllSelected();
-                }
-            } else {//没有全部选中
-                if (notAllSelectedListener != null) {
-                    notAllSelectedListener.onNotAllSelected();
-                }
+            selectList.set(selectPosition, true);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 多选，点击之前选中的则取消选中，点击不是之前选中的则选中
+     * @param selectPosition
+     */
+    public void setSelectPositionMulti(int selectPosition) {
+        selectList.set(selectPosition, !selectList.get(selectPosition));
+        notifyDataSetChanged();
+        if (isAllSelect()) {//全部选中
+            if (allSelectedListener != null) {
+                allSelectedListener.onAllSelected();
+            }
+        } else {//没有全部选中
+            if (notAllSelectedListener != null) {
+                notAllSelectedListener.onNotAllSelected();
             }
         }
     }
@@ -85,21 +88,10 @@ public class AdapterSelectPositionManager implements ISelectPosition {
      */
     public void reverseAllSelected() {
         if (isAllSelect()) {//如果之前是全部选中的则取消所有选中
-            for (int i = 0; i < selectList.size(); i++) {
-                selectList.set(i, false);
-            }
-            if (notAllSelectedListener != null) {
-                notAllSelectedListener.onNotAllSelected();
-            }
+            resetAllSelect();
         } else {//全部选中
-            for (int i = 0; i < selectList.size(); i++) {
-                selectList.set(i, true);
-            }
-            if (allSelectedListener != null) {
-                allSelectedListener.onAllSelected();
-            }
+            setAllSelect();
         }
-        notifyDataSetChanged();
     }
 
     /**
@@ -128,6 +120,32 @@ public class AdapterSelectPositionManager implements ISelectPosition {
             }
         }
         return -1;
+    }
+
+    /**
+     * 重置所有选中，即所有都没有选择
+     */
+    public void resetAllSelect() {
+        for (int i = 0; i < selectList.size(); i++) {
+            selectList.set(i, false);
+        }
+        if (notAllSelectedListener != null) {
+            notAllSelectedListener.onNotAllSelected();
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 设置所有选中，即所有都选择
+     */
+    public void setAllSelect() {
+        for (int i = 0; i < selectList.size(); i++) {
+            selectList.set(i, true);
+        }
+        if (allSelectedListener != null) {
+            allSelectedListener.onAllSelected();
+        }
+        notifyDataSetChanged();
     }
 
     private AllSelectedListener allSelectedListener;

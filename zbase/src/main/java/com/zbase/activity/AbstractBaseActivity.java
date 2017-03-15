@@ -13,13 +13,10 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -352,72 +349,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
      */
     public void unRegisterGlobleReceiver() {
         unregisterReceiver(globalBroadcastReceiver);
-    }
-
-  /*  @Override
-    public void onBackPressed() {
-        finish();
-    }*/
-
-    /**
-     * 手动弹出软键盘
-     */
-    public void showSoftKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    /**
-     * 隐藏软键盘
-     *
-     * @param view
-     */
-    public void hideSoftInput(View view) {
-        if (view.getWindowToken() != null) {
-            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            manager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
-    /**
-     * 获取点击事件，我把它加入到base中,为了点击其他位置的时候收起软键盘
-     *
-     * @param ev
-     * @return
-     */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View view = getCurrentFocus();
-            if (isHideInput(view, ev)) {
-                hideSoftInput(view);
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    /**
-     * 判定是否需要隐藏
-     *
-     * @param v
-     * @param ev
-     * @return
-     */
-    private boolean isHideInput(View v, MotionEvent ev) {
-        if (v != null && (v instanceof EditText)) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

@@ -37,6 +37,7 @@
     <string name="title">标题</string>
     <string name="release">发布</string>
     <string name="save">保存</string>
+    <string name="all">全部</string>
 
     <string name="wipe_cache">清除缓存</string>
     <string name="head">头像</string>
@@ -108,4 +109,6 @@
 
     <string name="select_datetime_before">选择的时间比现在早，请重新选择</string>
     <string name="select_datetime_after">选择的时间比现在晚，请重新选择</string>
+
+    <string name="please_enter_a_search_keyword">请输入搜索关键字！</string>
 </resources>

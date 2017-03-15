@@ -133,13 +133,20 @@ public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosi
     }
 
     /**
-     * 反向选择，如果没选中则选中，如果选中则取消选中,单选如果选择的是之前选中的，则返回
+     * 单选，点击之前选中的则不执行，点击不是之前选中的则取消其他选中，当前选中
      *
-     * @param reverseSelectPosition
-     * @param single                是否单选
+     * @param selectPosition
      */
-    public void setReverseSelectPosition(int reverseSelectPosition, boolean single) {
-        adapterSelectPositionManager.setReverseSelectPosition(reverseSelectPosition, single);
+    public void setSelectPositionSingle(int selectPosition) {
+        adapterSelectPositionManager.setSelectPositionSingle(selectPosition);
+    }
+
+    /**
+     * 多选，点击之前选中的则取消选中，点击不是之前选中的则选中
+     * @param selectPosition
+     */
+    public void setSelectPositionMulti(int selectPosition) {
+        adapterSelectPositionManager.setSelectPositionMulti(selectPosition);
     }
 
     /**
@@ -156,6 +163,22 @@ public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosi
      */
     public int getSingleSelectedPosition() {
         return adapterSelectPositionManager.getSingleSelectedPosition();
+    }
+
+    /**
+     * 重置所有选中，即所有都没有选择
+     */
+    @Override
+    public void resetAllSelect() {
+        adapterSelectPositionManager.resetAllSelect();
+    }
+
+    /**
+     * 设置所有选中，即所有都选择
+     */
+    @Override
+    public void setAllSelect() {
+        adapterSelectPositionManager.setAllSelect();
     }
 
     public void setAllSelectedListener(AllSelectedListener allSelectedListener) {

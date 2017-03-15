@@ -2,6 +2,7 @@ package com.zbase.util;
 
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.widget.EditText;
@@ -14,6 +15,26 @@ import java.lang.reflect.Field;
  * @author z
  */
 public class StringUtil {
+
+    /**
+     * 设置有默认值的字符串
+     * @param value 需要设置的字符串
+     * @param defaultValue 默认字符串
+     * @return
+     */
+    public static String setStringWithDefault(String value, String defaultValue) {
+        return TextUtils.isEmpty(value) ? defaultValue : value;
+    }
+
+    /**
+     * 设置默认值为"0"的字符串
+     * @param value 需要设置的字符串
+     * @return
+     */
+    public static String setStringWithZero(String value) {
+        return TextUtils.isEmpty(value) ? "0" : value;
+    }
+
     public static boolean isEmptyOrNull(String str) {
         return str == null || str.trim().length() <= 0 || str.trim().equals("null") || str.trim().equals("NULL")
                 || str.trim().equals("");
@@ -38,6 +59,12 @@ public class StringUtil {
         return true;
     }
 
+    /**
+     * 是否是纯英文字母
+     *
+     * @param cha
+     * @return
+     */
     public static boolean isA2Z(char cha) {
         boolean bool = false;
         String string = cha + ""; // 把字符转换成字符串
@@ -126,6 +153,7 @@ public class StringUtil {
 
     /**
      * 设置EditText的hint文字大小（还没测试）
+     *
      * @param editText
      * @param hintTextSize
      */

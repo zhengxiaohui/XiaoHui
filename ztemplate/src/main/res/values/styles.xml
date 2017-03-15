@@ -229,6 +229,11 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
+    <style name="tab_c1_13" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c1</item>
+    </style>
+
     <style name="control_available_button">
         <item name="android:background">@drawable/selector_control_available_button</item>
         <item name="android:gravity">center</item>

@@ -30,15 +30,12 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
 
     protected Context context;
     private BaseGetRequestPage baseGetRequestPage;
-
-
     private Class<T> clazz;
     private RecyclerView recyclerView;
     protected ZBaseRecyclerAdapter zBaseRecyclerAdapter;
     private long lastUpdatedTime; // 最后请求数据时间
     private long httpBackTime;//请求http的返回时间
     private static final long minRefreshTime = 1000;//最小刷新时间
-    private boolean showProgress = true;//是否显示转圈圈
 
     public BaseGetRequestPage getBaseGetRequestPage() {
         return baseGetRequestPage;
@@ -87,9 +84,10 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
 
     /**
      * RecyclerView下拉刷新和滚动到底自动加载更多的构造方法
+     *
      * @param context
-     * @param baseGetRequestPage 请求分页的类型
-     * @param clazz 返回的Json类的clazz对象
+     * @param baseGetRequestPage    请求分页的类型
+     * @param clazz                 返回的Json类的clazz对象
      * @param ptrClassicFrameLayout 下拉刷新控件，如果传null则没有下拉刷新的功能，只有滚动到底自动加载更多的功能
      * @param recyclerView
      * @param zBaseRecyclerAdapter
@@ -110,7 +108,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     /**
      * 子类可以覆盖，设置不同的LoadMoreFooter自由设置布局和背景颜色等
      */
-    protected void setLoadMoreFooter(){
+    protected void setLoadMoreFooter() {
         zBaseRecyclerAdapter.setLoadMoreFooter(new LoadMoreFooter(context));
     }
 
@@ -125,14 +123,14 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
 
                 @Override
                 public void onRefreshBegin(PtrFrameLayout frame) {
-                    refresh();
+                    refresh(false);
                 }
             });
         }
         zBaseRecyclerAdapter.setLoadMoreListener(new ZBaseRecyclerAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                requestList(RefreshType.LOAD_MORE);
+                requestList(RefreshType.LOAD_MORE, false);
                 zBaseRecyclerAdapter.setFooterLoading();
             }
         });
@@ -173,8 +171,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                 }
                 break;
         }
-        refresh();
-        showProgress = false;
+        refresh(true);
 
 //        ptrClassicFrameLayout.postDelayed(new Runnable() {
 //            @Override
@@ -185,9 +182,17 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     }
 
     /**
-     * 初始化或刷新
+     * 重新请求数据，刷新，有转圈圈
      */
-    public void refresh() {
+    public void refresh(){
+        refresh(true);
+    }
+
+    /**
+     * 初始化或刷新
+     * @param showProgress 是否显示转圈圈
+     */
+    private void refresh(boolean showProgress) {
         switch (baseGetRequestPage.getPageType()) {
             case START_PAGE0:
                 baseGetRequestPage.setPageIndex(0);
@@ -196,14 +201,14 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                 baseGetRequestPage.setPageIndex(1);
                 break;
             case LAST_ID:
-                baseGetRequestPage.setLastId("");
+
                 break;
         }
-        requestList(RefreshType.INIT_REFRESH);
+        requestList(RefreshType.INIT_REFRESH, showProgress);
         httpBackTime = System.currentTimeMillis();
     }
 
-    private void requestList(final RefreshType refreshType) {
+    private void requestList(final RefreshType refreshType, boolean showProgress) {
         baseGetRequestPage.execute(new BaseJsonCallback<T>(context, clazz, showProgress) {
 
             @Override
@@ -217,11 +222,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                     Response response) {
                 if (t != null && t.isSuccess()) {//请求状态成功
                     if (t.getList() != null && t.getList().size() > 0) {
-                        if(baseGetRequestPage.getPageType()== BaseGetRequestPage.PageType.LAST_ID){
-                            baseGetRequestPage.setLastId(t.getLastId());
-                        }else {
-                            baseGetRequestPage.setPageIndex(baseGetRequestPage.getPageIndex() + 1);
-                        }
+                        baseGetRequestPage.setPageIndex(baseGetRequestPage.getPageIndex() + 1);
                         if (onObtainDataListener != null) {
                             onObtainDataListener.onObtainData(t);
                         }

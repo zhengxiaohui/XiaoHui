@@ -18,6 +18,7 @@ public class Const {
     public static final String URI_PRE = "file://";//图片地址uri的前缀
     public static final String FIRST_LAUNCH = "first_launch"; //是否第一次启动APPprotected
     public static final String USER = "user";//用户信息
+
     /**
      * ImageLoader常用默认配置属性，没有内存缓存和磁盘缓存，没有加载失败图和默认图
      */

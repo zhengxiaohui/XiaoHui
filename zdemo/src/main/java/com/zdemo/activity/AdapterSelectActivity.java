@@ -38,7 +38,7 @@ public class AdapterSelectActivity extends BaseActivity {
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                adapter.setReverseSelectPosition(position,false);
+                adapter.setSelectPositionMulti(position);
             }
         });
         listView.setAdapter(adapter);
