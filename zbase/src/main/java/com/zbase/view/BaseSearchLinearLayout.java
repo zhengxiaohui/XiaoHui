@@ -39,7 +39,6 @@ public abstract class BaseSearchLinearLayout extends FrameLayout {
 
     private EditText etContent;//搜索文本
     private ImageView ivClear;//清空文本按钮
-    private OnSearchListener onSearchListener;
     private ArrayList<String> historyList = new ArrayList<>();
     public static final String SEARCH_RECORDS = "search_records";
 

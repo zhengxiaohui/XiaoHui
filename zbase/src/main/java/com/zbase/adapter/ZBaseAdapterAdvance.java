@@ -21,7 +21,7 @@ public abstract class ZBaseAdapterAdvance<T> extends ZBaseAdapter<T> {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = createViewHolder();
-            convertView = LayoutInflater.from(context).inflate(inflateMainLayoutId(),null);
+            convertView = LayoutInflater.from(context).inflate(inflateMainLayoutId(), parent, false);
             viewHolder.findView(convertView);
             convertView.setTag(viewHolder);
         } else {

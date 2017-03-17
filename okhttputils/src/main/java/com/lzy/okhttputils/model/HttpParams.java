@@ -21,10 +21,14 @@ import okhttp3.MediaType;
  */
 public class HttpParams implements Serializable {
 
-    /** 普通的键值对参数 */
-    public ConcurrentHashMap<String, List<String>> urlParamsMap;
+    /**
+     * 普通的键值对参数
+     */
+    public ConcurrentHashMap<String, String> urlParamsMap;//改造：value从List<String>改成String，相同key的value不重复了，params()是覆盖替换参数而不用removeUrlParam了。
 
-    /** 文件的键值对参数 */
+    /**
+     * 文件的键值对参数
+     */
     public ConcurrentHashMap<String, List<FileWrapper>> fileParamsMap;
 
     private void init() {
@@ -48,19 +52,16 @@ public class HttpParams implements Serializable {
 
     public void put(HttpParams params) {
         if (params != null) {
-            if (params.urlParamsMap != null && !params.urlParamsMap.isEmpty()) urlParamsMap.putAll(params.urlParamsMap);
-            if (params.fileParamsMap != null && !params.fileParamsMap.isEmpty()) fileParamsMap.putAll(params.fileParamsMap);
+            if (params.urlParamsMap != null && !params.urlParamsMap.isEmpty())
+                urlParamsMap.putAll(params.urlParamsMap);
+            if (params.fileParamsMap != null && !params.fileParamsMap.isEmpty())
+                fileParamsMap.putAll(params.fileParamsMap);
         }
     }
 
     public void put(String key, String value) {
         if (key != null && value != null) {
-            List<String> urlValues = urlParamsMap.get(key);
-            if (urlValues == null) {
-                urlValues = new ArrayList<>();
-                urlParamsMap.put(key, urlValues);
-            }
-            urlValues.add(value);
+            urlParamsMap.put(key, value);
         }
     }
 
@@ -168,7 +169,7 @@ public class HttpParams implements Serializable {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (ConcurrentHashMap.Entry<String, List<String>> entry : urlParamsMap.entrySet()) {
+        for (ConcurrentHashMap.Entry<String, String> entry : urlParamsMap.entrySet()) {//改造：value从List<String>改成String，相同key的value不重复了，params()是覆盖替换参数而不用removeUrlParam了。
             if (result.length() > 0) result.append("&");
             result.append(entry.getKey()).append("=").append(entry.getValue());
         }

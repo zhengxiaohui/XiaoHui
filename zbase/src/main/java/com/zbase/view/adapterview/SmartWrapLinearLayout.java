@@ -3,6 +3,7 @@ package com.zbase.view.adapterview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,6 @@ public class SmartWrapLinearLayout extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (totalWidth == 0) {
             totalWidth = getMeasuredWidth();
-            if (totalWidth != 0) {
-                remainingWidth = totalWidth;
-            }
         }
     }
 
@@ -67,8 +65,16 @@ public class SmartWrapLinearLayout extends LinearLayout {
      * @param adapter
      */
     public void setAdapter(BaseAdapter adapter) {
+        if (totalWidth != 0) {
+            remainingWidth = totalWidth;
+        }
         this.adapter = adapter;
-        initView();
+        new Handler().postDelayed(new Runnable() {//延迟50毫秒后执行，不然有时候得不到remainingWidth的值。
+            @Override
+            public void run() {
+                initView();
+            }
+        },50);
     }
 
     private void initView() {

@@ -288,18 +288,16 @@ public abstract class BaseRequest<R extends BaseRequest> {
     /**
      * 将传递进来的参数拼接成 url
      */
-    protected String createUrlFromParams(String url, Map<String, List<String>> params) {
+    protected String createUrlFromParams(String url, Map<String, String> params) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(url);
             if (url.indexOf('&') > 0 || url.indexOf('?') > 0) sb.append("&");
             else sb.append("?");
-            for (Map.Entry<String, List<String>> urlParams : params.entrySet()) {
-                List<String> urlValues = urlParams.getValue();
-                for (String value : urlValues) {
-                    String urlValue = URLEncoder.encode(value, "UTF-8");
-                    sb.append(urlParams.getKey()).append("=").append(urlValue).append("&");
-                }
+            for (Map.Entry<String, String> urlParams : params.entrySet()) {
+                String value = urlParams.getValue();
+                String urlValue = URLEncoder.encode(value, "UTF-8");
+                sb.append(urlParams.getKey()).append("=").append(urlValue).append("&");
             }
             sb.deleteCharAt(sb.length() - 1);
             return sb.toString();
@@ -336,10 +334,8 @@ public abstract class BaseRequest<R extends BaseRequest> {
             //表单提交，没有文件
             FormBody.Builder bodyBuilder = new FormBody.Builder();
             for (String key : params.urlParamsMap.keySet()) {
-                List<String> urlValues = params.urlParamsMap.get(key);
-                for (String value : urlValues) {
-                    bodyBuilder.add(key, value);
-                }
+                String value = params.urlParamsMap.get(key);//改造：value从List<String>改成String，相同key的value不重复了，params()是覆盖替换参数而不用removeUrlParam了。
+                bodyBuilder.add(key, value);
             }
             return bodyBuilder.build();
         } else {
@@ -347,11 +343,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
             MultipartBody.Builder multipartBodybuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
             //拼接键值对
             if (!params.urlParamsMap.isEmpty()) {
-                for (Map.Entry<String, List<String>> entry : params.urlParamsMap.entrySet()) {
-                    List<String> urlValues = entry.getValue();
-                    for (String value : urlValues) {
-                        multipartBodybuilder.addFormDataPart(entry.getKey(), value);
-                    }
+                for (Map.Entry<String, String> entry : params.urlParamsMap.entrySet()) {//改造：value从List<String>改成String，相同key的value不重复了，params()是覆盖替换参数而不用removeUrlParam了。
+                    String value = entry.getValue();
+                    multipartBodybuilder.addFormDataPart(entry.getKey(), value);
                 }
             }
             //拼接文件

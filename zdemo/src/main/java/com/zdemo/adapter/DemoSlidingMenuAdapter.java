@@ -4,6 +4,7 @@ package com.zdemo.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zbase.adapter.BaseSlidingMenuAdapter;
@@ -22,8 +23,8 @@ public class DemoSlidingMenuAdapter extends BaseSlidingMenuAdapter<String> {
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateItemViewHolder() {
-        return new MyViewHolder(inflate(R.layout.adapter_sliding_menu));
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
+        return new MyViewHolder(inflate(R.layout.adapter_sliding_menu, parent));
     }
 
     public class MyViewHolder extends SlidingMenuItemViewHolder {

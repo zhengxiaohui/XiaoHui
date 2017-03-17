@@ -3,6 +3,7 @@ package com.zdemo.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,8 +21,8 @@ public class AllActivityAdapter extends ZBaseRecyclerAdapter<Activity> {
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateItemViewHolder() {
-        return new MyViewHolder(inflate(R.layout.adapter_all_activity));
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
+        return new MyViewHolder(inflate(R.layout.adapter_all_activity, parent));
     }
 
     public class MyViewHolder extends ItemViewHolder {

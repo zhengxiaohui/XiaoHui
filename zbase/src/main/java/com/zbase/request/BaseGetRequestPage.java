@@ -26,7 +26,7 @@ public abstract class BaseGetRequestPage extends GetRequest {
      */
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
-        getParams().removeUrl(getIndexKey());
+//        getParams().removeUrl(getIndexKey());
         getParams().put(getIndexKey(), String.valueOf(pageIndex));
     }
 
@@ -36,7 +36,7 @@ public abstract class BaseGetRequestPage extends GetRequest {
      */
     public void setLastId(String lastId) {
         this.lastId = lastId;
-        getParams().removeUrl(getLastIdKey());
+//        getParams().removeUrl(getLastIdKey());
         getParams().put(getLastIdKey(), String.valueOf(lastId));
     }
 

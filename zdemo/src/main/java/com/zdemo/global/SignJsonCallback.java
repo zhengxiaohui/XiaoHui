@@ -36,10 +36,6 @@ public abstract class SignJsonCallback<T> extends BaseJsonCallback<T> {
 //        }
 //        tmpStr = tmpStr + HttpConstant.APP_SECRET;
 //        String sign = MD5Encryption.getPassword32(tmpStr);
-//        request.removeUrlParam("appKey");
-//        request.removeUrlParam("timeStamp");
-//        request.removeUrlParam("nonce");
-//        request.removeUrlParam("sign");
 //        request.params("appKey", appKey);
 //        request.params("timeStamp", timeStamp);
 //        request.params("nonce", nonce);
