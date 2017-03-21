@@ -14,10 +14,22 @@ import android.widget.LinearLayout;
  * 创建人：郑晓辉
  * 创建日期：2016/6/14
  * 描述：列表左滑出现菜单，配合BaseSlidingMenuAdapter使用
- * SlidingMenu控件子布局必须是2个！
+ * 注意：
+ * SlidingMenu控件子布局必须是2个
+ * 布局中滑出的菜单必须设置固定宽度DP
+ * ptrClassicFrameLayout.disableWhenHorizontalMove(true);//解决和横向滑动控件的冲突，比如viewpager，SlidingMenu,ViewFlow等。
+ recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+@Override
+public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+super.onScrolled(recyclerView, dx, dy);
+adapter.closeMenu();
+}
+});
+ adapter最外层布局不能用padding，不然会导致滑出菜单不全。
  */
 public class SlidingMenu extends LinearLayout {
 
+    public static final String CAN_SLIDE_MENU ="can_slide_menu";//是否可以侧滑出菜单
     private MyHorizontalScrollView horizontalScrollView;
     // 屏幕宽度
     private int mScreenWidth;
@@ -116,6 +128,10 @@ public class SlidingMenu extends LinearLayout {
         }
     }
 
+    /**
+     * 设置禁止滑出菜单
+     * @param scrollable
+     */
     public void setScrollable(boolean scrollable) {
         this.scrollable = scrollable;
     }

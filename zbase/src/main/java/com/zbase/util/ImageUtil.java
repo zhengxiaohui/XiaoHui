@@ -300,10 +300,6 @@ public class ImageUtil {
         });
     }
 
-    public static DisplayImageOptions getDisplayImageOptions() {
-        return getDisplayImageOptions(0, 0, null);
-    }
-
     public static DisplayImageOptions getDisplayImageOptions(int defaultImageRes) {
         return getDisplayImageOptions(defaultImageRes, 0, null);
     }
@@ -372,7 +368,7 @@ public class ImageUtil {
     }
 
     /**
-     * 压缩指定路径图片，并将其保存在缓存目录中;<br>
+     * 压缩指定路径图片，并将其保存在缓存目录中;<br>//注意：压缩后的图片保存在缓存中，所以地址和原图不同。
      * 通过isDelSrc判定是否删除源文件，并获取到缓存后的图片路径;<br>
      * 图片过大可能OOM
      *
@@ -386,7 +382,7 @@ public class ImageUtil {
     public static String compressBitmap(Context context, String srcPath, Bitmap.CompressFormat format, int rqsW, int rqsH, boolean isDelSrc) {
         Bitmap bitmap = compressBitmap(srcPath, rqsW, rqsH);
         File srcFile = new File(srcPath);
-        String desPath = getImageCacheDir(context) + srcFile.getName();
+        String desPath = getImageCacheDir(context) + srcFile.getName();//注意：压缩后的图片保存在缓存中，所以地址和原图不同。
         clearCropFile(desPath);
         int degree = getDegrees(srcPath);
         try {

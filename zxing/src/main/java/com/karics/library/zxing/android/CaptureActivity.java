@@ -229,7 +229,6 @@ public final class CaptureActivity extends Activity implements
 	 */
 	private void displayFrameworkBugMessageAndExit() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(getString(R.string.app_name));
 		builder.setMessage(getString(R.string.msg_camera_framework_bug));
 		builder.setPositiveButton(R.string.button_ok, new FinishListener(this));
 		builder.setOnCancelListener(new FinishListener(this));

@@ -756,7 +756,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     /**
      * It's useful when working with viewpager.
-     *
+     * 解决和横向滑动控件的冲突，比如viewpager，SlidingMenu,ViewFlow等。
      * @param disable
      */
     public void disableWhenHorizontalMove(boolean disable) {

@@ -11,7 +11,7 @@ import java.util.List;
 public class ListUtil {
 
     /**
-     * 根据每页大小拆分List
+     * 根据每页大小拆分List，拆分成多页数据，也就是多条list的数据。
      *
      * @param list        需要拆分的list
      * @param subListSize 每页大小
@@ -33,10 +33,10 @@ public class ListUtil {
     }
 
     /**
-     * 将list的第一个元素顶出，要进来的元素排最后，其实就是队列先进先出的数据结构，要设置一个最大个数
+     * 将list的第一个元素顶出，要进来的元素排最后，其实就是队列先进先出的数据结构，要设置一个最大个数，常用于存放搜索记录等固定条数的数据。
      * @param maxSize list的最大长度，就是最大个数
-     * @param list
-     * @param t
+     * @param list 操作对象List
+     * @param t 推进来的泛型对象
      * @param <T>
      */
     public static <T> void pushOutFirst(int maxSize, List<T> list, T t) {

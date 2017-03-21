@@ -17,7 +17,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 /**
  * 创建人：郑晓辉
  * 创建日期：2017/1/3
- * 描述：带加载动画的图片控件（转圈圈）（未完待续，根据实际使用情况再改进）
+ * 描述：带加载动画的图片控件（转圈圈）（未完待续，根据实际使用情况再改进，以下代码作废，考虑改造ProgressImageView并使用）
  */
 public class ProgressImageFrameLayout extends FrameLayout {
 

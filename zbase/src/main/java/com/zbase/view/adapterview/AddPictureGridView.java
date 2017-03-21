@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.zbase.adapter.BaseAddPictureAdapter;
 import com.zbase.listener.ItemClickListener;
+import com.zbase.listener.OnItemDeleteListener;
 import com.zbase.util.ImageUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,12 @@ import me.nereo.multi_image_selector.MultiImageSelector;
 public class AddPictureGridView extends FullGridView {
 
     private BaseAddPictureAdapter baseAddPictureAdapter;
-    private boolean isCompress=true;//是否压缩，默认true压缩
+
+    public void setOnItemDeleteListener(OnItemDeleteListener onItemDeleteListener) {
+        this.onItemDeleteListener = onItemDeleteListener;
+    }
+
+    private OnItemDeleteListener onItemDeleteListener;
 
     public AddPictureGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,17 +46,15 @@ public class AddPictureGridView extends FullGridView {
     }
 
     public void init(final Activity activity, final BaseAddPictureAdapter baseAddPictureAdapter) {
-        init(activity,baseAddPictureAdapter,true);
-    }
-
-    public void init(final Activity activity, final BaseAddPictureAdapter baseAddPictureAdapter,boolean isCompress) {
         this.baseAddPictureAdapter = baseAddPictureAdapter;
-        this.isCompress=isCompress;
         baseAddPictureAdapter.setDeleteItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 baseAddPictureAdapter.getList().remove(position);
                 baseAddPictureAdapter.notifyDataSetChanged();
+                if (onItemDeleteListener != null) {
+                    onItemDeleteListener.onItemDelete(position);
+                }
             }
         });
         baseAddPictureAdapter.setAddItemClickListener(new ItemClickListener() {
@@ -62,17 +67,15 @@ public class AddPictureGridView extends FullGridView {
     }
 
     public void init(final Fragment fragment, final BaseAddPictureAdapter baseAddPictureAdapter) {
-        init(fragment,baseAddPictureAdapter);
-    }
-
-    public void init(final Fragment fragment, final BaseAddPictureAdapter baseAddPictureAdapter,boolean isCompress) {
         this.baseAddPictureAdapter = baseAddPictureAdapter;
-        this.isCompress=isCompress;
         baseAddPictureAdapter.setDeleteItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 baseAddPictureAdapter.getList().remove(position);
                 baseAddPictureAdapter.notifyDataSetChanged();
+                if (onItemDeleteListener != null) {
+                    onItemDeleteListener.onItemDelete(position);
+                }
             }
         });
         baseAddPictureAdapter.setAddItemClickListener(new ItemClickListener() {
@@ -87,17 +90,31 @@ public class AddPictureGridView extends FullGridView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MultiImageSelector.REQUEST_IMAGE_GRID) {
             if (resultCode == Activity.RESULT_OK) {
-                List<String> pathList = new ArrayList<>();
-                if (isCompress) {
-                    for (int i = 0; i < data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).size(); i++) {
-                        pathList.add(ImageUtil.compressBitmap(getContext(), data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(i)));
-                    }
-                } else {
-                    pathList.addAll(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT));
-                }
-                baseAddPictureAdapter.setList(pathList);
+                List<String> list = new ArrayList<>();
+                list.addAll(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT));//list存放原图地址,GridView显示的是原图，上传的时候一般用压缩图。
+                baseAddPictureAdapter.setList(list);
             }
         }
+    }
+
+    /**
+     * 获取压缩后的图片缓存文件列表
+     * 注意：压缩之后地址改变了，取的是压缩后缓存目录的地址，不是原图的地址。
+     * 压缩后的图片文件地址列表，和原图地址不同，保存在缓存目录中。/date/date/(包名)/cacheImage/...
+     *
+     * @return
+     */
+    public List<File> getCompressFileList() {
+        List<String> pathList = baseAddPictureAdapter.getList();
+        List<File> fileList = new ArrayList<>();
+        if (pathList != null && pathList.size() > 0) {
+            for (int i = 0; i < pathList.size(); i++) {
+                if (!pathList.get(i).startsWith("http")) {//以http开头的网络图片是下载的，不是本地选择的，所以图片不压缩不上传。只压缩上传新选择的图片，符合编辑模式。（图片删除有独立接口删）
+                    fileList.add(new File(ImageUtil.compressBitmap(getContext(), pathList.get(i))));
+                }
+            }
+        }
+        return fileList;
     }
 
 }

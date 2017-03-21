@@ -231,7 +231,7 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
     /*
      * (non-Javadoc)
      *
-     * @see org.taptwo.android.widget.FlowIndicator#onScrolled(int, int, int,
+     * @see org.taptwo.android.widget.FlowIndicator#closeMenu(int, int, int,
      * int)
      */
     @Override

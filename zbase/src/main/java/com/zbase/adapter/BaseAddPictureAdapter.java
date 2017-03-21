@@ -122,7 +122,11 @@ public abstract class BaseAddPictureAdapter extends ZBaseAdapterAdvance<String> 
             imageView.setVisibility(View.VISIBLE);
             iv_delete.setVisibility(View.VISIBLE);
             iv_add.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(Const.URI_PRE + uri, imageView, Const.DEFAULT_IMAGE_OPTIONS);
+            if (uri.startsWith("http")) {
+                ImageLoader.getInstance().displayImage(uri, imageView, Const.DEFAULT_IMAGE_OPTIONS);
+            } else {
+                ImageLoader.getInstance().displayImage(Const.URI_PRE + uri, imageView, Const.DEFAULT_IMAGE_OPTIONS);
+            }
         }
     }
 
