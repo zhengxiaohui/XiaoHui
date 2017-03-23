@@ -9,7 +9,6 @@ import android.net.wifi.WifiManager;
 import android.provider.ContactsContract.PhoneLookup;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.zbase.common.ZLog;
 
@@ -22,6 +21,7 @@ public class PhoneUtil {
 
 	/**
 	 * Get the device ID
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -51,10 +51,10 @@ public class PhoneUtil {
 	private String getIpAddress() {
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface
-					.getNetworkInterfaces(); en.hasMoreElements();) {
+					.getNetworkInterfaces(); en.hasMoreElements(); ) {
 				NetworkInterface intf = en.nextElement();
 				for (Enumeration<InetAddress> enumIpAddr = intf
-						.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+						.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
 					InetAddress inetAddress = enumIpAddr.nextElement();
 					if (!inetAddress.isLoopbackAddress()) {
 						return inetAddress.getHostAddress().toString();
@@ -68,11 +68,11 @@ public class PhoneUtil {
 	}
 
 	/*
-	 * 获取手机MAC地址
-	 */
+     * 获取手机MAC地址
+     */
 	public static String getMacAddress(Context context) {
 		String result = "";
-		WifiManager wifiManager = (WifiManager)context
+		WifiManager wifiManager = (WifiManager) context
 				.getSystemService(context.WIFI_SERVICE);
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 		result = wifiInfo.getMacAddress();
@@ -81,43 +81,59 @@ public class PhoneUtil {
 
 
 	/**
-	 * 是否包含电话号码
-	 * @param context 上下文
+	 * 通讯录中是否存在该电话号码
+	 *
+	 * @param context     上下文
 	 * @param phoneNumber 手机号码
 	 * @return
 	 */
-	public static boolean hasPhoneNumber(Context context,String phoneNumber){
+	public static boolean hasPhoneNumber(Context context, String phoneNumber) {
 		Cursor cursor = context.getContentResolver().query(Uri.withAppendedPath(
-                PhoneLookup.CONTENT_FILTER_URI, phoneNumber), new String[] {
-                PhoneLookup._ID,
-                PhoneLookup.NUMBER,
-                PhoneLookup.DISPLAY_NAME,
-                PhoneLookup.TYPE, PhoneLookup.LABEL }, null, null,   null );
-		if(cursor.getCount()>0){
+				PhoneLookup.CONTENT_FILTER_URI, phoneNumber), new String[]{
+				PhoneLookup._ID,
+				PhoneLookup.NUMBER,
+				PhoneLookup.DISPLAY_NAME,
+				PhoneLookup.TYPE, PhoneLookup.LABEL}, null, null, null);
+		if (cursor.getCount() > 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 发短信，调用系统的
-	 * @param context 上下文
+	 *
+	 * @param context     上下文
 	 * @param phoneNumber 手机号码
-	 * @param content 短信内容，可为空
+	 * @param content     短信内容，可为空
 	 */
-	public static void sendSMS(Context context,String phoneNumber,String content){
-		Uri uri = Uri.parse("smsto://"+phoneNumber);
-		Intent intent = new Intent(Intent.ACTION_SENDTO,uri);
+	public static void sendSMS(Context context, String phoneNumber, String content) {
+		Uri uri = Uri.parse("smsto://" + phoneNumber);
+		Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
 		intent.putExtra("sms_body", content);
 		context.startActivity(intent);
 	}
-	
+
 	/**
-	 * 打电话
-	 * @param context 上下文
+	 * 跳转到系统拨号界面，不需要权限。
+	 *
+	 * @param context     上下文
 	 * @param phoneNumber 电话号码
 	 */
-	public static void callPhone(Context context,String phoneNumber){
+	public static void dialPhone(Context context, String phoneNumber) {
+		Intent intent = new Intent(Intent.ACTION_DIAL);
+		Uri data = Uri.parse("tel:" + phoneNumber);
+		intent.setData(data);
+		context.startActivity(intent);
+	}
+
+	/**
+	 * 直接拨打电话，需要manifest权限，
+	 * 注意：要在AndroidMenifest文件里加上这个权限：<uses-permission android:name="android.permission.CALL_PHONE" />，在Android6.0中，还要在代码中动态申请权限。
+	 * @param context     上下文
+	 * @param phoneNumber 电话号码
+	 */
+	public static void callPhone(Context context, String phoneNumber) {
 		Intent phoneIntent = new Intent("android.intent.action.CALL",
 				Uri.parse("tel:" + phoneNumber));
 		context.startActivity(phoneIntent);

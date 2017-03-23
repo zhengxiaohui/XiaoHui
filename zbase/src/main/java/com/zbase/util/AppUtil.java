@@ -19,6 +19,8 @@ import android.support.annotation.Nullable;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.FileCallback;
+import com.zbase.common.ZSharedPreferences;
+import com.zbase.service.AppUpgradeService;
 
 import java.io.File;
 import java.util.List;
@@ -519,4 +521,48 @@ public class AppUtil {
             }
         });
     }
+
+    /**
+     * 开启apk升级服务
+     *
+     * @param downloadUrl
+     */
+    public static void startAppUpgradeService(Context context, String downloadUrl) {
+        Intent intent = new Intent(context, AppUpgradeService.class);
+        intent.putExtra(AppUpgradeService.DOWNLOAD_URL, downloadUrl);
+        context.startService(intent);
+    }
+
+    /**
+     * 是不是第一次安装后执行，覆盖安装或版本升级不算（因为share数据会保留）
+     *
+     * @param key SharedPreferences的key,不同的key针对不同的事件，是1对多的关系，多个事件互不影响
+     *            注意：每次调用该方法的地方key都应该不同，因为每次执行完都可能改变了share的值
+     * @return
+     */
+    public static boolean isFirstTimeSetupExecute(Context context, String key) {
+        if (ZSharedPreferences.getInstance(context).getBoolean(key, true)) {
+            ZSharedPreferences.getInstance(context).putBoolean(key, false);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 是不是新版本升级或者第一次安装（第一次share没值，默认为0）
+     *
+     * @param key SharedPreferences的key,不同的key针对不同的事件，是1对多的关系，多个事件互不影响
+     *            注意：每次调用该方法的地方key都应该不同，因为每次执行完都可能改变了share的值
+     * @return
+     */
+    public static boolean isNewVersion(Context context, String key) {
+        int oldVersionCode = ZSharedPreferences.getInstance(context).getInt(key, 0);
+        int newVersionCode = AppUtil.getVersionCode(context);
+        if (oldVersionCode != newVersionCode) {
+            ZSharedPreferences.getInstance(context).putInt(key, newVersionCode);
+            return true;
+        }
+        return false;
+    }
+
 }

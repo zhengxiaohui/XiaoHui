@@ -13,6 +13,9 @@
         <attr name="starMaxNum" format="integer" />
         <attr name="hollowStarDrawable" format="color|reference" />
         <attr name="solidStarDrawable" format="color|reference" />
+        <attr name="intervalSpace" format="dimension" />
+        <attr name="starSize" format="dimension" />
+        <attr name="gradeAble" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="RegularTriangleView">

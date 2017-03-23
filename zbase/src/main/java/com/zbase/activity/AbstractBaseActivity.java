@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
@@ -22,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -34,8 +32,6 @@ import com.zbase.common.ZSharedPreferences;
 import com.zbase.imagedispose.PhotoPicker;
 import com.zbase.interfaces.IGlobalReceiver;
 import com.zbase.manager.ActivityStackManager;
-import com.zbase.service.AppUpgradeService;
-import com.zbase.util.AppUtil;
 import com.zbase.util.ImageUtil;
 import com.zbase.util.PopUtil;
 import com.zbase.util.ScreenUtil;
@@ -285,60 +281,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
     }
 
     /**
-     * 开启apk升级服务
-     *
-     * @param downloadUrl
-     */
-    public void startAppUpgradeService(String downloadUrl) {
-        Intent intent = new Intent(context, AppUpgradeService.class);
-        intent.putExtra(AppUpgradeService.DOWNLOAD_URL, downloadUrl);
-        context.startService(intent);
-    }
-
-    /**
-     * 是不是第一次安装后执行，覆盖安装或版本升级不算（因为share数据会保留）
-     *
-     * @param key SharedPreferences的key,不同的key针对不同的事件，是1对多的关系，多个事件互不影响
-     *            注意：每次调用该方法的地方key都应该不同，因为每次执行完都可能改变了share的值
-     * @return
-     */
-    public boolean isFirstTimeSetupExecute(String key) {
-        if (ZSharedPreferences.getInstance(this).getBoolean(key, true)) {
-            ZSharedPreferences.getInstance(this).putBoolean(key, false);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 是不是新版本升级或者第一次安装（第一次share没值，默认为0）
-     *
-     * @param key SharedPreferences的key,不同的key针对不同的事件，是1对多的关系，多个事件互不影响
-     *            注意：每次调用该方法的地方key都应该不同，因为每次执行完都可能改变了share的值
-     * @return
-     */
-    public boolean isNewVersion(String key) {
-        int oldVersionCode = ZSharedPreferences.getInstance(this).getInt(key, 0);
-        int newVersionCode = AppUtil.getVersionCode(this);
-        if (oldVersionCode != newVersionCode) {
-            ZSharedPreferences.getInstance(this).putInt(key, newVersionCode);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 给TextView设置下划线
-     *
-     * @param textView
-     */
-    public void setTextViewUnderLine(TextView textView) {
-        textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
-        textView.getPaint().setAntiAlias(true);//抗锯齿
-    }
-
-
-    /**
      * 初始化多个Fragment，用于隐藏显示切换,并add第一个Fragment到Activity
      *
      * @param frameLayoutResId 装载替换Fragment的FrameLayout布局Id
@@ -444,10 +386,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
     }
 
     /**
-     * 简单判断登录或执行
-     * 在登录情况下执行操作，如果未登录，则先登录(登录后没有继续执行之前的操作，这是和doWithLogin的区别)
+     * 简单判断登录或跳转目标Activity
+     * 在登录情况下跳转目标Activity，如果未登录，则先登录(登录后没有继续执行之前的操作，这是和doWithLogin的区别)
      */
-    protected void doOrLogin(Intent intent) {
+    protected void jumpOrLogin(Intent intent) {
         if (isLoggedIn()) {
             startActivity(intent);
         } else {

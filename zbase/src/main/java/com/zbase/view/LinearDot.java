@@ -46,30 +46,20 @@ public class LinearDot extends LinearLayout {
                 attrs, R.styleable.LinearDot, defStyle, 0);
 
         if (a.hasValue(R.styleable.LinearDot_normalDrawable)) {
-            normalDrawable = a.getDrawable(
-                    R.styleable.LinearDot_normalDrawable);
+            normalDrawable = a.getDrawable(R.styleable.LinearDot_normalDrawable);
             normalDrawable.setCallback(this);
         }
-        normalDimension = a.getDimensionPixelOffset(
-                R.styleable.LinearDot_normalDimension,
-                normalDimension);
+        normalDimension = a.getDimensionPixelOffset(R.styleable.LinearDot_normalDimension, normalDimension);
 
         if (a.hasValue(R.styleable.LinearDot_selectedDrawable)) {
-            selectedDrawable = a.getDrawable(
-                    R.styleable.LinearDot_selectedDrawable);
+            selectedDrawable = a.getDrawable(R.styleable.LinearDot_selectedDrawable);
             selectedDrawable.setCallback(this);
         }
-        selectedDimension = a.getDimensionPixelOffset(
-                R.styleable.LinearDot_selectedDimension,
-                selectedDimension);
+        selectedDimension = a.getDimensionPixelOffset(R.styleable.LinearDot_selectedDimension, selectedDimension);
 
-        intervalDimension = a.getDimensionPixelOffset(
-                R.styleable.LinearDot_intervalDimension,
-                intervalDimension);
+        intervalDimension = a.getDimensionPixelOffset(R.styleable.LinearDot_intervalDimension, intervalDimension);
 
-        dotCount = a.getInt(
-                R.styleable.LinearDot_dotCount,
-                dotCount);
+        dotCount = a.getInt(R.styleable.LinearDot_dotCount, dotCount);
 
         a.recycle();
         loadViews();
@@ -79,7 +69,7 @@ public class LinearDot extends LinearLayout {
      * 加载控件
      */
     private void loadViews() {
-        if(dotCount==0){
+        if (dotCount == 0) {
             return;
         }
         removeAllViews();
@@ -155,6 +145,7 @@ public class LinearDot extends LinearLayout {
 
     /**
      * 设置点的总个数，并从新加载控件
+     *
      * @param dotCount
      */
     public void setDotCount(int dotCount) {
@@ -168,6 +159,7 @@ public class LinearDot extends LinearLayout {
 
     /**
      * 设置选中点的位置，并从新加载控件
+     *
      * @param selectedPosition
      */
     public void setSelectedPosition(int selectedPosition) {
@@ -177,9 +169,10 @@ public class LinearDot extends LinearLayout {
 
     /**
      * 设置ViewPager对个数和选中位置进行关联
+     *
      * @param viewPager
      */
-    public void setViewPager(final ViewPager viewPager) {
+    public void setupWithViewPager(final ViewPager viewPager) {
         setDotCount(viewPager.getAdapter().getCount());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

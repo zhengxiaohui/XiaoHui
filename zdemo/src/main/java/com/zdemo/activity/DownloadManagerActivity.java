@@ -59,7 +59,7 @@ public class DownloadManagerActivity extends BaseActivity {
                 });
                 break;
             case R.id.button2://DownloadManager+Service下载,可以退出Activity甚至整个app，都可以正常下载安装。
-                startAppUpgradeService(url);
+                AppUtil.startAppUpgradeService(context,url);
                 break;
         }
     }
