@@ -64,6 +64,7 @@ public class MarqueeView extends LinearLayout {
     private float startXOfIn = 0;
     private float endXOfIn = 0;
     private int intervals;
+    private boolean hasInit;//是否初始化过，防止字符串包含"\r\n"等换行情况的时候报错 "The child view of this MarqueeView must be a TextView instance."
 
     public MarqueeView(Context context) {
         super(context);
@@ -110,7 +111,7 @@ public class MarqueeView extends LinearLayout {
         }
 
         //
-        if (changed) {
+        if (changed&&!hasInit) {
             View v = getChildAt(0);
             if (!(v instanceof TextView)) {
                 throw new RuntimeException(
@@ -118,6 +119,7 @@ public class MarqueeView extends LinearLayout {
             }
             initView(getContext());
             mTextField.setText(mTextField.getText());
+            hasInit=true;
         }
     }
 

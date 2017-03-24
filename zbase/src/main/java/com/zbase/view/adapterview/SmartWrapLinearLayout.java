@@ -74,7 +74,7 @@ public class SmartWrapLinearLayout extends LinearLayout {
             public void run() {
                 initView();
             }
-        },50);
+        },300);
     }
 
     private void initView() {

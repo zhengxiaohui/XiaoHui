@@ -45,7 +45,7 @@ public class LoggerInterceptor implements Interceptor {
             String url = request.url().toString();
             Headers headers = request.headers();
 
-            Log.v(tag, "---------------------request log start---------------------");
+            Log.d(tag, "---------------------request log start---------------------");
             Log.d(tag, "method : " + request.method());
             Log.d(tag, "url : " + url);
             if (headers != null && headers.size() > 0) {
@@ -73,7 +73,7 @@ public class LoggerInterceptor implements Interceptor {
 
     private Response logForResponse(Response response) {
         try {
-            Log.v(tag, "---------------------response log start---------------------");
+            Log.d(tag, "---------------------response log start---------------------");
             Response.Builder builder = response.newBuilder();
             Response clone = builder.build();
             Log.v(tag, "url : " + clone.request().url());
@@ -101,7 +101,7 @@ public class LoggerInterceptor implements Interceptor {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Log.v(tag, "---------------------response log end-----------------------");
+            Log.d(tag, "---------------------response log end-----------------------");
         }
 
         return response;
