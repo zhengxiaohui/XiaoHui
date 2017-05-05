@@ -15,7 +15,6 @@ public class MyApplication extends BaseApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		debugMode=true;//是否是debug模式，默认true。控制打印日志，极光推送模式等。打包APK的时候要设置成false
 		PopStrategy.setBasePop(new PopOne());//策略模式,设置全局转圈圈样式
 
 		UMengShareConfig.init();//友盟分享

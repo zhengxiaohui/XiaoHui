@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.zbase.BuildConfig;
 import com.zbase.manager.ActivityStackManager;
 
 /**
@@ -28,7 +29,7 @@ public abstract class BaseApplication extends Application {
         return activityStack;
     }
 
-    public static boolean debugMode = true;//是否是debug模式，默认true。控制打印日志，极光推送模式等。打包APK的时候要设置成false
+    public static boolean debugMode = BuildConfig.DEBUG;
 
     @Override
     public void onCreate() {
@@ -98,7 +99,7 @@ public abstract class BaseApplication extends Application {
         //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
 //                .addCommonHeaders(headers)                                         //设置全局公共头
 //                .addCommonParams(params);                                          //设置全局公共参数
-        if (debugMode) {
+        if (BuildConfig.DEBUG) {
             okHttpUtils.debug("OkHttpUtils");
         }
     }

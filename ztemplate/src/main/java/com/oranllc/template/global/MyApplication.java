@@ -28,7 +28,6 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        debugMode = true;//是否是debug模式，默认true。控制打印日志，极光推送模式等。打包APK的时候要设置成false
         PopStrategy.setBasePop(new PopOne());//策略模式,设置全局转圈圈样式
         UMengAnalyticsConfig.init(debugMode);//友盟统计,默认引用，需要统计的话只要配置appkey就可以，如果有引入友盟分享等，则使用同一个key不用另外配置
         LoginBean.Data data = ZSharedPreferences.getInstance(this).getJsonBean(Const.USER, LoginBean.Data.class);

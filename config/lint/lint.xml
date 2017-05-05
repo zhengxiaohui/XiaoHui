@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+	<issue id="GoogleAppIndexingWarning" severity="ignore" />
+	<issue id="TypographyEllipsis" severity="ignore" />
+	<issue id="SetTextI18n" severity="ignore" />
+	<issue id="HardcodedText" severity="ignore" />
+	<issue id="InflateParams" severity="ignore" />
+	<issue id="UseSparseArrays" severity="ignore" />
+	<issue id="DisableBaselineAlignment" severity="ignore" />
+	<issue id="TrustAllX509TrustManager" severity="ignore" />
+	<issue id="SetJavaScriptEnabled" severity="ignore" />
+	<issue id="DrawAllocation" severity="ignore" />
+	<issue id="ExportedReceiver" severity="ignore" />
+	<issue id="InvalidPackage" severity="ignore" />
+	<!-- 以drawable-xhdpi为主目录，其他目录只放通知栏图标 -->
+	<issue id="IconDensities" severity="ignore" />
+	<!-- CompoundDrawables有时无法达到UI效果 -->
+	<issue id="UseCompoundDrawables" severity="ignore" />
+	<!-- 屏蔽更新gradle版本提示 -->
+	<issue id="GradleDependency" severity="ignore"/>
+	<!-- 暂屏蔽Rtl问题。如果支持阿拉伯文，需开启 -->
+	<issue id="RtlHardcoded" severity="ignore"/>
+	<issue id="RtlSymmetry" severity="ignore"/>
+	<issue id="RelativeOverlap" severity="ignore"/>
+	<!-- 6.0权限问题，暂不改 -->
+	<issue id="MissingPermission" severity="warning" />
+	<!-- 屏蔽CropOverlayView-->
+	<issue id="ClickableViewAccessibility" severity="ignore" />
+	<!-- 引用了Context.STATUS_BAR_SERVICE，这个变量被设置为hide，无法引用-->
+	<issue id="WrongConstant" severity="warning"/>
+
+	<!-- from  baidu -->
+    <issue id="ContentDescription" severity="ignore" />
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="HandlerLeak" severity="ignore" />
+    <issue id="HardcodedDebugMode" severity="ignore" />
+    <issue id="IconDuplicates" severity="error" />
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+    <issue id="MissingRegistered" severity="error" />
+    <issue id="MissingTranslation" severity="ignore" />
+    <issue id="Overdraw" severity="ignore" />
+    <issue id="ProtectedPermissions" severity="ignore" />
+    <issue id="PxUsage" severity="ignore" />
+    <issue id="SimpleDateFormat" severity="ignore" />
+    <issue id="SpUsage" severity="ignore" />
+    <issue id="UnusedResources" severity="error">
+       <ignore path="src/main/res/values/flpush_strings.xml" />
+	   <ignore path="src/main/res/values/flpush_styles.xml" />
+    </issue>
+	<issue id="WrongConstant" severity="error">
+       <ignore path="src/main/java/com/felink/clean/business/RequestUpdateBusiness" />
+    </issue>
+	<issue id="TypographyEllipsis" severity="Warning">
+        <ignore path="src/main/res/values/flpush_strings.xml" />
+    </issue>
+</lint>

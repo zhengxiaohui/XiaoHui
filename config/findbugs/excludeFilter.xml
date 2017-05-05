@@ -1,0 +1,100 @@
+<FindBugsFilter>
+    <!-- 需要屏蔽的bug -->
+ 	<Match>
+        <Bug pattern="MS_MUTABLE_COLLECTION_PKGPROTECT"/>
+    </Match>
+ 	<Match>
+        <Bug pattern="UR_UNINIT_READ"/>
+    </Match>
+ 	<Match>
+        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
+    </Match>
+	<Match>
+        <Bug pattern="MS_PKGPROTECT"/>
+    </Match>
+	<Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>	
+	<Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+	<Match>
+        <Bug pattern="DM_EXIT"/>
+    </Match>
+	<Match>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+	<Match>
+        <Bug pattern="DE_MIGHT_IGNORE"/>
+    </Match>
+	<Match>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+	<Match>
+        <Bug pattern="SS_SHOULD_BE_STATIC"/>
+    </Match>
+	<Match>
+        <Bug pattern="SF_SWITCH_NO_DEFAULT"/>
+    </Match>
+	<Match>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+    </Match>
+	<Match>
+        <Bug pattern="RE_CANT_USE_FILE_SEPARATOR_AS_REGULAR_EXPRESSION"/>
+    </Match>
+	<Match>
+        <Bug pattern="FE_FLOATING_POINT_EQUALITY"/>
+    </Match>
+	<Match>
+        <Bug pattern="DC_DOUBLECHECK"/>
+    </Match>
+
+	<!-- 过滤android -->
+	<Match>
+		<!-- ignore all issues in resource generation -->
+        <Class name="~.*\.R\$.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*\.Manifest\$.*"/>
+    </Match>
+
+	<Match>
+		<Class name="~.*\.*Test" />
+		<!-- test classes are suffixed by 'Test' -->
+		<Not>
+			<Bug code="IJU" /> <!-- 'IJU' is the code for bugs related to JUnit test code -->
+		</Not>
+   </Match>
+
+    <Match>
+        <Bug code="UMAC" />
+    </Match>
+
+    <!-- 默认编码的设置 -->
+    <Match>
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
+    <!-- catch Exception -->
+    <Match>
+        <Bug code="REC" />
+    </Match>
+
+    <!-- 成员变量从未被使用 -->
+    <Match>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <Match>
+        <Bug pattern="UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
+    <!-- 必须处理函数的boolean返回结果 -->
+    <Match>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
+    </Match>
+    <Match>
+        <Bug pattern="IS2_INCONSISTENT_SYNC"/>
+    </Match>
+
+	
+</FindBugsFilter>
+
