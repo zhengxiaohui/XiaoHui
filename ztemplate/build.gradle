@@ -17,16 +17,16 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'oranllc'
+            keyAlias 'test'
             keyPassword '123456'
-            storeFile file('D:/oranllc.jks')
+            storeFile file('D:/test.jks')
             storePassword '123456'
         }
     }
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+            minifyEnabled false
         }
         release {
             minifyEnabled false
