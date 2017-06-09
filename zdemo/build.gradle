@@ -1,4 +1,12 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
+
+def buildTime() {
+    def df = new SimpleDateFormat("yyyyMMdd")
+    df.setTimeZone(TimeZone.getTimeZone("GMT+8"))
+    return df.format(new Date())
+}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion as Integer
@@ -41,8 +49,7 @@ android {
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-" + new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC")) + ".apk")
-//                def fileName = outputFile.name.replace("app-release.apk", "${defaultConfig.applicationId}"+"-${defaultConfig.versionName}-" + releaseTime() + ".apk")
+                def fileName = outputFile.name.replace("app", "${defaultConfig.applicationId}" + "-${defaultConfig.versionName}-" + buildTime())
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
