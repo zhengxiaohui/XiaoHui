@@ -21,9 +21,9 @@ public class ActivityListJson extends BaseJson implements IPullToRefreshResponse
 		return activityList;
 	}
 
-	@Override
-	public String getLastId() {
-		return getList().get(getList().size()).getActivityId();
-	}
+//	@Override
+//	public String getLastId() {
+//		return getList().get(getList().size()).getActivityId();
+//	}
 
 }

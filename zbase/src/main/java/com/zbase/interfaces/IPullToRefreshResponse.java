@@ -12,5 +12,5 @@ public interface IPullToRefreshResponse<T> {
 
     List<T> getList();
 
-    String getLastId();
+//    String getLastId();
 }

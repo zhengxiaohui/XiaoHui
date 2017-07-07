@@ -74,6 +74,7 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
     @Override
     public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
         super.onError(isFromCache, call, response, e);
+        e.printStackTrace();
         PopUtil.toast(context, R.string.cant_connect_to_server);
     }
 

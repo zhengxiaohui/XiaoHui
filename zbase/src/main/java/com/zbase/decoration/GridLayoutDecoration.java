@@ -133,10 +133,11 @@ public class GridLayoutDecoration extends RecyclerView.ItemDecoration {
                 pos = position - 1;
             }
         }
-        if (isLastColum(parent, pos, spanCount, childCount)) {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
-        } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
-        }
+//        if (isLastColum(parent, pos, spanCount, childCount)) {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+//        } else {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+//        }
+        outRect.set(0, 0, 0, 0);
     }
 }

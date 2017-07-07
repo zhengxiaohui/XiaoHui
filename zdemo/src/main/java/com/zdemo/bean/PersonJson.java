@@ -21,9 +21,9 @@ public class PersonJson extends BaseJson implements IPullToRefreshResponse<Perso
         return personList;
     }
 
-	@Override
-	public String getLastId() {
-		return getList().get(getList().size()).getName();
-	}
+//	@Override
+//	public String getLastId() {
+//		return getList().get(getList().size()).getName();
+//	}
 
 }

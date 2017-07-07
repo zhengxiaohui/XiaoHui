@@ -87,6 +87,7 @@
     <string name="pull_to_refresh_footer_loading">正在加载...</string>
     <string name="pull_to_refresh_footer_show_all">已显示全部内容</string>
     <string name="no_content">没有内容</string>
+    <string name="no_data">没有数据</string>
 
     <string name="progress_dialog_message">正在加载,请稍候...</string>
     <string name="please_wait">请稍候...</string>
