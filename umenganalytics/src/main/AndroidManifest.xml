@@ -7,10 +7,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
 
     <application>
-        <!-- 友盟统计添加UmengAppkey -->
-        <!--<meta-data-->
-            <!--android:name="UMENG_APPKEY"-->
-            <!--android:value="57d2310fe0f55a2c9f00077c" />修改-->如果已经接入友盟分享等友盟的产品，这里就不用解开，不用配置UMENG_APPKEY了，可以用同一个，如果没有则要解开并配置
+        <!-- 友盟统计添加UmengAppkey -->如果已经接入友盟分享等友盟的产品，这里就不用解开，不用配置UMENG_APPKEY了，可以用同一个，如果没有则要解开并配置
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="596316f3cae7e739b9000ebe" />修改
+
         <!-- UMENG_CHANNEL 来标注应用推广渠道，不同渠道可以设置不同ID来区分   默认Umeng平台 -->
         <meta-data
             android:name="UMENG_CHANNEL"

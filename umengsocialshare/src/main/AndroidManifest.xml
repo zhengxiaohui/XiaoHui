@@ -14,7 +14,7 @@
         <!-- ###################添加UmengAppkey###################### -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57c4dfa7e0f55a8e5d000507">友盟的appkey
+            android:value="596316f3cae7e739b9000ebe">友盟的appkey
         </meta-data>
 
         <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1106202535" />
                 <!-- 必须修改成你在QQ开放平台申请的 APP ID，否则会提示分享取消-->
             </intent-filter>
         </activity>
