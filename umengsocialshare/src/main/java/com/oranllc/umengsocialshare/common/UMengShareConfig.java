@@ -10,9 +10,9 @@ import com.umeng.socialize.PlatformConfig;
 public class UMengShareConfig {
 
     public static void init(){
-        PlatformConfig.setWeixin("wx2fb3f65261273c01", "53c4c41e805012c84d12fce3df6a4bf7");//微信 appid appsecret
-        PlatformConfig.setSinaWeibo("3950824402", "0e0b069a66553a5661a144dd5a1c1fc2");//新浪微博 appkey appsecret
-        PlatformConfig.setQQZone("1104445562", "rao3WajHH09N5PAQ");// QQ和Qzone appid appkey
+        PlatformConfig.setWeixin("wx7706f375dc58472a", "0bdbdd917bdcb19a54c42d3098772b2c");//微信 appid appsecret
+        PlatformConfig.setSinaWeibo("2196713665", "d14b1d2247224882fdcb3c1fc5c40874");//新浪微博 appkey appsecret
+        PlatformConfig.setQQZone("1106202535", "IDyTJg8P9PNw1uQf");// QQ和Qzone appid appkey
 
 
 //        PlatformConfig.setAlipay("2015111700822536");

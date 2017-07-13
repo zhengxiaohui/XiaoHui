@@ -27,6 +27,16 @@ public class ShareManager {
         this.url = url;
     }
 
+    public static void share(Activity activity, String title, String text, String imagePath, String url) {
+        new ShareAction(activity).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
+                .withTitle(title)
+                .withText(text)
+                .withMedia(new UMImage(activity, imagePath))
+                .withTargetUrl(url)
+                .setCallback(new MyShareListener(activity))
+                .open();
+    }
+
     public void shareWeiXin() {
         new ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(new MyShareListener(activity))
                 .withTitle(title)

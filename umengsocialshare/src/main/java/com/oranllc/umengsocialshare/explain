@@ -59,9 +59,9 @@ private void showSharePopupWindow() {
         }
         alphaPopupWindow.showAtBottomWithUpDownAnim(this);
     }
-如果想用友盟默认的分享面板则使用如下代码（一般放到ProjectUtil中使用）：
+如果想用友盟默认的分享面板则使用如下代码（ShareManager中已经定义）：
 //使用友盟默认显示面板分享
-    public void share(Activity activity, String title, String text, String imagePath, String url) {
+    public static void share(Activity activity, String title, String text, String imagePath, String url) {
         new ShareAction(activity).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
                 .withTitle(title)
                 .withText(text)
