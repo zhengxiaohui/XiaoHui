@@ -27,11 +27,11 @@ public class ShareManager {
         this.url = url;
     }
 
-    public static void share(Activity activity, String title, String text, String imagePath, String url) {
+    public static void share(Activity activity, String title, String text, int drawableId, String url) {
         new ShareAction(activity).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
                 .withTitle(title)
                 .withText(text)
-                .withMedia(new UMImage(activity, imagePath))
+                .withMedia(new UMImage(activity, drawableId))
                 .withTargetUrl(url)
                 .setCallback(new MyShareListener(activity))
                 .open();
