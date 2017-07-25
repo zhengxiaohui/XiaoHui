@@ -30,6 +30,7 @@ public class ZSharedPreferences {
 	private SharedPreferences.Editor editor;
 
 	private static ZSharedPreferences mySharedPreferences = null;
+	public static final String FIRST_LAUNCH = "first_launch"; //是否第一次启动APP
 
 	public ZSharedPreferences(Context context) {
 		try {
@@ -190,6 +191,21 @@ public class ZSharedPreferences {
 			editor.remove(key);
 			editor.commit();
 		}
+	}
+
+	/**
+	 * 是否第一次启动app
+	 * @return
+     */
+	public boolean isFirstLaunchApp(){
+		return getBoolean(FIRST_LAUNCH, true);
+	}
+
+	/**
+	 * 设置已经启动过，不是第一次
+	 */
+	public void setHasFirstLaunchApp(){
+		putBoolean(FIRST_LAUNCH, false);
 	}
 
 }
