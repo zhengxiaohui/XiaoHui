@@ -84,9 +84,10 @@ public abstract class BaseWebViewActivity extends AbstractBaseActivity {
         });
 
         String url = getIntent().getStringExtra(URL);
-        if (!TextUtils.isEmpty(url)) {
-            webView.loadUrl(url);
+        if (TextUtils.isEmpty(url)) {
+            url="https://www.baidu.com";
         }
+        webView.loadUrl(url);
     }
 
 //    // 处理返回键
