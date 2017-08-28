@@ -107,7 +107,7 @@ public class TimerTextView extends TextView {
                 break;
         }
 //        setFormatText();
-        handler.sendEmptyMessageDelayed(0, 1000);
+        handler.sendEmptyMessage(0);
     }
 
     public void pause() {

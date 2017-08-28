@@ -11,6 +11,8 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />安装桌面快捷方式
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />打开设置界面
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />下载管理器
+    <uses-permission android:name="android.permission.WAKE_LOCK" />保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />允许读取手机状态
 
     <application>
         <activity android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />图片选择，可以单选，多选，拍照，报红没关系

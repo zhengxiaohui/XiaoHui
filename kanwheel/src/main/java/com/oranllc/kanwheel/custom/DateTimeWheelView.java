@@ -12,7 +12,7 @@ import com.oranllc.kanwheel.WheelView;
 import java.util.Arrays;
 import java.util.List;
 
-
+@Deprecated
 public class DateTimeWheelView {
 
     private Context context;

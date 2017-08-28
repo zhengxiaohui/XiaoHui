@@ -247,6 +247,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
             position = position - 1;//减掉头部
             if (onLoadMoreListener != null && position == list.size() - 1) {//已经到达列表的底部,用于判断加载更多
                 onLoadMoreListener.onLoadMore();
+                setFooterLoading();
             }
             itemViewHolder.setListener(position);
             itemViewHolder.setItemClick(position);

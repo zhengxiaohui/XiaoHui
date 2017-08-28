@@ -131,7 +131,6 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
             @Override
             public void onLoadMore() {
                 requestList(RefreshType.LOAD_MORE, false);
-                zBaseRecyclerAdapter.setFooterLoading();
             }
         });
 

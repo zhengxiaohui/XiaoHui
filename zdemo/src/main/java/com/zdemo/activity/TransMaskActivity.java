@@ -2,6 +2,7 @@ package com.zdemo.activity;
 
 import android.view.View;
 
+import com.zbase.view.VerifyCodeTextView;
 import com.zdemo.R;
 
 /**
@@ -11,6 +12,7 @@ import com.zdemo.R;
  */
 public class TransMaskActivity extends BaseActivity {
 
+    private VerifyCodeTextView verifyCodeTextView;
 
     @Override
     protected int inflateMainLayoutId() {
@@ -19,12 +21,12 @@ public class TransMaskActivity extends BaseActivity {
 
     @Override
     protected void initView(View view) {
-
+        verifyCodeTextView=(VerifyCodeTextView)view.findViewById(R.id.verifyCodeTextView);
     }
 
     @Override
     protected void setListener() {
-
+        verifyCodeTextView.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +36,16 @@ public class TransMaskActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.verifyCodeTextView:
+                verifyCodeTextView.start();
+                break;
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        verifyCodeTextView.onDestroy();
     }
 }
