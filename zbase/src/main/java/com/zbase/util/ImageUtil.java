@@ -27,9 +27,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.zbase.imagedispose.FastBlur;
 
 import java.io.ByteArrayOutputStream;
@@ -298,29 +295,6 @@ public class ImageUtil {
                 }
             }
         });
-    }
-
-    public static DisplayImageOptions getDisplayImageOptions(int defaultImageRes) {
-        return getDisplayImageOptions(defaultImageRes, 0, null);
-    }
-
-    /**
-     * 构造ImageLoader的Options
-     * @param defaultImageRes 加载，空，失败的默认图
-     * @param diameterDP 圆角直径
-     * @param context
-     * @return
-     */
-    public static DisplayImageOptions getDisplayImageOptions(int defaultImageRes, float diameterDP, Context context) {
-        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cloneFrom(DisplayImageOptions.createSimple())
-                .bitmapConfig(Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).cacheOnDisk(true).considerExifParams(true);
-        if (defaultImageRes != 0) {
-            builder.showImageOnLoading(defaultImageRes).showImageForEmptyUri(defaultImageRes).showImageOnFail(defaultImageRes);
-        }
-        if (context != null && diameterDP != 0) {
-            builder.displayer(new RoundedBitmapDisplayer(ScreenUtil.dip2px(context, diameterDP)));
-        }
-        return builder.build();
     }
 
     /**

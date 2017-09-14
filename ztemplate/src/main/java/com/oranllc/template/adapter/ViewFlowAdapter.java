@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.oranllc.template.R;
 import com.zbase.adapter.BaseViewFlowAdapter;
 import com.zbase.util.ImageUtil;
@@ -53,7 +53,7 @@ public class ViewFlowAdapter extends BaseViewFlowAdapter<String> {
 
         @Override
         protected void initValue(int position, String banners) {
-            ImageLoader.getInstance().displayImage(banners, iv_banner, ImageUtil.getDisplayImageOptions(R.mipmap.list_item_default));
+            Glide.with(context).load(banners).into(iv_banner);
         }
     }
 

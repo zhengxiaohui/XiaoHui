@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.zbase.R;
 import com.zbase.adapter.ZViewPagerAdapter;
 import com.zbase.common.BaseApplication;
-import com.zbase.util.ImageUtil;
 import com.zbase.view.viewpager.HackyViewPager;
 
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class PhotoViewActivity extends AbstractBaseActivity {
                 });
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 photoView.setLayoutParams(layoutParams);
-                ImageLoader.getInstance().displayImage(imagePath, photoView, ImageUtil.getDisplayImageOptions(drawableId));
+                Glide.with(this).load(imagePath).into(photoView);
                 photoViewList.add(photoView);
             }
         } else {

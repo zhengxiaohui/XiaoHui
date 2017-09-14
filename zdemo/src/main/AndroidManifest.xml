@@ -60,7 +60,6 @@
         <activity android:name=".activity.RegisterAndLoginActivity" />自定义注册和登录控件
         <activity android:name=".activity.LanguageSwitchActivity" />切换语言环境
         <activity android:name=".activity.DashBoardActivity" />各种样式的表盘
-        <activity android:name=".activity.ProgressImageFrameLayoutActivity" />带加载动画的图片控件（转圈圈）
         <activity android:name=".activity.TransMaskActivity" />按下显示半透明遮罩控件
         <activity android:name=".activity.PathDrawViewActivity" />正三角形和点路径集合的自定义图形
 

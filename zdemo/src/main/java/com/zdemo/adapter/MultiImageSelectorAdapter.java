@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.zbase.adapter.ZBaseRecyclerAdapter;
 import com.zdemo.R;
 
@@ -44,7 +44,7 @@ public class MultiImageSelectorAdapter extends ZBaseRecyclerAdapter<String> {
 
         @Override
         protected void initValue(int position, String uri) {
-            ImageLoader.getInstance().displayImage("file://" + uri, imageView);
+            Glide.with(context).load(uri).into(imageView);
         }
     }
 

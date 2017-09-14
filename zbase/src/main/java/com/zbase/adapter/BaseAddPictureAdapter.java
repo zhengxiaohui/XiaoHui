@@ -6,8 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zbase.common.Const;
+import com.bumptech.glide.Glide;
 import com.zbase.listener.ItemClickListener;
 
 /**
@@ -122,11 +121,7 @@ public abstract class BaseAddPictureAdapter extends ZBaseAdapterAdvance<String> 
             imageView.setVisibility(View.VISIBLE);
             iv_delete.setVisibility(View.VISIBLE);
             iv_add.setVisibility(View.GONE);
-            if (uri.startsWith("http")) {
-                ImageLoader.getInstance().displayImage(uri, imageView, Const.DEFAULT_IMAGE_OPTIONS);
-            } else {
-                ImageLoader.getInstance().displayImage(Const.URI_PRE + uri, imageView, Const.DEFAULT_IMAGE_OPTIONS);
-            }
+            Glide.with(context).load(uri).into(imageView);
         }
     }
 

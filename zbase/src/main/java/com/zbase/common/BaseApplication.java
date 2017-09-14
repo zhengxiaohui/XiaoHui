@@ -1,18 +1,9 @@
 package com.zbase.common;
 
 import android.app.Application;
-import android.graphics.Bitmap;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.zbase.BuildConfig;
 import com.zbase.manager.ActivityStackManager;
 
@@ -48,34 +39,7 @@ public abstract class BaseApplication extends Application {
             }
         });
 
-        initImageLoader();
-
         initOkHttp();
-    }
-
-    private void initImageLoader() {
-        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
-                .cloneFrom(DisplayImageOptions.createSimple())//先获取默认的设置,默认是不缓存的
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .cacheOnDisk(true)//允许磁盘缓存
-                .displayer(new SimpleBitmapDisplayer()).build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .threadPriority(Thread.NORM_PRIORITY - 2)// 设置线程的优先级
-                .tasksProcessingOrder(QueueProcessingType.LIFO)// 设置图片下载和显示的工作队列排序
-                .denyCacheImageMultipleSizesInMemory()// 当同一个Uri获取不同大小的图片，缓存到内存时，只缓存一个。默认会缓存多个不同的大小的相同图片
-                .memoryCache(new LruMemoryCache(6 * 1024 * 1024))//如果设置了这个弱缓存，就不要设置memoryCacheSize，memoryCacheSizePercentage
-//                .memoryCacheSize(6 * 1024 * 1024)//设置缓存的大小
-//                .memoryCacheSizePercentage(13) // 设置缓存空间占应用所需缓存的百分比
-                //如果配置了缓存路径和缓存方式的，就不要配置diskCacheFileNameGenerator，diskCacheSize，diskCacheFileCount
-//                .diskCache(new UnlimitedDiskCache(StorageUtils.getOwnCacheDirectory(getApplicationContext(), SystemConst.IMAGE_CACHE)))
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())// 设置缓存文件的名字，如果指定了上述的缓存路径和缓存方式的，就不要配置这个信息
-                .diskCacheSize(50 * 1024 * 1024)//设置缓存文件的大小，如果指定了上述的缓存路径和缓存方式的，就不要配置这个信息
-                .diskCacheFileCount(100)// 缓存文件的最大个数，如果指定了上述的缓存路径和缓存方式的，就不要配置这个信息
-                .defaultDisplayImageOptions(displayImageOptions)
-                .writeDebugLogs()
-                .build();
-        ImageLoader.getInstance().init(config);
     }
 
     private void initOkHttp() {

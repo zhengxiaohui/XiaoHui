@@ -2,7 +2,7 @@ package com.oranllc.template.activity;
 
 import android.view.View;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.oranllc.template.R;
 import com.oranllc.template.global.MyApplication;
 import com.zbase.activity.BaseGuideActivity;
@@ -58,7 +58,7 @@ public class GuideActivity extends BaseGuideActivity {
     protected void initValue() {
         if (imageUrlList != null && imageUrlList.size() > 0) {
             for (int i = 0; i < imageUrlList.size(); i++) {
-                ImageLoader.getInstance().displayImage(imageUrlList.get(i), imageViewList.get(i));
+                Glide.with(context).load(imageUrlList.get(i)).into(imageViewList.get(i));
             }
         }
     }
