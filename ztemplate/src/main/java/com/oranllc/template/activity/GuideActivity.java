@@ -2,7 +2,6 @@ package com.oranllc.template.activity;
 
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.oranllc.template.R;
 import com.oranllc.template.global.MyApplication;
 import com.zbase.activity.BaseGuideActivity;
@@ -31,7 +30,7 @@ public class GuideActivity extends BaseGuideActivity {
 
     @Override
     protected int getPageCount() {
-        return 4;
+        return 3;
     }
 
     @Override
@@ -56,11 +55,14 @@ public class GuideActivity extends BaseGuideActivity {
 
     @Override
     protected void initValue() {
-        if (imageUrlList != null && imageUrlList.size() > 0) {
-            for (int i = 0; i < imageUrlList.size(); i++) {
-                Glide.with(context).load(imageUrlList.get(i)).into(imageViewList.get(i));
-            }
-        }
+//        if (imageUrlList != null && imageUrlList.size() > 0) {
+//            for (int i = 0; i < imageUrlList.size(); i++) {
+//                Glide.with(context).load(imageUrlList.get(i)).into(imageViewList.get(i));
+//            }
+//        }
+        imageViewList.get(0).setImageResource(R.mipmap.guide_one);
+        imageViewList.get(1).setImageResource(R.mipmap.guide_two);
+        imageViewList.get(2).setImageResource(R.mipmap.guide_three);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class LaunchActivity extends BaseLaunchActivity {
     @Override
     protected void initValue() {
 //        requestLaunchImage();
-        iv_launch.setImageResource(R.mipmap.list_item_default);
+        iv_launch.setImageResource(R.mipmap.launch_logo);
         startHandler(3000);
     }
 
