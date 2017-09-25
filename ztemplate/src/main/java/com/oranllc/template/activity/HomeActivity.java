@@ -18,9 +18,6 @@ import com.zbase.view.MyTabWidget;
 public class HomeActivity extends BaseActivity {
 
     private MyTabWidget myTabWidget;
-    private HomeFragment1 homeFragment1;
-    private HomeFragment2 homeFragment2;
-    private HomeFragment3 homeFragment3;
 
     @Override
     protected int inflateMainLayoutId() {
@@ -55,9 +52,9 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initValue() {
         setTopGone();
-        homeFragment1 = new HomeFragment1();
-        homeFragment2 = new HomeFragment2();
-        homeFragment3 = new HomeFragment3();
+        HomeFragment1 homeFragment1 = new HomeFragment1();
+        HomeFragment2 homeFragment2 = new HomeFragment2();
+        HomeFragment3 homeFragment3 = new HomeFragment3();
         initMultiFragment(R.id.fl_fragment, new Fragment[]{homeFragment1, homeFragment2, homeFragment3});
 
     }

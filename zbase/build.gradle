@@ -27,4 +27,5 @@ dependencies {
     compile project(':ptr-lib')
     compile project(':multi-image-selector')
     compile project(':umenganalytics')
+    compile project(':sliding-menu')
 }

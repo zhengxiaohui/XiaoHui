@@ -20,4 +20,15 @@
         <item>女</item>
     </string-array>
 
+    <string-array name="tests">
+        <item>龙之谷</item>
+        <item>柔情剑雨之倩女乱情</item>
+        <item>诸神战绩IV</item>
+        <item>梦幻西游</item>
+        <item>王者荣耀</item>
+        <item>英雄无敌</item>
+        <item>龙珠激斗</item>
+        <item>三国群英传</item>
+    </string-array>
+
 </resources>

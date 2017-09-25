@@ -1,6 +1,7 @@
-include ':umengsocialshare', ':jpush', ':umenganalytics', ':baidumap', ':juhe', ':common', ':kanwheel', ':multi-image-selector', ':ptr-lib', ':okhttputils', ':alipay', ':ztemplate', ':share', ':glide'
+include ':umengsocialshare', ':jpush', ':umenganalytics', ':baidumap', ':juhe', ':common', ':kanwheel', ':multi-image-selector', ':ptr-lib', ':okhttputils', ':alipay', ':ztemplate', ':share', ':glide', ':sliding-menu'
 include ':zdemo'
 include ':zbase'
 include ':customshapeimageview'
 include ':nineoldandroids'
 include ':zxing'
+include ':box'
