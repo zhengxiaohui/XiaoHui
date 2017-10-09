@@ -24,4 +24,20 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
+    <style name="c7_text_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/c7</item>
+    </style>
+
+    <style name="small_button_blue">
+        <item name="android:background">@drawable/rectangle_solid_c3_corner_20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c2</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
 </resources>

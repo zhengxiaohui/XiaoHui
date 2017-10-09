@@ -4,13 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="c1">#ff3222</color>主颜色 红色
-    <color name="c2">#f2f2f2</color>默认背景灰色
-    <color name="c3">#b0b0b0</color>输入框内文字提示颜色
-    <color name="c4">#dcdcdc</color>所有线、描边颜色
-    <color name="c6">#222222</color>
-    <color name="c8">#ffffff</color>
-    <color name="c9">#fc8c1e</color>
+    <color name="c0">#00000000</color>透明
+    <color name="c1">#000000</color>黑色
+    <color name="c2">#ffffff</color>白色
+    <color name="c3">#3290FF</color>主颜色
+    <color name="c4">#f0f0f0</color>背景颜色
+    <color name="c5">#dcdcdc</color>线条颜色
+    <color name="c6">#b0b0b0</color>灰态字体
+    <color name="c7">#707070</color>
+    <color name="c8">#ff2f2f</color>
+    <color name="c9">#A19068</color>
     <color name="c17">#878787</color>
     <color name="c22">#78c14c</color>
     <color name="c25">#0cacff</color>

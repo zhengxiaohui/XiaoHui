@@ -11,4 +11,10 @@
 
     <string name="hold_down_the_talk">按住说话</string>
     <string name="loosen_the_stop">松开停止</string>
+
+    <string name="week_of_ranking">周排行</string>
+    <string name="list_of_praise">好评榜</string>
+    <string name="total_seniority">总排行</string>
+
+    <string name="to_obtain">获取</string>
 </resources>

@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.zbase.R;
@@ -144,6 +145,14 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(getResources().getColor(id));
         decorViewGroup.addView(statusBarView);
+    }
+
+    /**
+     * 调用第三方库
+     * @param id
+     */
+    protected void setStatusBarColorCompat(@ColorRes int id) {
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(id));
     }
 
     /**
