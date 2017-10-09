@@ -1,6 +1,7 @@
 package com.oranllc.template.global;
 
 
+import com.zbase.enums.PageType;
 import com.zbase.request.BaseGetRequestPage;
 
 /**
@@ -15,13 +16,8 @@ public class GetRequestPage extends BaseGetRequestPage {
     }
 
     @Override
-    protected String getIndexKey() {
+    public String getIndexKey() {
         return "index";
-    }
-
-    @Override
-    protected String getLastIdKey() {
-        return "lastId";
     }
 
     @Override

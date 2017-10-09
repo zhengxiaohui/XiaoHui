@@ -29,7 +29,7 @@ import okhttp3.Response;
 public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshResponse> {
 
     protected Context context;
-    private BaseGetRequestPage baseGetRequestPage;
+    private IRequestPage requestPage;
     private Class<T> clazz;
     private RecyclerView recyclerView;
     protected ZBaseRecyclerAdapter zBaseRecyclerAdapter;
@@ -37,12 +37,12 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     private long httpBackTime;//请求http的返回时间
     private static final long minRefreshTime = 1000;//最小刷新时间
 
-    public BaseGetRequestPage getBaseGetRequestPage() {
-        return baseGetRequestPage;
+    public IRequestPage getRequestPage() {
+        return requestPage;
     }
 
-    public void setBaseGetRequestPage(BaseGetRequestPage baseGetRequestPage) {
-        this.baseGetRequestPage = baseGetRequestPage;
+    public void setRequestPage(IRequestPage requestPage) {
+        this.requestPage = requestPage;
     }
 
     /**
@@ -86,16 +86,16 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
      * RecyclerView下拉刷新和滚动到底自动加载更多的构造方法
      *
      * @param context
-     * @param baseGetRequestPage    请求分页的类型
+     * @param requestPage    请求分页的类型
      * @param clazz                 返回的Json类的clazz对象
      * @param ptrClassicFrameLayout 下拉刷新控件，如果传null则没有下拉刷新的功能，只有滚动到底自动加载更多的功能
      * @param recyclerView
      * @param zBaseRecyclerAdapter
      */
-    public BaseAutoUltraPullToRefresh(Context context, BaseGetRequestPage baseGetRequestPage, Class<T> clazz,
+    public BaseAutoUltraPullToRefresh(Context context, IRequestPage requestPage, Class<T> clazz,
                                       PtrClassicFrameLayout ptrClassicFrameLayout, RecyclerView recyclerView, ZBaseRecyclerAdapter zBaseRecyclerAdapter) {
         this.context = context;
-        this.baseGetRequestPage = baseGetRequestPage;
+        this.requestPage = requestPage;
         this.clazz = clazz;
         this.ptrClassicFrameLayout = ptrClassicFrameLayout;
         this.recyclerView = recyclerView;
@@ -192,15 +192,12 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
      * @param showProgress 是否显示转圈圈
      */
     private void refresh(boolean showProgress) {
-        switch (baseGetRequestPage.getPageType()) {
+        switch (requestPage.getPageType()) {
             case START_PAGE0:
-                baseGetRequestPage.setPageIndex(0);
+                requestPage.setPageIndex(0);
                 break;
             case START_PAGE1:
-                baseGetRequestPage.setPageIndex(1);
-                break;
-            case LAST_ID:
-
+                requestPage.setPageIndex(1);
                 break;
         }
         requestList(RefreshType.INIT_REFRESH, showProgress);
@@ -208,7 +205,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     }
 
     private void requestList(final RefreshType refreshType, boolean showProgress) {
-        baseGetRequestPage.execute(new BaseJsonCallback<T>(context, clazz, showProgress) {
+        requestPage.execute(new BaseJsonCallback<T>(context, clazz, showProgress) {
 
             @Override
             public void onBefore(BaseRequest request) {
@@ -221,7 +218,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
                     Response response) {
                 if (t != null && t.isSuccess()) {//请求状态成功
                     if (t.getList() != null && t.getList().size() > 0) {
-                        baseGetRequestPage.setPageIndex(baseGetRequestPage.getPageIndex() + 1);
+                        requestPage.setPageIndex(requestPage.getPageIndex() + 1);
                         if (onObtainDataListener != null) {
                             onObtainDataListener.onObtainData(t);
                         }
