@@ -20,7 +20,7 @@ android {
     }
 
     signingConfigs {
-        release {
+        keyStore {
             keyAlias 'test'
             keyPassword '123456'
             storeFile file('D:/test.jks')
@@ -35,7 +35,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.keyStore
         }
     }
 

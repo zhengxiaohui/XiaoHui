@@ -1,4 +1,4 @@
-include ':umengsocialshare', ':jpush', ':umenganalytics', ':baidumap', ':juhe', ':common', ':kanwheel', ':multi-image-selector', ':ptr-lib', ':okhttputils', ':alipay', ':ztemplate', ':share', ':glide', ':sliding-menu'
+include ':umengsocialshare', ':jpush', ':umenganalytics', ':baidumap', ':juhe', ':common', ':kanwheel', ':multi-image-selector', ':ptr-lib', ':okhttputils', ':alipay', ':ztemplate', ':share', ':glide', ':sliding-menu', ':magicindicator-demo', ':magicindicator'
 include ':zdemo'
 include ':zbase'
 include ':customshapeimageview'

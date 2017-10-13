@@ -10,7 +10,8 @@
     </declare-styleable>
 
     <declare-styleable name="LinearStars">
-        <attr name="starMaxNum" format="integer" />
+        <attr name="currentStar" format="integer" />
+        <attr name="maxStar" format="integer" />
         <attr name="hollowStarDrawable" format="color|reference" />
         <attr name="solidStarDrawable" format="color|reference" />
         <attr name="intervalSpace" format="dimension" />

@@ -19,8 +19,8 @@ import com.zbase.listener.IndexClickLisenter;
  */
 public class LinearStars extends LinearLayout {
 
-    private int currentStarNum;//当前星星数量
-    private int starMaxNum = 5;//星星最多数量，默认5颗
+    private int currentStar;//当前星星数量
+    private int maxStar = 5;//星星最多数量，默认5颗
     private Drawable hollowStarDrawable;//空心星星图片资源id
     private Drawable solidStarDrawable;//实心星星图片资源id
     private int intervalSpace;//星星之间的间隔
@@ -47,7 +47,8 @@ public class LinearStars extends LinearLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.LinearStars, defStyle, 0);
 
-        starMaxNum = a.getInt(R.styleable.LinearStars_starMaxNum, starMaxNum);
+        currentStar = a.getInt(R.styleable.LinearStars_currentStar, currentStar);
+        maxStar = a.getInt(R.styleable.LinearStars_maxStar, maxStar);
 
         if (a.hasValue(R.styleable.LinearStars_hollowStarDrawable)) {
             hollowStarDrawable = a.getDrawable(R.styleable.LinearStars_hollowStarDrawable);
@@ -65,21 +66,21 @@ public class LinearStars extends LinearLayout {
         gradeAble = a.getBoolean(R.styleable.LinearStars_gradeAble, gradeAble);
 
         a.recycle();
-        setCurrentStarNum(0);
+        setCurrentStar(currentStar);
     }
 
     /**
      * 设置当前星星数量
      *
-     * @param currentStarNum
+     * @param currentStar
      */
-    public void setCurrentStarNum(int currentStarNum) {
-        if (currentStarNum > starMaxNum) {
+    public void setCurrentStar(int currentStar) {
+        if (currentStar > maxStar) {
             return;
         }
-        this.currentStarNum = currentStarNum;
+        this.currentStar = currentStar;
         removeAllViews();
-        for (int i = 0; i < starMaxNum; i++) {
+        for (int i = 0; i < maxStar; i++) {
             LinearLayout.LayoutParams layoutParams;
             if (starSize == 0) {
                 layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -89,7 +90,7 @@ public class LinearStars extends LinearLayout {
             if (i != 0) {
                 layoutParams.leftMargin = intervalSpace;
             }
-            if (i < currentStarNum) {
+            if (i < currentStar) {
                 ImageView starSolidImageView = new ImageView(getContext());
                 starSolidImageView.setLayoutParams(layoutParams);
                 starSolidImageView.setImageDrawable(solidStarDrawable);
@@ -97,7 +98,7 @@ public class LinearStars extends LinearLayout {
                     starSolidImageView.setOnClickListener(new IndexClickLisenter(i) {
                         @Override
                         public void onClick(View v) {
-                            setCurrentStarNum(index + 1);
+                            setCurrentStar(index + 1);
                         }
                     });
                 }
@@ -110,7 +111,7 @@ public class LinearStars extends LinearLayout {
                     starEmptyImageView.setOnClickListener(new IndexClickLisenter(i) {
                         @Override
                         public void onClick(View v) {
-                            setCurrentStarNum(index + 1);
+                            setCurrentStar(index + 1);
                         }
                     });
                 }
@@ -119,16 +120,16 @@ public class LinearStars extends LinearLayout {
         }
     }
 
-    public int getCurrentStarNum() {
-        return currentStarNum;
+    public int getCurrentStar() {
+        return currentStar;
     }
 
-    public int getStarMaxNum() {
-        return starMaxNum;
+    public int getMaxStar() {
+        return maxStar;
     }
 
-    public void setStarMaxNum(int starMaxNum) {
-        this.starMaxNum = starMaxNum;
+    public void setMaxStar(int maxStar) {
+        this.maxStar = maxStar;
     }
 
     public Drawable getHollowStarDrawable() {

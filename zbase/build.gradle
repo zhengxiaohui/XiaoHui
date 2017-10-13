@@ -29,4 +29,5 @@ dependencies {
     compile project(':multi-image-selector')
     compile project(':umenganalytics')
     compile project(':sliding-menu')
+    compile project(':magicindicator')
 }

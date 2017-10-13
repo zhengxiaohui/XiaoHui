@@ -3,7 +3,6 @@ package com.zbase.view.adapterview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import com.zbase.util.ScreenUtil;
 /**
  * 创建人：郑晓辉
  * 创建日期：2017/02/25
- * 描述：智能包裹LinearLayout，水平循环放置TextView，当前行放不下则放到下一行中。经常用于做搜索记录和热门标签等。
+ * 描述：智能包裹LinearLayout，水平循环放置任何View，当前行放不下则放到下一行中。经常用于做搜索记录和热门标签等(TextView就可以)。
  * 注意：做搜索记录等和EditText有交互的时候，最好是在activity布局中include记录列表并通过设置Visibility控制隐藏显示，而不要使用PopupWindow控件做。
  * 如果使用PopupWindow控件做，则SmartWrapLinearLayout的宽度需要设置成固定dp而不能用match（获取不到），并且会出现弹出PopupWindow后EditText失去焦点的情况（不能输入文字）
  */
@@ -69,12 +68,12 @@ public class SmartWrapLinearLayout extends LinearLayout {
             remainingWidth = totalWidth;
         }
         this.adapter = adapter;
-        new Handler().postDelayed(new Runnable() {//延迟50毫秒后执行，不然有时候得不到remainingWidth的值。
+        post(new Runnable() {//LinearLayout渲染出来后调用
             @Override
             public void run() {
                 initView();
             }
-        },300);
+        });
     }
 
     private void initView() {

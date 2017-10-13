@@ -9,6 +9,8 @@ import android.widget.SimpleAdapter;
 
 import com.zdemo.R;
 
+import net.lucode.hackware.magicindicatordemo.example.ExampleMainActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +27,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
             UltraPullToRefreshActivity.class, DownloadManagerActivity.class, ObservableHorizontalScrollViewActivity.class, AutoCycleSlideViewActivity.class,
             MultiImageSelectActivity.class, PasswordViewActivity.class,QRCodeActivity.class,SeePhotoViewActivity.class,MultiWheelViewActivity.class,
             AdapterSelectActivity.class,LongClickLinearLayoutActivity.class,SwitchButtonActivity.class,FewUseWidgetActivity.class,RegisterAndLoginActivity.class,
-            LanguageSwitchActivity.class,DashBoardActivity.class,TransMaskActivity.class,PathDrawViewActivity.class,CustTabViewpagerActivity.class
+            LanguageSwitchActivity.class,DashBoardActivity.class,TransMaskActivity.class,PathDrawViewActivity.class,CustTabViewpagerActivity.class,ExampleMainActivity.class
     };
     private String[] demoNames = {"列表和图片的3D左右旋转", "HTML文本显示",
             "各种自定义popupWindow", " 自定义对话框，布局样式都自定义",
@@ -35,7 +37,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
             , "聚合数据", "通用下拉刷新UltraPullToRefresh", "DownloadManager下载", "监控HorizontalScrollView的滑动状态", "AutoCycleSlideView自定义自动滚动幻灯片",
             "图库单选多选拍摄图片", "密码输入框控件", "扫一扫","PhotoViewActivity","多个WheelView滚轮控件","列表单选，多选，全选，取消全选","长按布局控件结合录音播放计时等"
             ,"SwitchButton滑动开关","很少用到的系统控件使用示例","自定义注册和登录控件","切换语言环境","各种样式的表盘","按下灰色遮罩和验证码倒计时"
-            ,"正三角形和点路径集合的自定义图形","cust tab viewpager"
+            ,"正三角形和点路径集合的自定义图形","cust tab viewpager","MagicIndicator"
 
     };
 
