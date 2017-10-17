@@ -2,10 +2,22 @@ package com.zbase.common;
 
 import android.app.Application;
 
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
-import com.zbase.BuildConfig;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.squareup.picasso.Picasso;
 import com.zbase.manager.ActivityStackManager;
+
+import java.util.Collections;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 
 /**
  * 创建人：郑晓辉
@@ -20,7 +32,7 @@ public abstract class BaseApplication extends Application {
         return activityStack;
     }
 
-    public static boolean debugMode = BuildConfig.DEBUG;
+    public static boolean debugMode=true;//是否是调试模式，默认true
 
     @Override
     public void onCreate() {
@@ -39,7 +51,57 @@ public abstract class BaseApplication extends Application {
             }
         });
 
+        initImageLoader();
         initOkHttp();
+        initPicasso();
+    }
+
+    private void initImageLoader() {
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
+                .diskCacheExtraOptions(480, 800, null)
+//                        .taskExecutor(...)
+//                        .taskExecutorForCachedImages(...)
+//                        .threadPoolSize(3) // default
+                .threadPriority(Thread.NORM_PRIORITY - 1) // default
+                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
+//                        .diskCache(new UnlimitedDiscCache(cacheDir)) // default
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+//                        .imageDownloader(new BaseImageDownloader(context)) // default
+//                        .imageDecoder(new BaseImageDecoder()) // default
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+                .writeDebugLogs()
+                .build();
+
+        //ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).build();
+        ImageLoader.getInstance().init(config);
+
+        //        DisplayImageOptions options = new DisplayImageOptions.Builder()
+        //                .showImageOnLoading(R.drawable.ic_stub) // resource or drawable
+        //                .showImageForEmptyUri(R.drawable.ic_empty) // resource or drawable
+        //                .showImageOnFail(R.drawable.ic_error) // resource or drawable
+        //                .resetViewBeforeLoading(false)  // default
+        //                .delayBeforeLoading(1000)
+        //                .cacheInMemory(false) // default
+        //                .cacheOnDisk(false) // default
+        //                .preProcessor(...)
+        //                .postProcessor(...)
+        //                .extraForDownloader(...)
+        //                .considerExifParams(false) // default
+        //                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+        //                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+        //                .decodingOptions(...)
+        //                .displayer(new SimpleBitmapDisplayer()) // default
+        //                .handler(new Handler()) // default
+        //                .build();
+
     }
 
     private void initOkHttp() {
@@ -63,9 +125,24 @@ public abstract class BaseApplication extends Application {
         //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
 //                .addCommonHeaders(headers)                                         //设置全局公共头
 //                .addCommonParams(params);                                          //设置全局公共参数
-        if (BuildConfig.DEBUG) {
+        if (debugMode) {
             okHttpUtils.debug("OkHttpUtils");
         }
+    }
+
+    /**
+     * Picasso增加对https图片的支持
+     */
+    private void initPicasso(){
+        final OkHttpClient client = new OkHttpClient.Builder()
+                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
+                .build();
+
+        final Picasso picasso = new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(client))
+                .build();
+
+        Picasso.setSingletonInstance(picasso);
     }
 
     /**
