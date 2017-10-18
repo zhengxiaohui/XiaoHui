@@ -9,7 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
 /**
  * 圆角图片
@@ -17,7 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * @author zhengxiaohui
  * @since 2017/8/30
  */
-public class GlideRoundTransform extends BitmapTransformation {
+public class GlideRoundTransform extends CenterCrop {
 
     private static float radius = 0f;
 
@@ -31,7 +31,8 @@ public class GlideRoundTransform extends BitmapTransformation {
     }
 
     @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return roundCrop(pool, toTransform);
+        Bitmap transform = super.transform(pool, toTransform, outWidth, outHeight);
+        return roundCrop(pool, transform);
     }
 
     private static Bitmap roundCrop(BitmapPool pool, Bitmap source) {
@@ -51,7 +52,4 @@ public class GlideRoundTransform extends BitmapTransformation {
         return result;
     }
 
-    @Override public String getId() {
-        return getClass().getName() + Math.round(radius);
-    }
 }

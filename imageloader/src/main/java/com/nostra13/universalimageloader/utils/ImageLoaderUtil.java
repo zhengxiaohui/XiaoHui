@@ -22,7 +22,7 @@ public class ImageLoaderUtil {
     }
 
     public static DisplayImageOptions getDisplayImageOptions(int defaultImageRes, float diameterDP, Context context) {
-        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT);
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true);
         if (defaultImageRes != 0) {
             builder.showImageOnLoading(defaultImageRes).showImageForEmptyUri(defaultImageRes).showImageOnFail(defaultImageRes);
         }
