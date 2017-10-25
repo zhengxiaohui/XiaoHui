@@ -6,6 +6,8 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -94,6 +96,14 @@ public class ZSharedPreferences {
 		}
 	}
 
+	public void putList(String entry, List<String> list) {
+		putJsonBean(entry,list);
+	}
+
+	public void putMap(String entry, Map<String,String> map) {
+		putJsonBean(entry,map);
+	}
+
 	public String getString(String entry, String defaultValue) {
 		if (editor == null) {
 			return defaultValue;
@@ -173,6 +183,14 @@ public class ZSharedPreferences {
 		}
 	}
 
+	public List<String> getList(String entry) {
+		return getJsonBean(entry,List.class);
+	}
+
+	public Map<String,String> getMap(String entry) {
+		return getJsonBean(entry,Map.class);
+	}
+
 	/**
 	 * 清空SharedPreferences里所有数据,就是清空整个配置文件
 	 */
@@ -196,7 +214,7 @@ public class ZSharedPreferences {
 	/**
 	 * 是否第一次启动app
 	 * @return
-     */
+	 */
 	public boolean isFirstLaunchApp(){
 		return getBoolean(FIRST_LAUNCH, true);
 	}

@@ -49,4 +49,21 @@ public class ListUtil {
         list.add(t);
     }
 
+    /**
+     * 将list的最后一个元素顶出，要进来的元素排最前，其实就是队列先进先出的数据结构，要设置一个最大个数，常用于存放搜索记录等固定条数的数据。
+     * @param maxSize list的最大长度，就是最大个数
+     * @param list 操作对象List
+     * @param t 推进来的泛型对象
+     * @param <T>
+     */
+    public static <T> void pushOutLast(int maxSize, List<T> list, T t) {
+        if (list.contains(t)) {
+            return;
+        }
+        if (list.size() == maxSize) {
+            list.remove(maxSize-1);
+        }
+        list.add(0,t);
+    }
+
 }

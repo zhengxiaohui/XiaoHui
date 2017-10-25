@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
  * 其实只是普通的LinearLayout循环添加子View进去，只是传入了标准BaseAdapter使用，垂直或水平都可以。
  * 这种方式就是硬编码的升级版，可以使用BaseAdapter
  */
-@Deprecated
 public class LinearListView extends LinearLayout {
 
     public LinearListView(Context context) {

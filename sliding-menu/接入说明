@@ -1,0 +1,30 @@
+用法：
+private SlidingMenu menu;
+
+View view=inflate(R.layout.menu_home_activity);
+        ll_setting = (LinearLayout) view.findViewById(R.id.ll_setting);
+        ll_message = (LinearLayout) view.findViewById(R.id.ll_message);
+        ll_help = (LinearLayout) view.findViewById(R.id.ll_help);
+        ll_share = (LinearLayout) view.findViewById(R.id.ll_share);
+        ll_update = (LinearLayout) view.findViewById(R.id.ll_update);
+        ll_about = (LinearLayout) view.findViewById(R.id.ll_about);
+        ll_setting.setOnClickListener(this);
+        ll_message.setOnClickListener(this);
+        ll_help.setOnClickListener(this);
+        ll_share.setOnClickListener(this);
+        ll_update.setOnClickListener(this);
+        ll_about.setOnClickListener(this);
+        menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//        menu.setFadeDegree(0.35f);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(view);
+
+
+        switch (code) {
+                    case BroadcastConstant.SWITCH_MENU:
+                        menu.toggle();
+                        break;
+                }

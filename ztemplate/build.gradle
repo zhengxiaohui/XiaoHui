@@ -23,7 +23,7 @@ android {
         keyStore {
             keyAlias 'test'
             keyPassword '123456'
-            storeFile file('D:/test.jks')
+            storeFile file('./test.jks')//放在根目录的话:file('./../debug.keystore')(./表示当前目录)(../表示上一层目录)
             storePassword '123456'
         }
     }

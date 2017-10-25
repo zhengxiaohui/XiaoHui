@@ -32,6 +32,45 @@ public class ViewUtil {
     }
 
     /**
+     * 文字超过设置的最大行数，则显示按钮（显示全部）。点击按钮放开最大行数，这里设置100行
+     * 注意：一定要在设置完文本之后再调用。
+     * @param tv_content
+     * @param button
+     * @param maxLine
+     */
+    public static void setTextViewMaxLinesWithButtonHide(final TextView tv_content, final View button, final int maxLine){
+        tv_content.setMaxLines(maxLine);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_content.setMaxLines(100);
+                button.setVisibility(View.GONE);
+            }
+        });
+        tv_content.post(new Runnable() {
+            @Override
+            public void run() {
+                if(judgeFull(tv_content,maxLine)){
+                    button.setVisibility(View.VISIBLE);
+                }else {
+                    button.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    /**
+     * 判断文字总长度是否超过最大行数
+     * @param textView
+     * @param maxLine 最大行数
+     * @return
+     */
+    private static boolean judgeFull(TextView textView,int maxLine){
+        return textView.getPaint().measureText(textView.getText().toString()) > maxLine*(textView.getWidth() -
+                textView.getPaddingRight() - textView.getPaddingLeft());
+    }
+
+    /**
      * 设置EditText的点击事件
      *
      * @param context
@@ -63,9 +102,9 @@ public class ViewUtil {
      * @param rightDip 右边距离
      */
     public static void setTabLayoutIndicatorWidth(final TabLayout tabs, final int leftDip, final int rightDip) {
-        tabs.post(new Runnable() {//TabLayout渲染出来后调用
+        tabs.post(new Runnable() {
             @Override
-            public void run() {
+            public void run() {//TabLayout渲染出来后调用
                 Class<?> tabLayout = tabs.getClass();
                 Field tabStrip = null;
                 try {

@@ -1,10 +1,9 @@
 package com.nostra13.universalimageloader.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
@@ -29,6 +28,15 @@ public class ImageLoaderUtil {
         if (context != null && diameterDP != 0) {
             builder.displayer(new RoundedBitmapDisplayer(dip2px(context, diameterDP)));
         }
+        return builder.build();
+    }
+
+    public static DisplayImageOptions getHeadDisplayImageOptions(int defaultImageRes) {
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true);
+        if (defaultImageRes != 0) {
+            builder.showImageOnLoading(defaultImageRes).showImageForEmptyUri(defaultImageRes).showImageOnFail(defaultImageRes);
+        }
+        builder.displayer(new CircleBitmapDisplayer());
         return builder.build();
     }
 

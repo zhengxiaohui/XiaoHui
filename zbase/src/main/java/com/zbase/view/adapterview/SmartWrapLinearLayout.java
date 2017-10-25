@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import com.zbase.R;
 import com.zbase.util.ScreenUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 创建人：郑晓辉
  * 创建日期：2017/02/25
@@ -27,6 +30,12 @@ public class SmartWrapLinearLayout extends LinearLayout {
     private BaseAdapter adapter;
     private int viewSpace;//View之间的间距
     private int lineSpace;//行间距
+    private List<View> viewList=new ArrayList<>();
+    private InitViewCallBack initViewCallBack;
+
+    private interface InitViewCallBack{
+        void onInitViewCallBack();
+    }
 
     public SmartWrapLinearLayout(Context context) {
         super(context);
@@ -56,6 +65,12 @@ public class SmartWrapLinearLayout extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (totalWidth == 0) {
             totalWidth = getMeasuredWidth();
+            post(new Runnable() {//LinearLayout渲染出来后调用
+                @Override
+                public void run() {
+                    initView();
+                }
+            });
         }
     }
 
@@ -64,21 +79,42 @@ public class SmartWrapLinearLayout extends LinearLayout {
      * @param adapter
      */
     public void setAdapter(BaseAdapter adapter) {
-        if (totalWidth != 0) {
-            remainingWidth = totalWidth;
-        }
         this.adapter = adapter;
+    }
+
+    public List<View> getViewList(){
+        return  viewList;
+    }
+
+    public void setSelectedPosition(final int position){
+        if (initViewCallBack==null) {
+            initViewCallBack=new InitViewCallBack() {
+                @Override
+                public void onInitViewCallBack() {
+                    setSelected(position);
+                }
+            };
+        }else{
+            setSelected(position);
+        }
+    }
+
+    private void setSelected(final int position){
+        for (View view : viewList) {
+            view.setSelected(false);
+        }
         post(new Runnable() {//LinearLayout渲染出来后调用
             @Override
             public void run() {
-                initView();
+                viewList.get(position).setSelected(true);
             }
         });
     }
 
     private void initView() {
+        remainingWidth = totalWidth;
+        removeAllViews();//这里为空也要刷新控件
         if (adapter != null && adapter.getCount() > 0) {
-            removeAllViews();
             currentLinearLayout = createLinearLayout(false);
             addView(currentLinearLayout);//默认添加第一个子LinearLayout
             for (int i = 0; i < adapter.getCount(); i++) {
@@ -101,6 +137,10 @@ public class SmartWrapLinearLayout extends LinearLayout {
                 }
                 currentLinearLayout.addView(view);
                 remainingWidth -= viewMeasuredWidth;
+                viewList.add(view);
+            }
+            if (initViewCallBack!=null) {
+                initViewCallBack.onInitViewCallBack();
             }
         }
     }

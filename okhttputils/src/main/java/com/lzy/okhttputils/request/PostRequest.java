@@ -1,5 +1,7 @@
 package com.lzy.okhttputils.request;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -39,6 +41,7 @@ public class PostRequest extends BaseRequest<PostRequest> {
 
     /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除 */
     public PostRequest postJson(String json) {
+        Log.d("OkHttpUtils",json);
         this.json = json;
         this.mediaType = MEDIA_TYPE_JSON;
         return this;
