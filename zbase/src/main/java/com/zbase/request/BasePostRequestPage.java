@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * 创建日期：2016/8/1
  * 描述：请求分页的类型
  */
-public abstract class BasePostRequestPage extends PostRequest implements IRequestPage {
+public abstract class BasePostRequestPage extends PostRequest implements IRequestPage{
 
     private JSONObject jsonObject;
     protected int pageIndex;
@@ -22,11 +22,21 @@ public abstract class BasePostRequestPage extends PostRequest implements IReques
 
     public JSONObject getJsonObject() {
         jsonObject=new JSONObject();
+        try {
+            jsonObject.put(getSizeKey(), String.valueOf(getPageSize()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return jsonObject;
     }
 
     public int getPageIndex() {
         return pageIndex;
+    }
+
+    @Override
+    public int getPageSize() {
+        return 20;//默认20，子类可以继承重写
     }
 
     /**

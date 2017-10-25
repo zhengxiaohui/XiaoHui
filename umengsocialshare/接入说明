@@ -1,5 +1,6 @@
 接入步骤：
 1.分别申请友盟的appkey和各个分享平台如QQ，微信，新浪微博的appkey
+
 2.配置当前AndroidManifest文件：
 （1）修改UMENG_APPKEY<!-- ###################添加UmengAppkey###################### -->
           <meta-data
@@ -8,6 +9,7 @@
           </meta-data>
 （2）<data android:scheme="tencent100424468" />
                    <!-- 必须修改成你在QQ开放平台申请的 APP ID，否则会提示分享取消-->
+
 3.微信分享回调需要增加两个步骤：
   （1）.在主app的manifest文件中加<activity
               android:name=".wxapi.WXEntryActivity"
@@ -16,18 +18,22 @@
               android:screenOrientation="portrait"
               android:theme="@android:style/Theme.Translucent.NoTitleBar" />微信分享结果回调必须配置，配合wxapi包下的WXEntryActivity使用
   （2）.必须把WXEntryActivity类和所在的包wxapi复制到项目主app的包下，不然不能正常回调微信分享结果 */
+
 4.UMengShareConfig类中配置分享平台的appid appsecret或appkey appsecret等，如下：
 PlatformConfig.setWeixin("wxb5e9d3cfcfa5652a", "fa87ee0245333e5133c3d836aa1290d3");//微信 appid appsecret
 PlatformConfig.setSinaWeibo("3666694882", "79cf6612c98010c0e2ea6117618884a6");//新浪微博 appkey appsecret
 PlatformConfig.setQQZone("1105600592", "Zqc6rA0K8oOGre44");// QQ和Qzone appid appkey
-5.MyApplication中调用UMengShareConfig.init();//友盟分享
+
+5.MyApplication中调用:
+UMengShareConfig.init();//友盟分享
+
 6.自定义分享界面使用方法：shareManager.shareWeiXin();等，如下：
 private void showSharePopupWindow() {
         if (alphaPopupWindow == null) {
             View view = inflate(R.layout.pw_share);
             alphaPopupWindow = new AlphaPopupWindow(context, view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             alphaPopupWindow.setDark(true);
-            String url = "www.baidu.com";
+            String url = "http://www.baidu.com";//这里一定要带http://，不然qq分享失败
             final ShareManager shareManager = new ShareManager(this, getString(R.string.app_name), getString(R.string.app_name), new UMImage(this, R.mipmap.ic_launcher), url);
             view.findViewById(R.id.tv_weixin_circle).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,68 +76,20 @@ private void showSharePopupWindow() {
                 .setCallback(new MyShareListener(activity))
                 .open();
     }
-7.如果使用的是qq或者新浪精简版jar，需要在您使用分享或授权的Activity（fragment不行）中添加如下回调代码：（反正多加了没影响，尽量都加吧）
+
+7.在您使用分享的Activity（fragment不行）中添加如下回调代码：（不然qq没有回调）
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 }
 
+最后注意：签名必须用正式的keystore，不然微信和微博调不起来
+debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 其他说明：
 分享不需要审核通过就可以分享，区别是微博分享会显示来自未通过审核的应用。
 文档地址：http://dev.umeng.com/social/android/android-update#6
-注意
-1：QQ和QQ Zone SSO（免登录）引用的jar文件相同。当需要同时支持QQ和QQ Zone的时候，只需添加一次SocialSDK_QQZone_1.jar,SocialSDK_QQZone_2.jar,SocialSDK_QQZone_3.jar文件即可.
-2：由于我们对微信的包名做了修改（libammsdk.jar -> SocialSDK_WeiXin.jar）,如出现"Unable to execute dex: Multiple dex files define "问题,请删除libammsdk.jar或者SocialSDK_WeiXin.jar中的一个即可解决问题。
-分享分为两种样式，使用默认分享面板选择页面和自定义分享样式
-1  默认shareboard：
-
-final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
-                        {
-                            SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.SINA,
-                            SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,SHARE_MEDIA.DOUBAN
-                        };
-                new ShareAction(this).setDisplayList( displaylist )
-                        .withText( "呵呵" )
-                        .withTitle("title")
-                        .withTargetUrl("http://www.baidu.com")
-                        .withMedia( image )
-                        .setListenerList(umShareListener)
-                        .open();
-title参数对新浪、人人、豆瓣不生效
-自定义分享样式
-对于需要自己定义分享UI样式的开发者，可以自行绘制分享模块的整个UI，在对应的分享按钮中实现下面的方法
-new ShareAction(this)
-.setPlatform(SHARE_MEDIA.SINA)
-.setCallback(umShareListener)
-.withText("hello umeng video")
-.withTargetUrl("http://www.baidu.com")
-.withMedia(image)
-.share();
-选取分享的平台，设定分享回调接口和内容，并执行share方法。 回调接口如下：
-new UMShareListener() {
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(ShareActivity.this,platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ShareActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ShareActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-值得注意的是，分享也应该重写
-
-onActivityResult()
-        @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get( this ).onActivityResult( requestCode, resultCode, data);
-    }

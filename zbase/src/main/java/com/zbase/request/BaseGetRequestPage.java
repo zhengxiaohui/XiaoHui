@@ -7,7 +7,7 @@ import com.lzy.okhttputils.request.GetRequest;
  * 创建日期：2016/8/1
  * 描述：请求分页的类型
  */
-public abstract class BaseGetRequestPage extends GetRequest implements IRequestPage {
+public abstract class BaseGetRequestPage extends GetRequest implements IRequestPage{
 
     protected int pageIndex;
 
@@ -17,6 +17,11 @@ public abstract class BaseGetRequestPage extends GetRequest implements IRequestP
 
     public int getPageIndex() {
         return pageIndex;
+    }
+
+    @Override
+    public int getPageSize() {
+        return 20;//默认20，子类可以继承重写
     }
 
     /**

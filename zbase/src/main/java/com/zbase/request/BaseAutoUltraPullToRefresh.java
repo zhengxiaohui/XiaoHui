@@ -86,7 +86,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
      * RecyclerView下拉刷新和滚动到底自动加载更多的构造方法
      *
      * @param context
-     * @param requestPage    请求分页的类型
+     * @param requestPage           请求分页的类型
      * @param clazz                 返回的Json类的clazz对象
      * @param ptrClassicFrameLayout 下拉刷新控件，如果传null则没有下拉刷新的功能，只有滚动到底自动加载更多的功能
      * @param recyclerView
@@ -183,12 +183,13 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     /**
      * 重新请求数据，刷新，有转圈圈
      */
-    public void refresh(){
+    public void refresh() {
         refresh(true);
     }
 
     /**
      * 初始化或刷新
+     *
      * @param showProgress 是否显示转圈圈
      */
     private void refresh(boolean showProgress) {
@@ -216,38 +217,24 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
             @Override
             public void onResponse(boolean isFromCache, T t, Request request, @Nullable
                     Response response) {
-                if (t != null && t.isSuccess()) {//请求状态成功
-                    if (t.getList() != null && t.getList().size() > 0) {
-                        requestPage.setPageIndex(requestPage.getPageIndex() + 1);
-                        if (onObtainDataListener != null) {
-                            onObtainDataListener.onObtainData(t);
-                        }
-                        switch (refreshType) {
-                            case INIT_REFRESH:
-                                zBaseRecyclerAdapter.setEmpty(false);
-                                zBaseRecyclerAdapter.setList(t.getList());
-                                lastUpdatedTime = System.currentTimeMillis();
-                                zBaseRecyclerAdapter.setFooterNomal();
-                                break;
-                            case LOAD_MORE:
-                                zBaseRecyclerAdapter.addList(t.getList());
-                                zBaseRecyclerAdapter.setFooterNomal();
-                                break;
-                        }
-                    } else {//请求成功，但是没数据，size为0
-                        switch (refreshType) {
-                            case INIT_REFRESH:
-                                zBaseRecyclerAdapter.setEmpty(true);
-                                zBaseRecyclerAdapter.clear();
-                                lastUpdatedTime = System.currentTimeMillis();
-                                zBaseRecyclerAdapter.setFooterNomal();
-                                break;
-                            case LOAD_MORE:
-                                zBaseRecyclerAdapter.setFooterShowAll();
-                                break;
-                        }
+                if (t != null && t.getList() != null && t.getList().size() > 0) {
+                    requestPage.setPageIndex(requestPage.getPageIndex() + 1);
+                    if (onObtainDataListener != null) {
+                        onObtainDataListener.onObtainData(t);
                     }
-                } else {//请求状态失败
+                    switch (refreshType) {
+                        case INIT_REFRESH:
+                            zBaseRecyclerAdapter.setEmpty(false);
+                            zBaseRecyclerAdapter.setList(t.getList());
+                            lastUpdatedTime = System.currentTimeMillis();
+                            zBaseRecyclerAdapter.setFooterNomal();
+                            break;
+                        case LOAD_MORE:
+                            zBaseRecyclerAdapter.addList(t.getList());
+                            zBaseRecyclerAdapter.setFooterNomal();
+                            break;
+                    }
+                } else {
                     switch (refreshType) {
                         case INIT_REFRESH:
                             zBaseRecyclerAdapter.setEmpty(true);

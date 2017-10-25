@@ -21,6 +21,11 @@ public class GetRequestPage extends BaseGetRequestPage {
     }
 
     @Override
+    public String getSizeKey() {
+        return "size";
+    }
+
+    @Override
     public PageType getPageType() {
         return PageType.START_PAGE1;
     }

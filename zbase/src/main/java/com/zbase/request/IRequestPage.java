@@ -14,10 +14,17 @@ public interface IRequestPage {
 
     void setPageIndex(int pageIndex);
 
+    int getPageSize();
+
     /**
-     * 分页参数的Key值，比如index
+     * 第几页的Key值，比如index
      */
     String getIndexKey();
+
+    /**
+     * 每页大小的Key值，比如size
+     */
+    String getSizeKey();
 
     /**
      * 分页模式，从0开始，从1开始

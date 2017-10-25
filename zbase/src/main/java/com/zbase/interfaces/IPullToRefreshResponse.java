@@ -8,9 +8,5 @@ import java.util.List;
  * 描述：
  */
 public interface IPullToRefreshResponse<T> {
-    boolean isSuccess();
-
     List<T> getList();
-
-//    String getLastId();
 }

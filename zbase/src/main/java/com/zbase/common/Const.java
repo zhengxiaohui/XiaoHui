@@ -11,6 +11,5 @@ public class Const {
     public static final String URI_PRE = "file://";//图片地址uri的前缀
     public static final String FIRST_LAUNCH = "first_launch"; //是否第一次启动APPprotected
     public static final String USER = "user";//用户信息
-    public static final int PAGE_SIZE_10=10;
-    public static final int PAGE_SIZE_20=20;
+
 }
