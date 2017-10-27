@@ -28,6 +28,7 @@ import java.util.List;
  * <p/>
  * **********************************************************
  */
+@Deprecated
 public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosition {
 
     protected Context context;
@@ -67,6 +68,28 @@ public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosi
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+    }
+
+    /**
+     * 添加单个数据
+     *
+     * @param t
+     */
+    public void add(T t) {
+        list.add(t);
+        adapterSelectPositionManager.getSelectList().add(false);//增加的List每个都默认false没选中
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 添加单个数据到第一个位置
+     *
+     * @param t
+     */
+    public void addToFirst(T t) {
+        list.add(0,t);
+        adapterSelectPositionManager.getSelectList().add(false);//增加的List每个都默认false没选中
+        notifyDataSetChanged();
     }
 
     /**

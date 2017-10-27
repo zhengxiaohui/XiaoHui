@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 /**
  * 放在ScrollView中，高度能够撑开自适应，并且自己不能滑动，让外面的ScrollView滑动
+ * 注意：嵌套在RecyclerView中不能显示，还是优先使用LinearListView
  */
 public class FullListView extends ListView {
 

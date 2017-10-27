@@ -3,7 +3,7 @@ package com.zbase.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexUtil {
+public class VerifyUtil {
 	  /**
      * 验证Email
      * @param email email地址，格式：zhangsan@sina.com，zhangsan@xxx.com.cn，xxx代表邮件服务商
@@ -195,7 +195,7 @@ public class RegexUtil {
      * @param str
      * @return
      */
-    public static boolean isPhoneAddMobile(String str) {
+    public static boolean isPhoneOrMobile(String str) {
         boolean isVaild = Pattern.compile("^0?\\d{11}$").matcher(str).matches();
         if (!isVaild) {
             return Pattern.compile("^\\(?\\d{3,4}[-\\)]?\\d{7,8}$").matcher(str).matches();

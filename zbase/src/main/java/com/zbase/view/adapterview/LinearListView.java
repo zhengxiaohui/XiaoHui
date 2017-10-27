@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 
-/**在GridView嵌套中可能出现显示不全的情况，最好使用FullListView代替
+/**一定要添加属性orientation，不然只显示一行,setAdapter()必须在adapter.setList()之后调用才有效
  * 模仿ListView的LinearLayout，使之能被嵌套在ScrollView中，高度自适应撑开
  * 其实只是普通的LinearLayout循环添加子View进去，只是传入了标准BaseAdapter使用，垂直或水平都可以。
  * 这种方式就是硬编码的升级版，可以使用BaseAdapter
@@ -31,6 +31,10 @@ public class LinearListView extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * 必须在adapter.setList()之后调用才有效
+     * @param adapter
+     */
     public void setAdapter(BaseAdapter adapter) {
         setAdapter(adapter, 0, 0, 0);
     }

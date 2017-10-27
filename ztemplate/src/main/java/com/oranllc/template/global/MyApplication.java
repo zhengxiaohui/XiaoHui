@@ -30,8 +30,8 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         PopStrategy.setBasePop(new PopOne());//策略模式,设置全局转圈圈样式
         UMengAnalyticsConfig.init(debugMode);//友盟统计,默认引用，需要统计的话只要配置appkey就可以，如果有引入友盟分享等，则使用同一个key不用另外配置
-        LoginBean.Data data = ZSharedPreferences.getInstance(this).getJsonBean(Const.USER, LoginBean.Data.class);
-        setUser(data);
+        LoginBean.Data user = ZSharedPreferences.getInstance(this).getJsonBean(Const.USER, LoginBean.Data.class);
+        setUser(user);
     }
 
     @Override

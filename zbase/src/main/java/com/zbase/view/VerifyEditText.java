@@ -12,12 +12,13 @@ import android.widget.EditText;
 
 import com.zbase.R;
 import com.zbase.util.PopUtil;
-import com.zbase.util.RegexUtil;
+import com.zbase.util.VerifyUtil;
 
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/12/26
- * 描述：注册，登录使用的账号输入框
+ * 描述：验证输入框，有：普通账号，手机号，邮箱，密码
+ * 公有方法：verify()，getString()
  */
 public class VerifyEditText extends EditText {
 
@@ -109,7 +110,7 @@ public class VerifyEditText extends EditText {
                     minLength = 3;
                 }
                 if (TextUtils.isEmpty(text)) {
-                    PopUtil.toast(getContext(), getContext().getString(R.string.account_cannot_be_empty));
+                    PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_account));
                     return false;
                 } else if (text.length() < minLength) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.account_length_is_too_short));
@@ -121,12 +122,12 @@ public class VerifyEditText extends EditText {
                     minLength = 11;
                 }
                 if (TextUtils.isEmpty(text)) {
-                    PopUtil.toast(getContext(), getContext().getString(R.string.phone_cannot_be_empty));
+                    PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_phone_number));
                     return false;
                 } else if (text.length() < minLength) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.phone_length_is_too_short));
                     return false;
-                } else if (!RegexUtil.checkMobile(text)) {
+                } else if (!VerifyUtil.checkMobile(text)) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_a_correct_phone));
                     return false;
                 }
@@ -136,12 +137,12 @@ public class VerifyEditText extends EditText {
                     minLength = 10;
                 }
                 if (TextUtils.isEmpty(text)) {
-                    PopUtil.toast(getContext(), getContext().getString(R.string.email_cannot_be_empty));
+                    PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_email_address));
                     return false;
                 } else if (text.length() < minLength) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.email_length_is_too_short));
                     return false;
-                } else if (!RegexUtil.checkEmail(text)) {
+                } else if (!VerifyUtil.checkEmail(text)) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_a_correct_email));
                     return false;
                 }
@@ -151,7 +152,7 @@ public class VerifyEditText extends EditText {
                     minLength = 3;
                 }
                 if (TextUtils.isEmpty(text)) {
-                    PopUtil.toast(getContext(), getContext().getString(R.string.password_cannot_be_empty));
+                    PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_password));
                     return false;
                 } else if (text.length() < minLength) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.password_length_is_too_short));

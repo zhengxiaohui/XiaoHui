@@ -298,6 +298,28 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     /**
+     * 添加单个数据
+     *
+     * @param t
+     */
+    public void add(T t) {
+        list.add(t);
+        adapterSelectPositionManager.getSelectList().add(false);//增加的List每个都默认false没选中
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 添加单个数据到第一个位置
+     *
+     * @param t
+     */
+    public void addToFirst(T t) {
+        list.add(0,t);
+        adapterSelectPositionManager.getSelectList().add(false);//增加的List每个都默认false没选中
+        notifyDataSetChanged();
+    }
+
+    /**
      * 添加数据，一般用于上拉加载更多，分页数据添加或者初始化数据
      *
      * @param addList

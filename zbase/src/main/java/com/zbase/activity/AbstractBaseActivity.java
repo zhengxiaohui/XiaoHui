@@ -445,6 +445,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
         getMyApplication().clearUser();
         getZSharedPreferences().putJsonBean(Const.USER, null);
         sendLogoutBroadcast();
+        PopUtil.toast(context, R.string.logout_success);
         jumpToLogin();
         finish();
     }

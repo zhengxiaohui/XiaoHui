@@ -13,7 +13,15 @@ import android.view.View;
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/8/19
- * 描述：SpannableString复杂文本管理器
+ * 描述：SpannableString复杂文本管理器，setTextColor，setTextSize，setTextClick可以自由组合，重复设置多个
+ * 用法：
+ * String s1 = getString(R.string.please);
+ String s2 = getSapName();
+ String s = s1 + s2;
+ SpannableStringManager spannableStringManager = new SpannableStringManager(s);
+ spannableStringManager.setTextColor(0, s1.length(), getResources().getColor(R.color.c6))
+ .setTextColor(s1.length(), s.length(), getResources().getColor(R.color.c3));
+ tv_hint.setText(spannableStringManager.getSpannableStringBuilder());
  */
 public class SpannableStringManager {
 
@@ -23,6 +31,10 @@ public class SpannableStringManager {
         this.spannableStringBuilder = new SpannableStringBuilder(text);
     }
 
+    /**
+     * 最后调用这个返回spannableStringBuilder，tv_message.setText(spannableStringManager.getSpannableStringBuilder());//注意不能调用toString()，不然就没效果了
+     * @return
+     */
     public SpannableStringBuilder getSpannableStringBuilder() {
         return spannableStringBuilder;
     }
