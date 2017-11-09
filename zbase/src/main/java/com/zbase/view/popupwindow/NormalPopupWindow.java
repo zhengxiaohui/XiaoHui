@@ -6,6 +6,7 @@ import android.graphics.drawable.PaintDrawable;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -44,6 +45,8 @@ public class NormalPopupWindow extends PopupWindow {
         setFocusable(true);
         setTouchable(true);
         setOutsideTouchable(true);
+        setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);//软键盘上推popupwindow，同时不会挡住底部导航栏Navigation
+        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);//软键盘上推popupwindow，同时不会挡住底部导航栏Navigation
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         popViewWidth = view.getMeasuredWidth();
         popViewHeight = view.getMeasuredHeight();

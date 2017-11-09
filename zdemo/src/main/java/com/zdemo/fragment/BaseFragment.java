@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.umeng.analytics.MobclickAgent;
 import com.zbase.fragment.AbstractBaseFragment;
 import com.zdemo.activity.BaseActivity;
+import com.zdemo.global.MyApplication;
 
 /**
  * 创建人：郑晓辉
@@ -34,6 +34,10 @@ public abstract class BaseFragment extends AbstractBaseFragment {
     @Override
     protected void initBaseView(View view) {
 
+    }
+
+    public MyApplication getMyApplication() {
+        return (MyApplication) baseActivity.getApplication();
     }
 
 }

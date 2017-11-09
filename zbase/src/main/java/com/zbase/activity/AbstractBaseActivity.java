@@ -219,13 +219,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
     }
 
     /**
-     * 判断是否已经登录
-     */
-    public boolean isLoggedIn() {
-        return getMyApplication().isLoggedIn();
-    }
-
-    /**
      * 跳转到BaseWebViewActivity的子类
      *
      * @param url 网页地址
@@ -398,8 +391,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
      * 简单判断登录或跳转目标Activity
      * 在登录情况下跳转目标Activity，如果未登录，则先登录(登录后没有继续执行之前的操作，这是和doWithLogin的区别)
      */
-    protected void jumpOrLogin(Intent intent) {
-        if (isLoggedIn()) {
+    protected void doOrLogin(Intent intent) {
+        if (getMyApplication().isLoggedIn()) {
             startActivity(intent);
         } else {
             startActivity(new Intent(context, getMyApplication().getLoginClass()));
@@ -413,7 +406,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
      */
     protected void doWithLogin(String loginDoCode) {
         Const.LOGIN_DO_CODE = loginDoCode;
-        if (isLoggedIn()) {
+        if (getMyApplication().isLoggedIn()) {
             afterLogin(loginDoCode);
         } else {
             startActivityForResult(new Intent(context, getMyApplication().getLoginClass()), Const.LOGIN_REQUEST_CODE);

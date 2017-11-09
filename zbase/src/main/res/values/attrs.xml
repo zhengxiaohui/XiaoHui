@@ -92,6 +92,7 @@
             <enum name="phone" value="1" />
             <enum name="email" value="2" />
             <enum name="password" value="3" />
+            <enum name="code" value="4" />
         </attr>
         <attr name="minLength" format="integer" />
     </declare-styleable>

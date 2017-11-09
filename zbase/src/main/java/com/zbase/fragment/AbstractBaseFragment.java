@@ -12,6 +12,7 @@ import android.view.View;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.zbase.activity.AbstractBaseActivity;
+import com.zbase.common.BaseApplication;
 import com.zbase.common.Const;
 import com.zbase.common.GlobalBroadcastReceiver;
 import com.zbase.imagedispose.PhotoPicker;
@@ -91,6 +92,8 @@ public abstract class AbstractBaseFragment extends Fragment implements View.OnCl
         return LayoutInflater.from(context).inflate(resource, null);
     }
 
+    public abstract BaseApplication getMyApplication();
+
     /**
      * 注册应用内广播接收器
      */
@@ -108,7 +111,7 @@ public abstract class AbstractBaseFragment extends Fragment implements View.OnCl
      * 在登录情况下执行操作，如果未登录，则先登录(登录后没有继续执行之前的操作，这是和doWithLogin的区别)
      */
     protected void doOrLogin(Intent intent) {
-        if (abstractBaseActivity.isLoggedIn()) {
+        if (getMyApplication().isLoggedIn()) {
             startActivity(intent);
         } else {
             startActivity(new Intent(context, abstractBaseActivity.getMyApplication().getLoginClass()));
@@ -122,7 +125,7 @@ public abstract class AbstractBaseFragment extends Fragment implements View.OnCl
      */
     protected void doWithLogin(String loginDoCode) {
         Const.LOGIN_DO_CODE = loginDoCode;
-        if (abstractBaseActivity.isLoggedIn()) {
+        if (getMyApplication().isLoggedIn()) {
             afterLogin(loginDoCode);
         } else {
             startActivityForResult(new Intent(context, abstractBaseActivity.getMyApplication().getLoginClass()), Const.LOGIN_REQUEST_CODE);

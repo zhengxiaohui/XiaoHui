@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion as Integer
-    buildToolsVersion rootProject.ext.buildToolsVersion as String
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion as Integer
-        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
     lintOptions {
         abortOnError false
@@ -29,4 +29,4 @@ android {
 
 dependencies {
 }
-apply from: './gradle-mvn-push.gradle'
+//apply from: './gradle-mvn-push.gradle'

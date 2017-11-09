@@ -122,7 +122,7 @@ public class ServerCRUDActivity extends BaseActivity {
                     @Override
                     public void onResponse(boolean isFromCache, UserJson userJson, Request request, @Nullable Response response) {
                         if (userJson.isSuccess()) {
-                            PopUtil.toast(ServerCRUDActivity.this, R.string.edit_success);
+                            PopUtil.toast(ServerCRUDActivity.this, R.string.modify_success);
                         } else {
                             PopUtil.toast(ServerCRUDActivity.this, userJson.getMessage());
                         }

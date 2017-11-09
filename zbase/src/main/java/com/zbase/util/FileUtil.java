@@ -256,7 +256,7 @@ public final class FileUtil {
      * @param sPath 要删除的目录或文件
      * @return 删除成功返回 true，否则返回 false。
      */
-    public static boolean DeleteFolder(String sPath) {
+    public static boolean deleteFolder(String sPath) {
         boolean flag = false;
         File file = new File(sPath);
         // 判断目录或文件是否存在
@@ -300,7 +300,7 @@ public final class FileUtil {
         return size;
     }
 
-    public static String FormetFileSize(long fileS) {// 转换文件大小
+    public static String formetFileSize(long fileS) {// 转换文件大小
         DecimalFormat df = new DecimalFormat("0.00");
         String fileSizeString = "";
         if (fileS < 1024) {
@@ -322,7 +322,7 @@ public final class FileUtil {
      * @param sizeType
      * @return
      */
-    public static double FormetFileSize(long fileS, int sizeType) {
+    public static double formetFileSize(long fileS, int sizeType) {
         DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {
@@ -434,7 +434,7 @@ public final class FileUtil {
             e.printStackTrace();
             Log.e("获取文件大小", "获取失败!");
         }
-        return FormetFileSize(blockSize);
+        return formetFileSize(blockSize);
     }
 
     /**
@@ -458,46 +458,6 @@ public final class FileUtil {
     }
 
     /**
-     * 获取本应用的缓存数据
-     *
-     * @return
-     */
-    public static String getTheAppCacheSize(Context context) {
-        double filesSize = 0.00;
-
-        if (context.getFilesDir().exists()) {
-            filesSize = getFileOrFilesSize(context.getFilesDir()
-                    .getAbsolutePath(), 3);
-        }
-
-        // if (context.getCacheDir().exists()) {
-        // filesSize += getFileOrFilesSize(context.getCacheDir()
-        // .getAbsolutePath(), 3);
-        // }
-        //
-        // if (new File("/data/data/" + context.getPackageName() + "/databases")
-        // .exists()) {
-        // filesSize += getFileOrFilesSize(
-        // new File("/data/data/" + context.getPackageName()
-        // + "/databases").getAbsolutePath(), 3);
-        // }
-        //
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            filesSize += getFileOrFilesSize(
-                    new File("/data/data/" + context.getPackageName()
-                            + "/databases").getAbsolutePath(), 3);
-        }
-
-        String filesSizeStr = filesSize + "";
-        if (filesSizeStr.length() >= 4) {
-            filesSizeStr = filesSizeStr.substring(0, 4);
-        }
-
-        return filesSizeStr + "MB";
-    }
-
-    /**
      * 获取文件指定文件的指定单位的大小
      *
      * @param filePath 文件路径
@@ -517,7 +477,7 @@ public final class FileUtil {
             e.printStackTrace();
             Log.e("获取文件大小", "获取失败!" + e.getMessage());
         }
-        return FormetFileSize(blockSize, sizeType);
+        return formetFileSize(blockSize, sizeType);
     }
 
 }

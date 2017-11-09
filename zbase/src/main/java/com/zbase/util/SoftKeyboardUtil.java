@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -54,27 +53,30 @@ public class SoftKeyboardUtil {
     }
 
     /**
-     * 设置软键盘回车点击事件
+     * 设置软键盘回车(完成)点击事件
+     * 注意：会导致密码不变星号,inputType没效果等一些问题，最好单独使用
      * @param editText
      * @param onSoftEnterClickListener
      */
-    public static void setEnterAction(EditText editText,OnSoftEnterClickListener onSoftEnterClickListener){
+    public static void setEnterActionComplete(EditText editText, OnSoftEnterClickListener onSoftEnterClickListener){
+//        editText.setInputType(EditorInfo.TYPE_CLASS_TEXT);//增加这个属性后，回车键的文字自动变成“完成”，而且键盘也是自动隐藏，不用自己隐藏哦，神奇（这里是三星键盘测试结果）
         setEnterAction(editText,-1,onSoftEnterClickListener);
     }
 
     /**
      * 设置软键盘回车点击事件
+     * 注意：会导致密码不变星号,inputType没效果等一些问题，最好单独使用
      * 注意1：EditorInfo.IME_ACTION_DONE只有将singleLine设置为true或者inputType设置为text的EditText有效。
      注意2：对于EditorInfo.IME_ACTION_DONE，有些输入法并不支持它，比如搜狐拼音输入法。
      * @param editText
      * @param editorInfo
      * @param onSoftEnterClickListener
      */
-    public static void setEnterAction(EditText editText,int editorInfo, final OnSoftEnterClickListener onSoftEnterClickListener){
+    public static void setEnterAction(EditText editText, int editorInfo, final OnSoftEnterClickListener onSoftEnterClickListener){
         if (editorInfo!=-1) {
             editText.setImeOptions(editorInfo);
         }
-        editText.setInputType(EditorInfo.TYPE_CLASS_TEXT);//增加这个属性后，回车键的文字自动变成“完成”，而且键盘也是自动隐藏，不用自己隐藏哦，神奇（这里是三星键盘测试结果）
+        editText.setSingleLine();
         editText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

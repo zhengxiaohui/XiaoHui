@@ -31,12 +31,33 @@ public class ImageLoaderUtil {
         return builder.build();
     }
 
+    /**
+     * 头部图片加载
+     * @param defaultImageRes
+     * @return
+     */
     public static DisplayImageOptions getHeadDisplayImageOptions(int defaultImageRes) {
         DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true);
         if (defaultImageRes != 0) {
             builder.showImageOnLoading(defaultImageRes).showImageForEmptyUri(defaultImageRes).showImageOnFail(defaultImageRes);
         }
         builder.displayer(new CircleBitmapDisplayer());
+        return builder.build();
+    }
+
+    /**
+     * 带边框的头部图片加载
+     * @param defaultImageRes
+     * @param strokeColor
+     * @param strokeWidth
+     * @return
+     */
+    public static DisplayImageOptions getHeadDisplayImageOptions(int defaultImageRes,Integer strokeColor, float strokeWidth) {
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true);
+        if (defaultImageRes != 0) {
+            builder.showImageOnLoading(defaultImageRes).showImageForEmptyUri(defaultImageRes).showImageOnFail(defaultImageRes);
+        }
+        builder.displayer(new CircleBitmapDisplayer(strokeColor,strokeWidth));
         return builder.build();
     }
 

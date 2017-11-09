@@ -22,7 +22,7 @@ import com.zbase.util.VerifyUtil;
  */
 public class VerifyEditText extends EditText {
 
-    public enum InputEnum {ACCOUNT, PHONE, EMAIL, PASSWORD}//普通账号，手机号，邮箱账号，密码
+    public enum InputEnum {ACCOUNT, PHONE, EMAIL, PASSWORD,CODE}//普通账号，手机号，邮箱账号，密码，验证码
 
     private InputEnum inputEnum = InputEnum.ACCOUNT;//默认是普通账号
     private int minLength;//最小长度
@@ -58,6 +58,9 @@ public class VerifyEditText extends EditText {
             case 3:
                 inputEnum = InputEnum.PASSWORD;
                 break;
+            case 4:
+                inputEnum = InputEnum.CODE;
+                break;
         }
         minLength = a.getInt(R.styleable.VerifyEditText_minLength, 0);
         a.recycle();
@@ -90,9 +93,15 @@ public class VerifyEditText extends EditText {
             case PASSWORD:
                 String passwordDigits = getContext().getString(R.string.password_digits);
                 setKeyListener(DigitsKeyListener.getInstance(passwordDigits));
-                setTransformationMethod(PasswordTransformationMethod.getInstance()); //设置为密码输入框
+                setTransformationMethod(PasswordTransformationMethod.getInstance()); //密码显示为星号
                 if (getFilters().length == 0) {//如果布局中没有设置最大长度，则默认最大长度20
                     setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+                }
+                break;
+            case CODE:
+                setInputType(InputType.TYPE_CLASS_NUMBER);//只能输入数字
+                if (getFilters().length == 0) {//如果布局中没有设置最大长度，则默认最大长度6
+                    setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
                 }
                 break;
         }
@@ -106,8 +115,8 @@ public class VerifyEditText extends EditText {
         String text = getString();
         switch (inputEnum) {
             case ACCOUNT:
-                if (minLength == 0) {//如果没有设置最小长度，则默认最小长度3
-                    minLength = 3;
+                if (minLength == 0) {//如果没有设置最小长度，则默认最小长度2
+                    minLength = 2;
                 }
                 if (TextUtils.isEmpty(text)) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_account));
@@ -134,7 +143,7 @@ public class VerifyEditText extends EditText {
                 break;
             case EMAIL:
                 if (minLength == 0) {
-                    minLength = 10;
+                    minLength = 5;
                 }
                 if (TextUtils.isEmpty(text)) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.please_enter_the_email_address));
@@ -156,6 +165,18 @@ public class VerifyEditText extends EditText {
                     return false;
                 } else if (text.length() < minLength) {
                     PopUtil.toast(getContext(), getContext().getString(R.string.password_length_is_too_short));
+                    return false;
+                }
+                break;
+            case CODE:
+                if (minLength == 0) {
+                    minLength = 2;
+                }
+                if (TextUtils.isEmpty(text)) {
+                    PopUtil.toast(getContext(), getContext().getString(R.string.please_input_verify_code));
+                    return false;
+                } else if (text.length() < minLength) {
+                    PopUtil.toast(getContext(), getContext().getString(R.string.verify_code_length_is_too_short));
                     return false;
                 }
                 break;

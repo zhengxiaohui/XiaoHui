@@ -6,11 +6,13 @@ import android.graphics.Paint;
 import android.support.design.widget.TabLayout;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zbase.listener.AfterClickListener;
+import com.zbase.listener.OnObtainViewWidthHeightListener;
 
 import java.lang.reflect.Field;
 
@@ -20,6 +22,25 @@ import java.lang.reflect.Field;
  * 描述：
  */
 public class ViewUtil {
+
+    /**
+     * 获取View的实际宽高
+     *
+     * @param view
+     * @param onObtainViewWidthHeightListener
+     */
+    public static void getViewWidthHeight(final View view, final OnObtainViewWidthHeightListener onObtainViewWidthHeightListener) {
+        final ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                viewTreeObserver.removeOnGlobalLayoutListener(this);
+                if (onObtainViewWidthHeightListener != null) {
+                    onObtainViewWidthHeightListener.onObtainViewWidthHeight(view.getWidth(), view.getHeight());
+                }
+            }
+        });
+    }
 
     /**
      * 给TextView设置下划线
@@ -34,11 +55,12 @@ public class ViewUtil {
     /**
      * 文字超过设置的最大行数，则显示按钮（显示全部）。点击按钮放开最大行数，这里设置100行
      * 注意：一定要在设置完文本之后再调用。
+     *
      * @param tv_content
      * @param button
      * @param maxLine
      */
-    public static void setTextViewMaxLinesWithButtonHide(final TextView tv_content, final View button, final int maxLine){
+    public static void setTextViewMaxLinesWithButtonHide(final TextView tv_content, final View button, final int maxLine) {
         tv_content.setMaxLines(maxLine);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +72,9 @@ public class ViewUtil {
         tv_content.post(new Runnable() {
             @Override
             public void run() {
-                if(judgeFull(tv_content,maxLine)){
+                if (judgeFull(tv_content, maxLine)) {
                     button.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     button.setVisibility(View.GONE);
                 }
             }
@@ -61,12 +83,13 @@ public class ViewUtil {
 
     /**
      * 判断文字总长度是否超过最大行数
+     *
      * @param textView
-     * @param maxLine 最大行数
+     * @param maxLine  最大行数
      * @return
      */
-    private static boolean judgeFull(TextView textView,int maxLine){
-        return textView.getPaint().measureText(textView.getText().toString()) > maxLine*(textView.getWidth() -
+    private static boolean judgeFull(TextView textView, int maxLine) {
+        return textView.getPaint().measureText(textView.getText().toString()) > maxLine * (textView.getWidth() -
                 textView.getPaddingRight() - textView.getPaddingLeft());
     }
 
@@ -97,8 +120,9 @@ public class ViewUtil {
 
     /**
      * 设置TabLayout横线的左右间距
-     * @param tabs TabLayout
-     * @param leftDip 左边距离
+     *
+     * @param tabs     TabLayout
+     * @param leftDip  左边距离
      * @param rightDip 右边距离
      */
     public static void setTabLayoutIndicatorWidth(final TabLayout tabs, final int leftDip, final int rightDip) {
@@ -136,9 +160,10 @@ public class ViewUtil {
 
     /**
      * 设置TabLayout的下划线和文字宽度一样长，必须设置app:tabMode="scrollable" 才有效果
+     *
      * @param tabLayout
      */
-    public static void setTabLayoutIndicatorWidthEquilong(final TabLayout tabLayout){
+    public static void setTabLayoutIndicatorWidthEquilong(final TabLayout tabLayout) {
         //了解源码得知 线的宽度是根据 tabView的宽度来设置的
         tabLayout.post(new Runnable() {
             @Override
@@ -163,7 +188,7 @@ public class ViewUtil {
                         }
                         //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width ;
+                        params.width = width;
                         params.leftMargin = px10;
                         params.rightMargin = px10;
                         tabView.setLayoutParams(params);

@@ -115,6 +115,7 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
     private void setZPullToRefreshWithHttp() {
         if (ptrClassicFrameLayout != null) {
             ptrClassicFrameLayout.setLastUpdateTimeRelateObject(context);
+            ptrClassicFrameLayout.disableWhenHorizontalMove(true);//解决和横向滑动控件的冲突，比如viewpager，SlidingMenu,ViewFlow等。
             ptrClassicFrameLayout.setPtrHandler(new PtrHandler() {
                 @Override
                 public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
@@ -217,11 +218,11 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
             @Override
             public void onResponse(boolean isFromCache, T t, Request request, @Nullable
                     Response response) {
+                if (onObtainDataListener != null) {
+                    onObtainDataListener.onObtainData(t);//放在t.getList() != null && t.getList().size() > 0的外面是防止有头部数据而没有列表数据的时候没返回
+                }
                 if (t != null && t.getList() != null && t.getList().size() > 0) {
                     requestPage.setPageIndex(requestPage.getPageIndex() + 1);
-                    if (onObtainDataListener != null) {
-                        onObtainDataListener.onObtainData(t);
-                    }
                     switch (refreshType) {
                         case INIT_REFRESH:
                             zBaseRecyclerAdapter.setEmpty(false);

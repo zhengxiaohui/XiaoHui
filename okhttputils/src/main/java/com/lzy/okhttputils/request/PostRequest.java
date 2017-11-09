@@ -32,14 +32,14 @@ public class PostRequest extends BaseRequest<PostRequest> {
         super(url);
     }
 
-    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除 */
+    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除，这种不能表单上传文件 */
     public PostRequest postString(String string) {
         this.string = string;
         this.mediaType = MEDIA_TYPE_PLAIN;
         return this;
     }
 
-    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除 */
+    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除，这种不能表单上传文件*/
     public PostRequest postJson(String json) {
         Log.d("OkHttpUtils",json);
         this.json = json;
@@ -47,7 +47,7 @@ public class PostRequest extends BaseRequest<PostRequest> {
         return this;
     }
 
-    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除 */
+    /** 注意使用该方法上传字符串会清空实体中其他所有的参数，头信息不清除，这种不能表单上传文件 */
     public PostRequest postBytes(byte[] bs) {
         this.bs = bs;
         this.mediaType = MEDIA_TYPE_STREAM;
@@ -64,7 +64,7 @@ public class PostRequest extends BaseRequest<PostRequest> {
         if (string != null && mediaType != null) return RequestBody.create(mediaType, string); //post上传字符串数据
         if (json != null && mediaType != null) return RequestBody.create(mediaType, json);     //post上传json数据
         if (bs != null && mediaType != null) return RequestBody.create(mediaType, bs);         //post上传字节数组
-        return generateMultipartRequestBody();
+        return generateMultipartRequestBody();//表单提交，如果采用上面的方式提交则不能用表单提交。表单上传文件必须采用params的形式（参数和文件都是）
     }
 
     @Override

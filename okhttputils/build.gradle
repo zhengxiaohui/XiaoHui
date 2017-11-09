@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion as Integer
-    buildToolsVersion rootProject.ext.buildToolsVersion as String
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion as Integer
-        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
     buildTypes {
         release {
@@ -19,6 +19,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'//解决5.1报错的问题
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }
 
