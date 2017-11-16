@@ -685,11 +685,11 @@ public class AppUtil {
                 for (int i = 0; i < packages.size(); i++) {
                     PackageInfo packageInfo = packages.get(i);
                     AppInfo appInfo = new AppInfo();
-                    appInfo.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
+//                    appInfo.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
                     appInfo.setPackageName(packageInfo.packageName);
                     appInfo.setVersionName(packageInfo.versionName);
-                    appInfo.setVersionCode(packageInfo.versionCode);
-                    appInfo.setAppIcon(packageInfo.applicationInfo.loadIcon(packageManager));
+//                    appInfo.setVersionCode(packageInfo.versionCode);
+//                    appInfo.setAppIcon(packageInfo.applicationInfo.loadIcon(packageManager));//获取图片非常耗时，其他属性也都有点耗时，所以不需要的属性不要去获取
                     if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                         appList.add(appInfo);//如果非系统应用，则添加至appList
                     }

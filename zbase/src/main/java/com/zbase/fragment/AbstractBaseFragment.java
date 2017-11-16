@@ -9,6 +9,7 @@ import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.lzy.okgo.OkGo;
 import com.umeng.analytics.MobclickAgent;
 import com.zbase.activity.AbstractBaseActivity;
 import com.zbase.common.BaseApplication;
@@ -176,6 +177,7 @@ public abstract class AbstractBaseFragment extends Fragment implements View.OnCl
     public void onDestroy() {
         super.onDestroy();
         unRegisterGlobleReceiver();
+        OkGo.getInstance().cancelTag(this);
         if (photoPicker != null) {
             photoPicker.onDestroy();
         }
