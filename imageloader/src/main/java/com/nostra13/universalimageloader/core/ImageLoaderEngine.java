@@ -65,7 +65,7 @@ class ImageLoaderEngine {
 	}
 
 	/** Submits task to execution pool */
-	void submit(final LoadAndDisplayImageTask task) {
+	void submit(final LoadAndDisplayImageTask task, final boolean stopDownload) {
 		taskDistributor.execute(new Runnable() {
 			@Override
 			public void run() {
@@ -75,6 +75,9 @@ class ImageLoaderEngine {
 				if (isImageCachedOnDisk) {
 					taskExecutorForCachedImages.execute(task);
 				} else {
+					if (stopDownload) {
+						return;
+					}
 					taskExecutor.execute(task);
 				}
 			}
@@ -100,7 +103,7 @@ class ImageLoaderEngine {
 	private Executor createTaskExecutor() {
 		return DefaultConfigurationFactory
 				.createExecutor(configuration.threadPoolSize, configuration.threadPriority,
-				configuration.tasksProcessingType);
+						configuration.tasksProcessingType);
 	}
 
 	/**

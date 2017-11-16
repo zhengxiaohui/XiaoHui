@@ -15,7 +15,10 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.core;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -49,6 +52,7 @@ import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 public class ImageLoader {
 
 	public static final String TAG = ImageLoader.class.getSimpleName();
+	public static boolean stopDownload =false;//阻止下载图片
 
 	static final String LOG_INIT_CONFIG = "Initialize ImageLoader with configuration";
 	static final String LOG_DESTROY = "Destroy ImageLoader";
@@ -79,6 +83,31 @@ public class ImageLoader {
 	}
 
 	protected ImageLoader() {
+	}
+
+	public static void setOnlyWifiDownload(Context context,boolean onlyWifi){
+		if (onlyWifi && !isWifiConnected(context)) {//wifi网络不可用,则不下载图片
+			stopDownload =true;
+		}else{
+			stopDownload =false;
+		}
+	}
+
+	/**
+	 * 判断WIFI网络是否可用
+	 *
+	 * @param context
+	 * @return
+	 */
+	public static boolean isWifiConnected(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkINfo = cm.getActiveNetworkInfo();
+		if (networkINfo != null
+				&& networkINfo.getType() == ConnectivityManager.TYPE_WIFI) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -179,7 +208,7 @@ public class ImageLoader {
 	 * @throws IllegalArgumentException if passed <b>imageAware</b> is null
 	 */
 	public void displayImage(String uri, ImageAware imageAware, DisplayImageOptions options,
-			ImageLoadingListener listener) {
+							 ImageLoadingListener listener) {
 		displayImage(uri, imageAware, options, listener, null);
 	}
 
@@ -205,7 +234,7 @@ public class ImageLoader {
 	 * @throws IllegalArgumentException if passed <b>imageAware</b> is null
 	 */
 	public void displayImage(String uri, ImageAware imageAware, DisplayImageOptions options,
-			ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+							 ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
 		displayImage(uri, imageAware, options, null, listener, progressListener);
 	}
 
@@ -232,7 +261,7 @@ public class ImageLoader {
 	 * @throws IllegalArgumentException if passed <b>imageAware</b> is null
 	 */
 	public void displayImage(String uri, ImageAware imageAware, DisplayImageOptions options,
-			ImageSize targetSize, ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+							 ImageSize targetSize, ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
 		checkConfiguration();
 		if (imageAware == null) {
 			throw new IllegalArgumentException(ERROR_WRONG_ARGUMENTS);
@@ -296,7 +325,7 @@ public class ImageLoader {
 			if (options.isSyncLoading()) {
 				displayTask.run();
 			} else {
-				engine.submit(displayTask);
+				engine.submit(displayTask,stopDownload);
 			}
 		}
 	}
@@ -381,7 +410,7 @@ public class ImageLoader {
 	 * @throws IllegalArgumentException if passed <b>imageView</b> is null
 	 */
 	public void displayImage(String uri, ImageView imageView, DisplayImageOptions options,
-			ImageLoadingListener listener) {
+							 ImageLoadingListener listener) {
 		displayImage(uri, imageView, options, listener, null);
 	}
 
@@ -406,7 +435,7 @@ public class ImageLoader {
 	 * @throws IllegalArgumentException if passed <b>imageView</b> is null
 	 */
 	public void displayImage(String uri, ImageView imageView, DisplayImageOptions options,
-			ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+							 ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
 		displayImage(uri, new ImageViewAware(imageView), options, listener, progressListener);
 	}
 
@@ -485,7 +514,7 @@ public class ImageLoader {
 	 * @throws IllegalStateException if {@link #init(ImageLoaderConfiguration)} method wasn't called before
 	 */
 	public void loadImage(String uri, ImageSize targetImageSize, DisplayImageOptions options,
-			ImageLoadingListener listener) {
+						  ImageLoadingListener listener) {
 		loadImage(uri, targetImageSize, options, listener, null);
 	}
 
@@ -515,7 +544,7 @@ public class ImageLoader {
 	 * @throws IllegalStateException if {@link #init(ImageLoaderConfiguration)} method wasn't called before
 	 */
 	public void loadImage(String uri, ImageSize targetImageSize, DisplayImageOptions options,
-			ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+						  ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
 		checkConfiguration();
 		if (targetImageSize == null) {
 			targetImageSize = configuration.getMaxImageSize();

@@ -90,7 +90,7 @@ public abstract class BaseApplication extends Application {
                 .diskCacheSize(50 * 1024 * 1024)
                 .diskCacheFileCount(100)
                 .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-//                        .imageDownloader(new BaseImageDownloader(context)) // default
+//                        .imageDownloader(new BaseImageDownloader(this)) // default
 //                        .imageDecoder(new BaseImageDecoder()) // default
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
                 .writeDebugLogs()
