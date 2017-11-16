@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  * 创建人：郑晓辉
  * 创建日期：2016/3/18
  * 描述：主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
+ * 还未验证全部功能是否有效，清理内外缓存推荐用CacheUtil
  */
 public class DataCleanUtil {
 
@@ -29,7 +30,7 @@ public class DataCleanUtil {
      * @param context
      */
     public static void cleanInternalCache(Context context) {
-        deleteFilesByDirectory(context.getCacheDir());
+        deleteDir(context.getCacheDir());
     }
 
     /**
@@ -38,7 +39,7 @@ public class DataCleanUtil {
      * @param context
      */
     public static void cleanDatabases(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
+        getFolderSize(new File("/data/data/"
                 + context.getPackageName() + "/databases"));
     }
 
@@ -48,7 +49,7 @@ public class DataCleanUtil {
      * @param context
      */
     public static void cleanSharedPreference(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
+        getFolderSize(new File("/data/data/"
                 + context.getPackageName() + "/shared_prefs"));
     }
 
@@ -68,7 +69,7 @@ public class DataCleanUtil {
      * @param context
      */
     public static void cleanFiles(Context context) {
-        deleteFilesByDirectory(context.getFilesDir());
+        getFolderSize(context.getFilesDir());
     }
 
     /**
@@ -79,7 +80,7 @@ public class DataCleanUtil {
     public static void cleanExternalCache(Context context) {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
-            deleteFilesByDirectory(context.getExternalCacheDir());
+            getFolderSize(context.getExternalCacheDir());
         }
     }
 
@@ -89,7 +90,7 @@ public class DataCleanUtil {
      * @param filePath
      */
     public static void cleanCustomCache(String filePath) {
-        deleteFilesByDirectory(new File(filePath));
+        getFolderSize(new File(filePath));
     }
 
     /**
@@ -112,32 +113,36 @@ public class DataCleanUtil {
         }
     }
 
-    /**
-     * * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 * *
-     *
-     * @param directory
-     */
-    private static void deleteFilesByDirectory(File directory) {
-        if (directory != null && directory.exists() && directory.isDirectory()) {
-            for (File item : directory.listFiles()) {
-                item.delete();
-            }
-        }
-    }
-
-//    方法deleteFilesByDirectory无效，要用这个方法
-//    private static boolean deleteDir(File dir) {
-//        if (dir != null && dir.isDirectory()) {
-//            String[] children = dir.list();
-//            for (int i = 0; i < children.length; i++) {
-//                boolean success = deleteDir(new File(dir, children[i]));
-//                if (!success) {
-//                    return false;
-//                }
+//    /**
+//     * * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 ,如果里面是文件夹也不做处理* *
+//     *
+//     * @param directory
+//     */
+//    private static void deleteFilesByDirectory(File directory) {
+//        if (directory != null && directory.exists() && directory.isDirectory()) {
+//            for (File item : directory.listFiles()) {
+//                item.delete();
 //            }
 //        }
-//        return dir.delete();
 //    }
+
+    /**
+     * 方法deleteFilesByDirectory无效，要用这个方法
+     * @param dir
+     * @return
+     */
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
 
     // 获取文件
     //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据

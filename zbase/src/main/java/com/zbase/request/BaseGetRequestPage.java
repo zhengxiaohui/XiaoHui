@@ -1,6 +1,8 @@
 package com.zbase.request;
 
-import com.lzy.okhttputils.request.GetRequest;
+
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.request.GetRequest;
 
 /**
  * 创建人：郑晓辉
@@ -33,4 +35,8 @@ public abstract class BaseGetRequestPage extends GetRequest implements IRequestP
         getParams().put(getIndexKey(), String.valueOf(pageIndex));
     }
 
+    @Override
+    public <T> void execute(AbsCallback<T> callback) {
+        super.execute(callback);
+    }
 }

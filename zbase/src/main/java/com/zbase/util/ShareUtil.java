@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 
-import com.zbase.bean.AppInfo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,31 +98,6 @@ public class ShareUtil {
         PackageManager pManager = context.getPackageManager();
         mApps = pManager.queryIntentActivities(intent, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
         return mApps;
-    }
-
-    /**
-     * 得到应用列表
-     *
-     * @return
-     */
-    public static List<AppInfo> getShareAppList(Context context) {
-        List<AppInfo> shareAppInfos = new ArrayList<AppInfo>();
-        PackageManager packageManager = context.getPackageManager();
-        List<ResolveInfo> resolveInfos = getShareApps(context);
-        if (null == resolveInfos) {
-            return null;
-        }
-        else {
-            for (ResolveInfo resolveInfo : resolveInfos) {
-                AppInfo appInfo = new AppInfo();
-                appInfo.setAppPkgName(resolveInfo.activityInfo.packageName);
-                appInfo.setAppLauncherClassName(resolveInfo.activityInfo.name);
-                appInfo.setAppName(resolveInfo.loadLabel(packageManager).toString());
-                appInfo.setAppIcon(resolveInfo.loadIcon(packageManager));
-                shareAppInfos.add(appInfo);
-            }
-        }
-        return shareAppInfos;
     }
 
     /**

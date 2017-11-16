@@ -3,11 +3,11 @@ package com.zbase.request;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lzy.okhttputils.request.BaseRequest;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.zbase.adapter.ZBaseRecyclerAdapter;
 import com.zbase.interfaces.IPullToRefreshResponse;
 import com.zbase.util.ScreenUtil;
@@ -18,9 +18,8 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
-import okhttp3.Call;
-import okhttp3.Request;
-import okhttp3.Response;
+
+
 
 
 /**
@@ -41,6 +40,14 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
         return requestPage;
     }
 
+    /**
+     * 重新设置请求参数，用于参数变化的时候刷重新请求
+     * 一般用法如下：
+     PostRequestPage postRequestPage =buildPostRequestPage("all);
+     autoUltraPullToRefresh.setRequestPage(postRequestPage);
+     autoUltraPullToRefresh.refresh();
+     * @param requestPage
+     */
     public void setRequestPage(IRequestPage requestPage) {
         this.requestPage = requestPage;
     }
@@ -210,14 +217,13 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
         requestPage.execute(new BaseJsonCallback<T>(context, clazz, showProgress) {
 
             @Override
-            public void onBefore(BaseRequest request) {
-                super.onBefore(request);
+            public void onStart(Request<T, ? extends Request> request) {
+                super.onStart(request);
                 sign(request);
             }
 
             @Override
-            public void onResponse(boolean isFromCache, T t, Request request, @Nullable
-                    Response response) {
+            public void onSuccess(T t) {
                 if (onObtainDataListener != null) {
                     onObtainDataListener.onObtainData(t);//放在t.getList() != null && t.getList().size() > 0的外面是防止有头部数据而没有列表数据的时候没返回
                 }
@@ -251,24 +257,24 @@ public abstract class BaseAutoUltraPullToRefresh<T extends IPullToRefreshRespons
             }
 
             @Override
-            public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
-                super.onError(isFromCache, call, response, e);
-//                zBaseRecyclerAdapter.setEmpty(true); 有数据，但是再请求时候出现错误时，会上面显示数据，下面显示empty
+            public void onError(Response<T> response) {
+                super.onError(response);
                 zBaseRecyclerAdapter.setFooterNomal();
             }
 
             @Override
-            public void onAfter(boolean isFromCache, @Nullable T t, Call call, @Nullable Response response, @Nullable Exception e) {
-                super.onAfter(isFromCache, t, call, response, e);
+            public void onFinish() {
+                super.onFinish();
                 onFinishRefreshComplete();
                 if (onAfterListener != null) {
                     onAfterListener.onAfter();
                 }
             }
+
         });
     }
 
-    protected abstract void sign(BaseRequest request);
+    protected abstract void sign(Request request);
 
     /**
      * http请求结束后刷新旋转状态变成普通状态

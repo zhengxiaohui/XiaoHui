@@ -1,6 +1,6 @@
 package com.zbase.request;
 
-import com.lzy.okhttputils.callback.AbsCallback;
+import com.lzy.okgo.callback.AbsCallback;
 import com.zbase.enums.PageType;
 
 /**

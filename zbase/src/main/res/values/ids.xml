@@ -1,4 +1,6 @@
 <resources>
-    <item name="drop_down_head_text" type="id"/>
-    <item name="gridview" type="id"/>
+    <item name="drop_down_head_text" type="id" />
+    <item name="gridview" type="id" />
+    <item name="tag_first" type="id"></item>
+    <item name="tag_second" type="id"></item>
 </resources>

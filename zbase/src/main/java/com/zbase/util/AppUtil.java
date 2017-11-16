@@ -11,23 +11,27 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Handler;
+import android.os.Message;
 
-import com.lzy.okhttputils.OkHttpUtils;
-import com.lzy.okhttputils.callback.FileCallback;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
+import com.lzy.okgo.model.Progress;
+import com.zbase.bean.AppInfo;
 import com.zbase.common.ZSharedPreferences;
+import com.zbase.listener.OnObtainAppInfoListListener;
 import com.zbase.service.AppUpgradeService;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * 创建人：郑晓辉
@@ -386,6 +390,7 @@ public class AppUtil {
 
     /**
      * 打开其他的app
+     *
      * @param context
      * @param packageName 包名
      */
@@ -421,6 +426,7 @@ public class AppUtil {
 
     /**
      * 打开浏览器
+     *
      * @param context
      * @param url
      */
@@ -455,25 +461,25 @@ public class AppUtil {
         progressDialog.setTitle("下载");
         progressDialog.setMessage("正在下载,请稍后...");
         progressDialog.show();
-        OkHttpUtils.get(apkUrl).tag(context).execute(new FileCallback(new StringBuffer(apkName).append(".apk").toString()) {
+        OkGo.<File>get(apkUrl).tag(context).execute(new FileCallback(new StringBuffer(apkName).append(".apk").toString()) {
 
             @Override
-            public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
-                super.onError(isFromCache, call, response, e);
+            public void onError(com.lzy.okgo.model.Response<File> response) {
+                super.onError(response);
                 PopUtil.toast(context, "下载失败");
                 progressDialog.dismiss();
             }
 
             @Override
-            public void onResponse(boolean isFromCache, File file, Request request, @Nullable Response response) {
+            public void onSuccess(com.lzy.okgo.model.Response<File> response) {
                 progressDialog.dismiss();
-                install(context, file);
+                install(context, response.body());
             }
 
             @Override
-            public void downloadProgress(long currentSize, long totalSize, float progress, long networkSpeed) {
-                double currentSizes = FileUtil.formetFileSize(currentSize, FileUtil.SIZETYPE_KB);
-                double totalSizes = FileUtil.formetFileSize(totalSize, FileUtil.SIZETYPE_KB);
+            public void downloadProgress(Progress progress) {
+                double currentSizes = FileUtil.formetFileSize(progress.currentSize, FileUtil.SIZETYPE_KB);
+                double totalSizes = FileUtil.formetFileSize(progress.totalSize, FileUtil.SIZETYPE_KB);
                 progressDialog.setMax((int) totalSizes);
                 progressDialog.setProgressNumberFormat("%1d KB/%2d KB");
                 progressDialog.setProgress((int) currentSizes);
@@ -496,29 +502,30 @@ public class AppUtil {
         progressDialog.setTitle("下载");
         progressDialog.setMessage("正在下载,请稍后...");
         progressDialog.show();
-        OkHttpUtils.get(url).tag(context).execute(new FileCallback(fileName) {
+        OkGo.<File>get(url).tag(context).execute(new FileCallback(fileName) {
 
             @Override
-            public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
-                super.onError(isFromCache, call, response, e);
+            public void onError(com.lzy.okgo.model.Response<File> response) {
+                super.onError(response);
                 PopUtil.toast(context, "下载失败");
                 progressDialog.dismiss();
             }
 
             @Override
-            public void onResponse(boolean isFromCache, File file, Request request, @Nullable Response response) {
+            public void onSuccess(com.lzy.okgo.model.Response<File> response) {
                 PopUtil.toast(context, "下载完成");
                 progressDialog.dismiss();
             }
 
             @Override
-            public void downloadProgress(long currentSize, long totalSize, float progress, long networkSpeed) {
-                double currentSizes = FileUtil.formetFileSize(currentSize, FileUtil.SIZETYPE_KB);
-                double totalSizes = FileUtil.formetFileSize(totalSize, FileUtil.SIZETYPE_KB);
+            public void downloadProgress(Progress progress) {
+                double currentSizes = FileUtil.formetFileSize(progress.currentSize, FileUtil.SIZETYPE_KB);
+                double totalSizes = FileUtil.formetFileSize(progress.totalSize, FileUtil.SIZETYPE_KB);
                 progressDialog.setMax((int) totalSizes);
                 progressDialog.setProgressNumberFormat("%1d KB/%2d KB");
                 progressDialog.setProgress((int) currentSizes);
             }
+
         });
     }
 
@@ -568,6 +575,7 @@ public class AppUtil {
     /**
      * 版本号比较
      * 0代表相等，1代表version1大于version2，-1代表version1小于version2
+     *
      * @param version1
      * @param version2
      * @return
@@ -605,5 +613,96 @@ public class AppUtil {
             return diff > 0 ? 1 : -1;
         }
     }
+
+    /**
+     * 获取app签名md5值
+     */
+    public static String getSignMd5Str(Activity activity, String packageName) {
+        try {
+            PackageInfo packageInfo = activity.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            Signature[] signs = packageInfo.signatures;
+            Signature sign = signs[0];
+            String signStr = encryptionMD5(sign.toByteArray());
+            return signStr;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * MD5加密
+     *
+     * @param byteStr 需要加密的内容
+     * @return 返回 byteStr的md5值
+     */
+    public static String encryptionMD5(byte[] byteStr) {
+        MessageDigest messageDigest = null;
+        StringBuffer md5StrBuff = new StringBuffer();
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(byteStr);
+            byte[] byteArray = messageDigest.digest();
+            for (int i = 0; i < byteArray.length; i++) {
+                if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
+                    md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
+                } else {
+                    md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+                }
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return md5StrBuff.toString();
+    }
+
+    /**
+     * 获取所有已安装非系统的app信息
+     * @param context
+     * @return
+     */
+    public static void getUserAppInfoList(final Context context, final OnObtainAppInfoListListener onObtainAppInfoListListener) {
+        final Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 0:
+                        List<AppInfo> appList = (List<AppInfo>) msg.obj;
+                        if (onObtainAppInfoListListener!=null) {
+                            onObtainAppInfoListListener.onObtainAppInfoList(appList);
+                        }
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<AppInfo> appList = new ArrayList<>(); //用来存储获取的应用信息数据
+                PackageManager packageManager=context.getPackageManager();
+                List<PackageInfo> packages = packageManager.getInstalledPackages(0);
+                for (int i = 0; i < packages.size(); i++) {
+                    PackageInfo packageInfo = packages.get(i);
+                    AppInfo appInfo = new AppInfo();
+                    appInfo.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
+                    appInfo.setPackageName(packageInfo.packageName);
+                    appInfo.setVersionName(packageInfo.versionName);
+                    appInfo.setVersionCode(packageInfo.versionCode);
+                    appInfo.setAppIcon(packageInfo.applicationInfo.loadIcon(packageManager));
+                    if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                        appList.add(appInfo);//如果非系统应用，则添加至appList
+                    }
+                }
+                Message message=new Message();
+                message.what=0;
+                message.obj=appList;
+                handler.sendMessage(message);
+            }
+        }).start();
+    }
+
+    //获取已安装的游戏
+
 
 }

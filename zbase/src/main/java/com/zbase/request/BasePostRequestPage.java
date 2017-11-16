@@ -1,7 +1,7 @@
 package com.zbase.request;
 
-import com.lzy.okhttputils.callback.AbsCallback;
-import com.lzy.okhttputils.request.PostRequest;
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.request.PostRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +53,7 @@ public abstract class BasePostRequestPage extends PostRequest implements IReques
     }
 
     public <T> void execute(AbsCallback<T> callback) {
-        postJson(jsonObject.toString());
+        upJson(jsonObject.toString());
         super.execute(callback);
     }
 }

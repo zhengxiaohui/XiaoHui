@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.lzy.okhttputils.request.BaseRequest;
+import com.lzy.okgo.request.base.Request;
 import com.zbase.request.BaseJsonCallback;
 
 import org.json.JSONObject;
@@ -27,9 +27,9 @@ public abstract class SignJsonCallback<T> extends BaseJsonCallback<T> {
     }
 
     @Override
-    public void onBefore(BaseRequest request) {
-        super.onBefore(request);
-//        String appKey = HttpConstant.APP_KEY;
+    public void onStart(Request<T, ? extends Request> request) {
+        super.onStart(request);
+        //        String appKey = HttpConstant.APP_KEY;
 //        String timeStamp = String.valueOf(System.currentTimeMillis());
 //        String nonce = String.valueOf(UUID.randomUUID()).replaceAll("-", "");
 //        String[] ArrTmp = {appKey, timeStamp, nonce};
@@ -47,7 +47,7 @@ public abstract class SignJsonCallback<T> extends BaseJsonCallback<T> {
     }
 
     @Override
-    public T parseNetworkResponse(Response response) throws Exception {
+    public T convertResponse(Response response) throws Throwable {
         String responseData = response.body().string();
         if (TextUtils.isEmpty(responseData)) return null;
         if (clazz != null) {

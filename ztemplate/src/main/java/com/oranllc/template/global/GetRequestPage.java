@@ -29,4 +29,5 @@ public class GetRequestPage extends BaseGetRequestPage {
     public PageType getPageType() {
         return PageType.START_PAGE1;
     }
+
 }

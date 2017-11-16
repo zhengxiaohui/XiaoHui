@@ -3,57 +3,54 @@ package com.zbase.bean;
 import android.graphics.drawable.Drawable;
 
 /**
- * Created by 郑晓辉 on 2015/3/24
- * email:378180078@qq.com
- * 摘要：
- * 详细说明：
- * 使用示例：
+ * 创建人：郑晓辉
+ * 创建日期：2017/11/15 0015
+ * 描述：App信息
  */
 public class AppInfo {
-    private String		AppPkgName;
-    private String		AppLauncherClassName;
-    private String		AppName;
-    private Drawable	AppIcon;
-
-    public AppInfo() {
-        super();
-    }
-
-    public AppInfo(String appPkgName, String appLauncherClassName) {
-        super();
-        AppPkgName = appPkgName;
-        AppLauncherClassName = appLauncherClassName;
-    }
-
-    public String getAppPkgName() {
-        return AppPkgName;
-    }
-
-    public void setAppPkgName(String appPkgName) {
-        AppPkgName = appPkgName;
-    }
-
-    public String getAppLauncherClassName() {
-        return AppLauncherClassName;
-    }
-
-    public void setAppLauncherClassName(String appLauncherClassName) {
-        AppLauncherClassName = appLauncherClassName;
-    }
+    private String appName;
+    private String packageName;
+    private String versionName;
+    private int versionCode;
+    private Drawable appIcon;
 
     public String getAppName() {
-        return AppName;
+        return appName;
     }
 
     public void setAppName(String appName) {
-        AppName = appName;
+        this.appName = appName;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
     }
 
     public Drawable getAppIcon() {
-        return AppIcon;
+        return appIcon;
     }
 
     public void setAppIcon(Drawable appIcon) {
-        AppIcon = appIcon;
+        this.appIcon = appIcon;
     }
 }

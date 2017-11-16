@@ -23,7 +23,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.githang.statusbar.StatusBarCompat;
-import com.lzy.okhttputils.OkHttpUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.zbase.R;
 import com.zbase.common.BaseApplication;
@@ -471,7 +470,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
         super.onDestroy();
         getMyApplication().getActivityStack().removeActivity(this);
         unRegisterGlobleReceiver();
-        OkHttpUtils.getInstance().cancelTag(this);//Activity销毁时，取消网络请求
         if (photoPicker != null) {
             photoPicker.onDestroy();
         }

@@ -31,8 +31,6 @@
         <activity android:name=".activity.LaunchActivity" />启动页
         <activity android:name=".activity.GuideActivity" />引导页
         <activity android:name=".activity.CustomProgressDialogActivity" />自定义转圈对话框
-        <activity android:name=".activity.AsynchHttpActivity" />AsynchHttp网络访问
-        <activity android:name=".activity.ServerCRUDActivity" />服务端增删改查
         <activity android:name=".activity.AreaCNWheelActivity" />中国地区滚轮选择对话框
         <activity android:name=".activity.CustomShapeImageViewActivity" />自定义形状
         <activity android:name=".activity.ColorMatrixActivity" />颜色矩阵变幻滤镜

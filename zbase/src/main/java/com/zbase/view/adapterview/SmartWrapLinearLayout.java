@@ -68,7 +68,7 @@ public class SmartWrapLinearLayout extends LinearLayout {
             post(new Runnable() {//LinearLayout渲染出来后调用
                 @Override
                 public void run() {
-                    initView();
+                    buildView();
                 }
             });
         }
@@ -80,6 +80,7 @@ public class SmartWrapLinearLayout extends LinearLayout {
      */
     public void setAdapter(BaseAdapter adapter) {
         this.adapter = adapter;
+        buildView();
     }
 
     public List<View> getViewList(){
@@ -111,7 +112,7 @@ public class SmartWrapLinearLayout extends LinearLayout {
         });
     }
 
-    private void initView() {
+    private void buildView() {
         remainingWidth = totalWidth;
         removeAllViews();//这里为空也要刷新控件
         if (adapter != null && adapter.getCount() > 0) {

@@ -1,19 +1,18 @@
 package com.zbase.request;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.lzy.okhttputils.callback.AbsCallback;
-import com.lzy.okhttputils.request.BaseRequest;
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.request.base.Request;
 import com.zbase.R;
 import com.zbase.activity.AbstractBaseActivity;
+import com.zbase.common.ZLog;
 import com.zbase.strategy.PopStrategy;
 import com.zbase.util.NetWorkUtil;
 import com.zbase.util.PopUtil;
 
-import okhttp3.Call;
 import okhttp3.Response;
 
 /**
@@ -46,7 +45,7 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
     }
 
     @Override
-    public void onBefore(BaseRequest request) {
+    public void onStart(Request<T, ? extends Request> request) {
         if (!NetWorkUtil.isNetworkConnected(context)) {
             PopUtil.toast(context, R.string.there_is_no_network);
             return;
@@ -64,7 +63,7 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
 
     //该方法是子线程处理，不能做ui相关的工作
     @Override
-    public T parseNetworkResponse(Response response) throws Exception {
+    public T convertResponse(Response response) throws Throwable {
         String responseData = response.body().string();
         if (TextUtils.isEmpty(responseData)) return null;
         if (clazz != null) return new Gson().fromJson(responseData, clazz);
@@ -72,13 +71,21 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
     }
 
     @Override
-    public void onError(boolean isFromCache, Call call, @Nullable Response response, @Nullable Exception e) {
-        super.onError(isFromCache, call, response, e);
+    public void onSuccess(com.lzy.okgo.model.Response<T> response) {
+        onSuccess(response.body());
+    }
+
+    public abstract void onSuccess(T t);
+
+    @Override
+    public void onError(com.lzy.okgo.model.Response<T> response) {
+        super.onError(response);
         PopUtil.toast(context, R.string.cant_connect_to_server);
+        ZLog.dZheng("onError:"+response.message());
     }
 
     @Override
-    public void onAfter(boolean isFromCache, @Nullable T t, Call call, @Nullable Response response, @Nullable Exception e) {
+    public void onFinish() {
         if (showProgress) {
             PopStrategy.closeProgressDialog();
         }

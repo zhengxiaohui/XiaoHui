@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
     private SimpleAdapter simpleAdapter;
     private Class[] classes = {AnimationActivity.class, HtmlTextActivity.class, PopupWinowActivity.class,
             MyDialogActivity.class, ViewPagerActivity.class,
-            LaunchActivity.class, CustomProgressDialogActivity.class, AsynchHttpActivity.class, ServerCRUDActivity.class,
+            LaunchActivity.class, CustomProgressDialogActivity.class,
             AreaCNWheelActivity.class, CustomShapeImageViewActivity.class, ColorMatrixActivity.class,
             SlidingMenuActivity.class, ReportActivity.class, CategoryListViewActivity.class, WheelDateTimeActivity.class,
             MaskableFrameLayoutActivity.class, UMengShareActivity.class, BaiduMapActivity.class, JuheActivity.class,
@@ -31,8 +31,8 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
     };
     private String[] demoNames = {"列表和图片的3D左右旋转", "HTML文本显示",
             "各种自定义popupWindow", " 自定义对话框，布局样式都自定义",
-            "普通ViewPager和仿微博ViewPager", "启动页和引导页", "自定义转圈对话框", "AsynchHttp网络访问",
-            "服务端增删改查", "中国地区滚轮选择对话框", "自定义形状", "颜色矩阵变幻滤镜",
+            "普通ViewPager和仿微博ViewPager", "启动页和引导页", "自定义转圈对话框",
+             "中国地区滚轮选择对话框", "自定义形状", "颜色矩阵变幻滤镜",
             "列表向左滑出菜单", "报表各种形状图", "带分类标题的ListView", "滚轮日期时间选择器", "蒙版效果MaskableFrameLayout", "友盟分享", "百度地图"
             , "聚合数据", "通用下拉刷新UltraPullToRefresh", "DownloadManager下载", "监控HorizontalScrollView的滑动状态", "AutoCycleSlideView自定义自动滚动幻灯片",
             "图库单选多选拍摄图片", "密码输入框控件", "扫一扫","PhotoViewActivity","多个WheelView滚轮控件","列表单选，多选，全选，取消全选","长按布局控件结合录音播放计时等"

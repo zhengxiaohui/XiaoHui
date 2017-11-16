@@ -18,6 +18,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled true//防止出现65536问题，。。value 2
     }
 
     buildTypes {
@@ -25,20 +26,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    productFlavors {
-        oranllc {}
-        xiaomi {}
-        _360 {}
-        wandoujia {}
-        yingyongbao {}
-        baidu {}
-        oppo {}
-        meizu {}
-        vivo {}
-        huawei {}
-        lianxiang {}
     }
 
     productFlavors.all { flavor ->

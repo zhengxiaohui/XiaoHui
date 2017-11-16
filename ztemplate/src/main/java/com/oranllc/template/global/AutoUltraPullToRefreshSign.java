@@ -3,7 +3,7 @@ package com.oranllc.template.global;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.lzy.okhttputils.request.BaseRequest;
+import com.lzy.okgo.request.base.Request;
 import com.zbase.adapter.ZBaseRecyclerAdapter;
 import com.zbase.request.BaseAutoUltraPullToRefresh;
 import com.zbase.request.IRequestPage;
@@ -40,7 +40,7 @@ public class AutoUltraPullToRefreshSign extends BaseAutoUltraPullToRefresh {
     }
 
     @Override
-    protected void sign(BaseRequest request) {
+    protected void sign(Request request) {
 //        String appKey = HttpConstant.APP_KEY;
 //        String timeStamp = String.valueOf(System.currentTimeMillis());
 //        String nonce = String.valueOf(UUID.randomUUID()).replaceAll("-", "");
