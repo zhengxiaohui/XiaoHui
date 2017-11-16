@@ -4,11 +4,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.thinkland.sdk.android.DataCallBack;
 import com.thinkland.sdk.android.JuheData;
 import com.thinkland.sdk.android.Parameters;
 import com.zbase.strategy.PopStrategy;
-import com.zbase.util.GsonUtil;
 import com.zbase.util.PopUtil;
 import com.zdemo.R;
 import com.zdemo.bean.IpArea;
@@ -71,7 +71,7 @@ public class JuheActivity extends BaseActivity {
              */
             @Override
             public void onSuccess(int statusCode, String responseString) {
-                IpArea ipArea= GsonUtil.fromJson(responseString, IpArea.class);
+                IpArea ipArea= new Gson().fromJson(responseString, IpArea.class);
                 textView.setText(ipArea.getResult().getArea());
             }
 
