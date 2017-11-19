@@ -205,7 +205,7 @@ public class AppUtil {
     /**
      * 安装一个apk文件
      */
-    private static void install(Context context, File uriFile) {
+    public static void install(Context context, File uriFile) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(uriFile), "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   // 询问完成安装还是打开
