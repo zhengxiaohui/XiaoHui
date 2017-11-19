@@ -127,4 +127,5 @@
     <string name="select_datetime_after">选择的时间比现在晚，请重新选择</string>
 
     <string name="please_enter_a_search_keyword">请输入搜索关键字</string>
+    <string name="you_do_not_install_the_app">您未安装该应用</string>
 </resources>

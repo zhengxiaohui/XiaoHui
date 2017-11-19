@@ -18,10 +18,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Progress;
+import com.zbase.R;
 import com.zbase.bean.AppInfo;
 import com.zbase.common.ZSharedPreferences;
 import com.zbase.listener.OnObtainAppInfoListListener;
@@ -395,29 +397,39 @@ public class AppUtil {
      * @param packageName 包名
      */
     public static void openOtherApp(Context context, String packageName) {
-        Intent intent = new Intent();
-        PackageManager packageManager = context.getPackageManager();
-        intent = packageManager.getLaunchIntentForPackage(packageName);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            PackageManager packageManager = context.getPackageManager();
+            intent = packageManager.getLaunchIntentForPackage(packageName);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            PopUtil.toast(context, R.string.you_do_not_install_the_app);
+            e.printStackTrace();
+        }
     }
 
     /**
-     * 打开其他的app，指定打开界面
+     * 打开其他的app，指定打开界面，调用时加上try...catch，如果没有安装该应用则跳转到webview等
      *
      * @param activity
      * @param packageName  包名
      * @param activityName activity名
+     * @param url 没有具体地址的可以传空
      */
     // 另：几个常用的Package命令：
     // 新浪微博（编辑界面）：com.sina.weibo //com.sina.weibo.EditActivity
     // 腾讯微博（编辑界面）：com.tencent.WBlog// com.tencent.WBlog.activity.MicroblogInput
     // 微信： com.tencent.mm //com.tencent.mm.ui.LauncherUI
     // QQ: com.tencent.mobileqq// com.tencent.mobileqq.activity.HomeActivity
-    public static void openOtherApp(Activity activity, String packageName, String activityName) {
+    // 淘宝: com.taobao.taobao// com.taobao.tao.detail.activity.DetailActivity
+    public static void openOtherApp(Activity activity, String packageName, String activityName,String url) {
         Intent intent = new Intent();
         ComponentName cmp = new ComponentName(packageName, activityName);
         intent.setAction(Intent.ACTION_MAIN);
+        if (!TextUtils.isEmpty(url)) {
+            intent.setData(Uri.parse(url));
+        }
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setComponent(cmp);
