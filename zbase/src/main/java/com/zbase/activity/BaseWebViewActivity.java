@@ -1,7 +1,9 @@
 package com.zbase.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
@@ -62,6 +64,26 @@ public abstract class BaseWebViewActivity extends AbstractBaseActivity {
             // 重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if(url == null) return false;
+
+                try {
+                    if(url.startsWith("weixin://") //微信
+                            || url.startsWith("alipays://") //支付宝
+                            || url.startsWith("mailto://") //邮件
+                            || url.startsWith("tel://")//电话
+                            || url.startsWith("dianping://")//大众点评
+                            || url.startsWith("tbopen://")//淘宝
+                        //其他自定义的scheme
+                            ) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                        return true;
+                    }
+                } catch (Exception e) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return true;//没有安装该app时，返回true，表示拦截自定义链接，但不跳转，避免弹出上面的错误页面
+                }
+
+                //处理http和https开头的url
                 view.loadUrl(url);
                 return true;
             }
@@ -88,6 +110,10 @@ public abstract class BaseWebViewActivity extends AbstractBaseActivity {
             url="https://www.baidu.com";
         }
         webView.loadUrl(url);
+    }
+
+    protected void setTopGone() {
+        fl_top.setVisibility(View.GONE);
     }
 
 //    // 处理返回键
