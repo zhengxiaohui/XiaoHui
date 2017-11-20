@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Progress;
+import com.zbase.R;
 import com.zbase.bean.AppInfo;
 import com.zbase.common.ZSharedPreferences;
 import com.zbase.listener.OnObtainAppInfoListListener;
@@ -206,7 +207,7 @@ public class AppUtil {
     /**
      * 安装一个apk文件
      */
-    private static void install(Context context, File uriFile) {
+    public static void install(Context context, File uriFile) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(uriFile), "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   // 询问完成安装还是打开
@@ -396,11 +397,16 @@ public class AppUtil {
      * @param packageName 包名
      */
     public static void openOtherApp(Context context, String packageName) {
-        Intent intent = new Intent();
-        PackageManager packageManager = context.getPackageManager();
-        intent = packageManager.getLaunchIntentForPackage(packageName);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            PackageManager packageManager = context.getPackageManager();
+            intent = packageManager.getLaunchIntentForPackage(packageName);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            PopUtil.toast(context, R.string.you_do_not_install_the_app);
+            e.printStackTrace();
+        }
     }
 
     /**
