@@ -1,9 +1,9 @@
 package com.zbase.request;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.base.Request;
 import com.zbase.R;
@@ -14,6 +14,7 @@ import com.zbase.util.NetWorkUtil;
 import com.zbase.util.PopUtil;
 
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * ================================================
@@ -64,9 +65,11 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
     //该方法是子线程处理，不能做ui相关的工作
     @Override
     public T convertResponse(Response response) throws Throwable {
-        String responseData = response.body().string();
-        if (TextUtils.isEmpty(responseData)) return null;
-        if (clazz != null) return new Gson().fromJson(responseData, clazz);
+        //直接获取Reader流，构造JsonReader，免去服务端获取流转成字符串再转成json的过程，直接从流转对象
+        ResponseBody body = response.body();
+        if (body == null) return null;
+        JsonReader jsonReader = new JsonReader(body.charStream());
+        if (clazz != null) return new Gson().fromJson(jsonReader, clazz);
         return null;
     }
 
@@ -81,7 +84,7 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
     public void onError(com.lzy.okgo.model.Response<T> response) {
         super.onError(response);
         PopUtil.toast(context, R.string.cant_connect_to_server);
-        ZLog.dZheng("onError:"+response.message());
+        ZLog.dZheng("onError:" + response.message());
     }
 
     @Override
