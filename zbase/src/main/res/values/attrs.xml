@@ -64,7 +64,7 @@
         <attr name="unitText" format="string|reference" />
     </declare-styleable>
 
-    <declare-styleable name="MarqueeView">
+    <declare-styleable name="MarqueeLinearLayout">
         <attr name="speed" format="integer" />
         <attr name="interval" format="integer" />
     </declare-styleable>

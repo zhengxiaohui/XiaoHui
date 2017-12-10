@@ -25,15 +25,14 @@ import com.zbase.common.ZLog;
 
 /**
  * LinearLayout作为父View，必须有一个子TextView
- * <p>
- * 利用动画实现
+ * 这个类要自己控制好间距，不然显示效果是出现多个重复的文字一起滚动，推荐使用MarqueeTextView，一次只滚动一行文字
  */
-public class MarqueeView extends LinearLayout {
+public class MarqueeLinearLayout extends LinearLayout {
 
     private static final int TEXTVIEW_VIRTUAL_WIDTH = 2000;/* TextView默认宽度 */
     private static final int DEFAULT_SPEED = 35;/* 默认滚动速度 越大滚动越慢 */
     private static final int DEFAULT_ANIMATION_PAUSE = 0;/* 出去动画与进入动画的时间间隔 */
-    private static final String TAG = MarqueeView.class.getSimpleName();
+    private static final String TAG = MarqueeLinearLayout.class.getSimpleName();
 
     private TextView mTextField;/* 该跑马灯的孙子View之TextView */
     private ScrollView mScrollView;/* 该跑马灯的子View之mScrollView */
@@ -66,28 +65,28 @@ public class MarqueeView extends LinearLayout {
     private int intervals;
     private boolean hasInit;//是否初始化过，防止字符串包含"\r\n"等换行情况的时候报错 "The child view of this MarqueeView must be a TextView instance."
 
-    public MarqueeView(Context context) {
+    public MarqueeLinearLayout(Context context) {
         super(context);
         init(context);
         init(context, null);
     }
 
-    public MarqueeView(Context context, AttributeSet attrs) {
+    public MarqueeLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
         init(context, attrs);
     }
 
-    public MarqueeView(Context context, AttributeSet attrs, int defStyle) {
+    public MarqueeLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MarqueeView);
-        mSpeed = array.getInteger(R.styleable.MarqueeView_speed, DEFAULT_SPEED);
-        intervals = array.getInteger(R.styleable.MarqueeView_interval, 10);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MarqueeLinearLayout);
+        mSpeed = array.getInteger(R.styleable.MarqueeLinearLayout_speed, DEFAULT_SPEED);
+        intervals = array.getInteger(R.styleable.MarqueeLinearLayout_interval, 10);
 
     }
 
