@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/black</item>默认全局文字黑色
+        <item name="android:textColor">@color/black</item>默认全局文字黑色(不同系统可能默认颜色不同，所以这里都要设置)
         <item name="android:windowBackground">@color/c4</item>默认全局背景颜色
     </style>
 

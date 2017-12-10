@@ -629,9 +629,9 @@ public class AppUtil {
     /**
      * 获取app签名md5值
      */
-    public static String getSignMd5Str(Activity activity, String packageName) {
+    public static String getSignMd5Str(Context context, String packageName) {
         try {
-            PackageInfo packageInfo = activity.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             Signature[] signs = packageInfo.signatures;
             Signature sign = signs[0];
             String signStr = encryptionMD5(sign.toByteArray());
@@ -713,8 +713,6 @@ public class AppUtil {
             }
         }).start();
     }
-
-    //获取已安装的游戏
 
 
 }

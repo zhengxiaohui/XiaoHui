@@ -28,7 +28,6 @@ import java.util.List;
  * <p/>
  * **********************************************************
  */
-@Deprecated
 public abstract class ZBaseAdapter<T> extends BaseAdapter implements ISelectPosition {
 
     protected Context context;

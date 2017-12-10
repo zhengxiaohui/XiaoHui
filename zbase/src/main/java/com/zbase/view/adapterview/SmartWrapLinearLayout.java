@@ -31,11 +31,6 @@ public class SmartWrapLinearLayout extends LinearLayout {
     private int viewSpace;//View之间的间距
     private int lineSpace;//行间距
     private List<View> viewList=new ArrayList<>();
-    private InitViewCallBack initViewCallBack;
-
-    private interface InitViewCallBack{
-        void onInitViewCallBack();
-    }
 
     public SmartWrapLinearLayout(Context context) {
         super(context);
@@ -87,31 +82,6 @@ public class SmartWrapLinearLayout extends LinearLayout {
         return  viewList;
     }
 
-    public void setSelectedPosition(final int position){
-        if (initViewCallBack==null) {
-            initViewCallBack=new InitViewCallBack() {
-                @Override
-                public void onInitViewCallBack() {
-                    setSelected(position);
-                }
-            };
-        }else{
-            setSelected(position);
-        }
-    }
-
-    private void setSelected(final int position){
-        for (View view : viewList) {
-            view.setSelected(false);
-        }
-        post(new Runnable() {//LinearLayout渲染出来后调用
-            @Override
-            public void run() {
-                viewList.get(position).setSelected(true);
-            }
-        });
-    }
-
     private void buildView() {
         remainingWidth = totalWidth;
         removeAllViews();//这里为空也要刷新控件
@@ -139,9 +109,6 @@ public class SmartWrapLinearLayout extends LinearLayout {
                 currentLinearLayout.addView(view);
                 remainingWidth -= viewMeasuredWidth;
                 viewList.add(view);
-            }
-            if (initViewCallBack!=null) {
-                initViewCallBack.onInitViewCallBack();
             }
         }
     }
