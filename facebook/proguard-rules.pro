@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in E:\Android\sdk/tools/proguard/proguard-android.txt
+# in D:\sdk/tools/proguard/proguard-android.txt
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
@@ -16,9 +16,13 @@
 #   public *;
 #}
 
-# 友盟统计分析
--keepclassmembers class * { public <init>(org.json.JSONObject); }
--keepclassmembers enum com.umeng.analytics.** {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+-keep class com.facebook.** {*;}
+-keep interface com.facebook.** {*;}
+-keep enum com.facebook.** {*;}

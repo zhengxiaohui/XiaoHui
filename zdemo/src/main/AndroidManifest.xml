@@ -61,6 +61,7 @@
         <activity android:name=".activity.TransMaskActivity" />按下显示半透明遮罩控件
         <activity android:name=".activity.PathDrawViewActivity" />正三角形和点路径集合的自定义图形
         <activity android:name=".activity.CustTabViewpagerActivity"></activity>cust tab viewpager
+        <activity android:name=".activity.OverseasThirdLogin" />海外第三方登录:facebook,twitter,google等
 
     </application>
 

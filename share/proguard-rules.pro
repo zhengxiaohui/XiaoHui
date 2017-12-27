@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# 新浪微博
+-keep class com.sina.weibo.sdk.* { *; }
+-keep class android.support.v4.* { *; }
+-keep class com.tencent.* { *; }
+-keep class com.baidu.* { *; }
+-keep class lombok.ast.ecj.* { *; }
+-dontwarn android.support.v4.**
+-dontwarn com.tencent.**s
+-dontwarn com.baidu.**

@@ -1,0 +1,59 @@
+官网文档:https://developers.facebook.com/docs/facebook-login/android/
+
+1.facebook模块中的string.xml中配置自己的facebook_app_id和fb_login_protocol_scheme
+2.参照Zdemo中的OverseasThirdLogin中的代码，调用以下代码：
+
+private CallbackManager callbackManager;
+
+//初始化(initValue)中调用
+getKeyHash(context);
+callbackManager = CallbackManager.Factory.create();
+LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+    @Override
+    public void onSuccess(com.facebook.login.LoginResult loginResult) {
+        Toast.makeText(context, "Facebook login success", Toast.LENGTH_SHORT).show();
+        AccessToken accessToken=loginResult.getAccessToken();
+        Log.d("zheng", "userId=" + accessToken.getUserId());
+        Log.d("zheng", "token" + accessToken.getToken());
+//      getLoginInfo(loginResult.getAccessToken());
+    }
+
+    @Override
+    public void onCancel() {
+        Toast.makeText(context, "Facebook login cancel", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+        Toast.makeText(context, "Facebook login error", Toast.LENGTH_SHORT).show();
+    }
+});
+//定义方法
+/**
+     * 获取SHA签名（KeyHash），如Facebook需要的
+     * 注意运行的时候，app需要正式的签名，日志打印出来后复制到facebook官网后台填写
+     *
+     * @param context
+     */
+    public void getKeyHash(Context context) {
+        try {
+            PackageInfo info = null;
+            info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest messageDigest = null;
+                messageDigest = MessageDigest.getInstance("SHA");
+                messageDigest.update(signature.toByteArray());
+                String keyHash = Base64.encodeToString(messageDigest.digest(), Base64.DEFAULT);
+                Log.d("zheng", "KeyHash:  " + keyHash);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+//onActivityResult调用
+callbackManager.onActivityResult(requestCode, resultCode, data);
+
+//登录按钮调用
+LoginManager.getInstance().logInWithReadPermissions((Activity) context, Arrays.asList("public_profile", "user_friends"));

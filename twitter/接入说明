@@ -1,0 +1,69 @@
+官网文档:https://dev.twitter.com/twitterkit/android/installation
+
+1.twitter模块中的string.xml中配置自己的CONSUMER_KEY和CONSUMER_SECRET
+2.参照Zdemo中的OverseasThirdLogin中的代码，调用以下代码：
+private TwitterAuthClient twitterAuthClient;
+
+//初始化(initValue)中调用
+twitterAuthClient = new TwitterAuthClient();
+//onActivityResult调用
+twitterAuthClient.onActivityResult(requestCode, resultCode, data);
+//登录按钮调用
+twitterAuthClient.authorize(this, new Callback<TwitterSession>() {
+                    @Override
+                    public void success(Result<TwitterSession> result) {
+                        Toast.makeText(context,"twitter login success",Toast.LENGTH_SHORT).show();
+                        String authToken = String.valueOf(result.data.getAuthToken());
+                        String userId = result.data.getUserId()+"";
+                        Log.d("zheng", "userId=" + userId);
+                        Log.d("zheng", "token" + authToken);
+                        if (authToken !=null && userId != null){
+                            //处理登录后的逻辑
+
+                        }
+                    }
+
+                    @Override
+                    public void failure(TwitterException e) {
+                        Toast.makeText(context,"twitter login fail",Toast.LENGTH_SHORT).show();
+                    }
+                });
+---------------------------------------------------------------------------------------------------------
+其他：
+<!--Twitter分享的接受广播-->
+        <receiver
+            android:name=".MyResultReceiver"
+            android:exported="false">
+        <intent-filter>
+            <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS" />
+            <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE" />
+        </intent-filter>
+        </receiver>
+
+If using the TwitterLoginButton in a Fragment, use the following steps instead.
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    // Pass the activity result to the fragment, which will then pass the result to the login
+    // button.
+    Fragment fragment = getFragmentManager().findFragmentById(R.id.your_fragment_id);
+    if (fragment != null) {
+        fragment.onActivityResult(requestCode, resultCode, data);
+    }
+}
+
+可选，获取用户邮箱
+Request User Email Address
+TwitterAuthClient authClient = new TwitterAuthClient();
+authClient.requestEmail(session, new Callback<String>() {
+    @Override
+    public void success(Result<String> result) {
+        // Do something with the result, which provides the email address
+    }
+
+    @Override
+    public void failure(TwitterException exception) {
+      // Do something on failure
+    }
+});

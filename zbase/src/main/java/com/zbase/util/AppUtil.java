@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
@@ -415,7 +417,7 @@ public class AppUtil {
      * @param activity
      * @param packageName  包名
      * @param activityName activity名
-     * @param url 没有具体地址的可以传空
+     * @param url          没有具体地址的可以传空
      */
     // 另：几个常用的Package命令：
     // 新浪微博（编辑界面）：com.sina.weibo //com.sina.weibo.EditActivity
@@ -423,7 +425,7 @@ public class AppUtil {
     // 微信： com.tencent.mm //com.tencent.mm.ui.LauncherUI
     // QQ: com.tencent.mobileqq// com.tencent.mobileqq.activity.HomeActivity
     // 淘宝: com.taobao.taobao// com.taobao.tao.detail.activity.DetailActivity
-    public static void openOtherApp(Activity activity, String packageName, String activityName,String url) {
+    public static void openOtherApp(Activity activity, String packageName, String activityName, String url) {
         Intent intent = new Intent();
         ComponentName cmp = new ComponentName(packageName, activityName);
         intent.setAction(Intent.ACTION_MAIN);
@@ -670,7 +672,32 @@ public class AppUtil {
     }
 
     /**
+     * 获取SHA签名（KeyHash），如Facebook需要的
+     * 注意运行的时候，app需要正式的签名
+     *
+     * @param context
+     */
+    public static void getKeyHash(Context context) {
+        try {
+            PackageInfo info = null;
+            info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest messageDigest = null;
+                messageDigest = MessageDigest.getInstance("SHA");
+                messageDigest.update(signature.toByteArray());
+                String keyHash = Base64.encodeToString(messageDigest.digest(), Base64.DEFAULT);
+                Log.d("zheng", "KeyHash:  " + keyHash);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 获取所有已安装非系统的app信息
+     *
      * @param context
      * @return
      */
@@ -680,7 +707,7 @@ public class AppUtil {
                 switch (msg.what) {
                     case 0:
                         List<AppInfo> appList = (List<AppInfo>) msg.obj;
-                        if (onObtainAppInfoListListener!=null) {
+                        if (onObtainAppInfoListListener != null) {
                             onObtainAppInfoListListener.onObtainAppInfoList(appList);
                         }
                         break;
@@ -692,7 +719,7 @@ public class AppUtil {
             @Override
             public void run() {
                 List<AppInfo> appList = new ArrayList<>(); //用来存储获取的应用信息数据
-                PackageManager packageManager=context.getPackageManager();
+                PackageManager packageManager = context.getPackageManager();
                 List<PackageInfo> packages = packageManager.getInstalledPackages(0);
                 for (int i = 0; i < packages.size(); i++) {
                     PackageInfo packageInfo = packages.get(i);
@@ -706,9 +733,9 @@ public class AppUtil {
                         appList.add(appInfo);//如果非系统应用，则添加至appList
                     }
                 }
-                Message message=new Message();
-                message.what=0;
-                message.obj=appList;
+                Message message = new Message();
+                message.what = 0;
+                message.obj = appList;
                 handler.sendMessage(message);
             }
         }).start();

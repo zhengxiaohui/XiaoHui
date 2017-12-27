@@ -60,6 +60,8 @@ dependencies {
     compile project(':baidumap')
     compile project(':zxing')
     compile project(':magicindicator-demo')
+    compile project(':facebook')
+    compile project(':twitter')
     compile 'com.czt.mp3recorder:library:1.0.4'
     compile 'com.kyleduo.switchbutton:library:1.4.4'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'

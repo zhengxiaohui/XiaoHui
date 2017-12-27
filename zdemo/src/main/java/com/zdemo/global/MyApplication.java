@@ -6,6 +6,7 @@ import com.oranllc.jpush.JPushConfig;
 import com.oranllc.juhe.JuheConfig;
 import com.oranllc.umenganalytics.UMengAnalyticsConfig;
 import com.oranllc.umengsocialshare.common.UMengShareConfig;
+import com.twitter.sdk.android.core.Twitter;
 import com.zbase.common.BaseApplication;
 import com.zbase.strategy.PopOne;
 import com.zbase.strategy.PopStrategy;
@@ -22,6 +23,7 @@ public class MyApplication extends BaseApplication {
 		JPushConfig.init(this, debugMode);//极光推送
 		BaiduMapConfig.init(this);//百度地图
 		JuheConfig.init(this);//聚合数据
+		Twitter.initialize(this);
 	}
 
 	@Override

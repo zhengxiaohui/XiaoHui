@@ -2,7 +2,7 @@
 
 buildscript {
     repositories {
-	maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}//使用阿里云的国内镜像仓库地址，解决Gradle下载不了的问题
+//	maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}//使用阿里云的国内镜像仓库地址，解决Gradle下载不了的问题
         jcenter()
     }
     dependencies {
@@ -14,7 +14,7 @@ buildscript {
 
 allprojects {
     repositories {
-	maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}//使用阿里云的国内镜像仓库地址，解决Gradle下载不了的问题
+//	maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}//使用阿里云的国内镜像仓库地址，解决Gradle下载不了的问题
         jcenter()
     }
 }
