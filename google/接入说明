@@ -1,0 +1,54 @@
+官网文档:https://developers.google.com/identity/sign-in/android/start?hl=zh-en
+Demo代码：https://github.com/googlesamples/google-services/blob/master/android/signin/app/src/main/java/com/google/samples/quickstart/signin/SignInActivity.java
+
+1.Terminal中输入如下命令获取SHA1的值(使用正式的keystore)
+keytool -list -v -keystore C:\Users\Administrator\.android\debug.keystore
+debug得到的SHA1如下
+C2:AE:36:AE:3F:BD:CF:E2:46:F4:7F:D1:AE:B8:5C:A1:D7:80:A6:E5
+
+2.google模块中的string.xml中配置自己的server_client_id(官网选web不是android)
+
+3.官网下载的google-services.json放在主module目录下，不能放google的module目录下
+
+4.project的build.gradle下面要配置maven { url 'https://maven.google.com' }，参照XiaoHui的build.gradle
+
+5.参照Zdemo中的OverseasThirdLogin中的代码，调用以下代码：
+
+private GoogleSignInClient mGoogleSignInClient;
+private static final int RC_SIGN_IN = 9001;
+
+//初始化(initValue)中调用
+ GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestProfile()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+//定义方法
+private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount googleSignInAccount = completedTask.getResult(ApiException.class);
+            String account=googleSignInAccount.getAccount().name;
+            String displayName=googleSignInAccount.getDisplayName();
+            String id=googleSignInAccount.getId();
+            String idToken=googleSignInAccount.getIdToken();
+            Log.d("zheng", "account="+account);
+            Log.d("zheng", "displayName="+displayName);
+            Log.d("zheng", "id="+id);
+            Log.d("zheng", "idToken="+idToken);
+        } catch (ApiException e) {
+            Log.d("zheng", "google signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+//onActivityResult调用
+if (requestCode == RC_SIGN_IN) {//google
+    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+    handleSignInResult(task);
+}
+
+//登录按钮调用
+Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+startActivityForResult(signInIntent, RC_SIGN_IN);

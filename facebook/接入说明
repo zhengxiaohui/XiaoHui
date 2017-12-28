@@ -1,6 +1,7 @@
 官网文档:https://developers.facebook.com/docs/facebook-login/android/
 
 1.facebook模块中的string.xml中配置自己的facebook_app_id和fb_login_protocol_scheme
+
 2.参照Zdemo中的OverseasThirdLogin中的代码，调用以下代码：
 
 private CallbackManager callbackManager;

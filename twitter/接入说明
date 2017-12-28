@@ -1,7 +1,9 @@
 官网文档:https://dev.twitter.com/twitterkit/android/installation
 
 1.twitter模块中的string.xml中配置自己的CONSUMER_KEY和CONSUMER_SECRET
+
 2.参照Zdemo中的OverseasThirdLogin中的代码，调用以下代码：
+
 private TwitterAuthClient twitterAuthClient;
 
 //初始化(initValue)中调用

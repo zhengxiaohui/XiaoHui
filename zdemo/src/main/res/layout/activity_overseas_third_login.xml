@@ -53,5 +53,4 @@
         android:text="Google"
         android:textColor="@color/white" />
 
-
 </LinearLayout>

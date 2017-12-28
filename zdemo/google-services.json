@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "354167799388",
+    "project_id": "default-demo-app-fce22"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354167799388:android:936959616937f45d",
+        "android_client_info": {
+          "package_name": "com.zdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354167799388-3oo3ntfpsj3v8n0mcpjs7q1fi5hm13sf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "354167799388-5ifmsi0c7p46or8d1c2u9nmvbplol222.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zdemo",
+            "certificate_hash": "c2ae36ae3fbdcfe246f47fd1aeb85ca1d780a6e5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAH40jmXJXAYuWdfnDSckItDcKDMY8ZuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

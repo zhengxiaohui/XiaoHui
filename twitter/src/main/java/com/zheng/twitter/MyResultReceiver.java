@@ -1,4 +1,4 @@
-package com.sfrz.twitter;
+package com.zheng.twitter;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

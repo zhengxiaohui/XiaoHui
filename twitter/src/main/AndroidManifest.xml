@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sfrz.twitter">
+    package="com.zheng.twitter">
 
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
         <!--Twitter分享的接受广播-->
         <receiver
-            android:name=".MyResultReceiver"
+            android:name="com.zheng.twitter.MyResultReceiver"
             android:exported="false">
         <intent-filter>
             <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS" />

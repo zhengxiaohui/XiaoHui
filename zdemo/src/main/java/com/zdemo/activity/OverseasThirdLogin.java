@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,13 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -52,6 +60,8 @@ public class OverseasThirdLogin extends BaseActivity {
 
     private CallbackManager callbackManager;
     private TwitterAuthClient twitterAuthClient;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected int inflateMainLayoutId() {
@@ -87,7 +97,7 @@ public class OverseasThirdLogin extends BaseActivity {
                 Toast.makeText(context, "facebook login success", Toast.LENGTH_SHORT).show();
                 AccessToken accessToken = loginResult.getAccessToken();
                 Log.d("zheng", "userId=" + accessToken.getUserId());
-                Log.d("zheng", "token" + accessToken.getToken());
+                Log.d("zheng", "token=" + accessToken.getToken());
 //                getLoginInfo(loginResult.getAccessToken());
             }
 
@@ -106,7 +116,22 @@ public class OverseasThirdLogin extends BaseActivity {
         //twitter
         twitterAuthClient = new TwitterAuthClient();
 
+        //Google
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestProfile()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+////        updateUI(account);
+//    }
 
     /**
      * 获取SHA签名（KeyHash），如Facebook需要的
@@ -173,6 +198,26 @@ public class OverseasThirdLogin extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);//facebook
         twitterAuthClient.onActivityResult(requestCode, resultCode, data);//twitter
+        if (requestCode == RC_SIGN_IN) {//google
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount googleSignInAccount = completedTask.getResult(ApiException.class);
+            String account=googleSignInAccount.getAccount().name;
+            String displayName=googleSignInAccount.getDisplayName();
+            String id=googleSignInAccount.getId();
+            String idToken=googleSignInAccount.getIdToken();
+            Log.d("zheng", "account="+account);
+            Log.d("zheng", "displayName="+displayName);
+            Log.d("zheng", "id="+id);
+            Log.d("zheng", "idToken="+idToken);
+        } catch (ApiException e) {
+            Log.d("zheng", "google signInResult:failed code=" + e.getStatusCode());
+        }
     }
 
     @Override
@@ -197,7 +242,7 @@ public class OverseasThirdLogin extends BaseActivity {
                         String authToken = String.valueOf(result.data.getAuthToken());
                         String userId = result.data.getUserId()+"";
                         Log.d("zheng", "userId=" + userId);
-                        Log.d("zheng", "token" + authToken);
+                        Log.d("zheng", authToken);
                         if (authToken !=null && userId != null){
                             //处理登录后的逻辑
 
@@ -223,8 +268,38 @@ public class OverseasThirdLogin extends BaseActivity {
                 }
                 break;
             case R.id.tv_google:
-
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
                 break;
         }
     }
+
+    private void logoutFacebook(){
+        LoginManager.getInstance().logOut();
+    }
+
+    private void logoutTwitter(){
+        twitterAuthClient.cancelAuthorize();
+    }
+
+    private void logoutGoogle() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
+    private void revokeGoogleAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
 }

@@ -1,5 +1,4 @@
 import java.text.SimpleDateFormat
-
 apply plugin: 'com.android.application'
 
 def buildTime() {
@@ -62,7 +61,9 @@ dependencies {
     compile project(':magicindicator-demo')
     compile project(':facebook')
     compile project(':twitter')
+    compile project(':google')
     compile 'com.czt.mp3recorder:library:1.0.4'
     compile 'com.kyleduo.switchbutton:library:1.4.4'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }
+
