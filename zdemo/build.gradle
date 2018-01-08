@@ -46,12 +46,19 @@ repositories {
     maven { url "https://jitpack.io" }//MPAndroidChart或hellocharts用，必须有
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     compile 'com.wx.wheelview:wheelview:1.3.3' // https://github.com/venshine/WheelView
     compile project(':zbase')
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile project(':customshapeimageview')
 //    compile project(':nineoldandroids')
+//    compile(name: 'sdk-release', ext: 'aar')
     compile project(':kanwheel')
     compile project(':umengsocialshare')
     compile project(':jpush')

@@ -3,12 +3,12 @@ Demo代码：https://github.com/googlesamples/google-services/blob/master/androi
 
 1.Terminal中输入如下命令获取SHA1的值(使用正式的keystore)
 keytool -list -v -keystore C:\Users\Administrator\.android\debug.keystore
-debug得到的SHA1如下
+这里测试使用debug的keystore，密码是android,得到的SHA1如下(每台电脑的debug.keystore的SHA1值都是不一样的)
 C2:AE:36:AE:3F:BD:CF:E2:46:F4:7F:D1:AE:B8:5C:A1:D7:80:A6:E5
 
 2.google模块中的string.xml中配置自己的server_client_id(官网选web不是android)
 
-3.官网下载的google-services.json放在主module目录下，不能放google的module目录下
+3.官网下载的google-services.json放在主module目录下
 
 4.project的build.gradle下面要配置maven { url 'https://maven.google.com' }，参照XiaoHui的build.gradle
 

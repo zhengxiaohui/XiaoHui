@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -102,15 +103,21 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     /**
-     * 设置空内容的布局，最外层布局的高度设置成match_parent或者具体的dp值都可以。
+     * 根据RecyclerView的高度设置空内容的布局
+     * （未测试）
      *
      * @param resource
      */
-    public View inflaterEmptyView(@LayoutRes int resource) {
-        this.emptyView = LayoutInflater.from(context).inflate(resource, footerFrameLayout, false);
-        emptyView.setVisibility(View.GONE);
-        footerFrameLayout.addView(emptyView);
-        return emptyView;
+    public void inflaterEmptyView(@LayoutRes final int resource, final RecyclerView recyclerView) {
+        ViewTreeObserver viewTreeObserver = recyclerView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                recyclerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int height = recyclerView.getHeight();
+                inflaterEmptyViewWithHeight(resource, height);
+            }
+        });
     }
 
     /**
@@ -119,6 +126,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      * @param resource
      * @param height   空内容的布局高度
      */
+    @Deprecated
     public View inflaterEmptyViewWithHeight(@LayoutRes int resource, int height) {
         this.emptyView = LayoutInflater.from(context).inflate(resource, footerFrameLayout, false);
         emptyView.setVisibility(View.GONE);
@@ -133,6 +141,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
      * @param resource
      * @param subtractHeight 项目通用头部高度，项目通用底部菜单等高度。
      */
+    @Deprecated
     public View inflaterEmptyViewSubtractHeight(@LayoutRes int resource, int subtractHeight) {
         this.emptyView = LayoutInflater.from(context).inflate(resource, footerFrameLayout, false);
         emptyView.setVisibility(View.GONE);
