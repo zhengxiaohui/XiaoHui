@@ -42,16 +42,17 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFile.name.replace("app", "${defaultConfig.applicationId}" + "-${defaultConfig.versionName}-" + buildTime())
-                output.outputFile = new File(outputFile.parent, fileName)
+            if (variant.buildType.name.equals('release')) {
+                output.packageApplication.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".apk", "-" + defaultConfig.versionName + "-" + buildTime() + ".apk"))
             }
         }
     }
 
     lintOptions {
+        abortOnError false
         checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
     }
 
 }

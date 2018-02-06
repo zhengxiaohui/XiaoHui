@@ -58,7 +58,7 @@ public class MyDialogActivity extends BaseActivity {
     }
 
     private void alertDialog4() {
-        CustomDialog customDialog = new CustomDialog.Builder(context, inflate(R.layout.custom_dialog_title_content_confirm_cancle)).setTitleId(R.id.tv_title).setContentId(R.id.tv_content).setConfirmId(R.id.tv_confirm).setCancelId(R.id.tv_cancel).build();
+        CustomDialog customDialog = new CustomDialog.Builder(context, inflate(R.layout.custom_dialog_title_content_confirm_cancel)).setTitleId(R.id.tv_title).setContentId(R.id.tv_content).setConfirmId(R.id.tv_confirm).setCancelId(R.id.tv_cancel).build();
         customDialog.setTitle(R.string.umeng_socialize_text_friend_list);
         customDialog.setContent(R.string.umeng_socialize_text_tencent_version_no_match);
         customDialog.setConfirm(R.string.umeng_socialize_ucenter_login_title_platform);

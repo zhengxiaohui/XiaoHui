@@ -63,7 +63,6 @@ public class PtrFrameLayout extends ViewGroup {
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
-    //add by cxq 由开发者自己控制是否可以下拉
     private boolean controlCanMoveDownByUser = true;
 
     public boolean isCanMoveDown() {
@@ -756,7 +755,6 @@ public class PtrFrameLayout extends ViewGroup {
 
     /**
      * It's useful when working with viewpager.
-     * 解决和横向滑动控件的冲突，比如viewpager，SlidingMenu,ViewFlow等。
      * @param disable
      */
     public void disableWhenHorizontalMove(boolean disable) {

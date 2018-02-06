@@ -104,7 +104,7 @@ public abstract class ZBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recyc
 
     /**
      * 根据RecyclerView的高度设置空内容的布局
-     * （未测试）
+     * 注意：PtrClassicFrameLayout和RecyclerView的高度必须是match_parent，否则获取不到父布局的高度
      *
      * @param resource
      */
