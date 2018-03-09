@@ -30,7 +30,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * 解决5.0以下手机日志报dalvikvm: Could not find class的问题
+	 * 解决5.0以下手机日志dalvikvm: Could not find class的问题
 	 * @param base
 	 */
 	@Override
