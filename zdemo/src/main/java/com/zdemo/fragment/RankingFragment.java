@@ -40,7 +40,7 @@ public class RankingFragment extends BaseFragment {
 
             }
         });
-        adapter.inflaterEmptyView(R.layout.empty_view);
+        adapter.inflaterEmptyView(R.layout.empty_view,recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.setList(Arrays.asList(getResources().getStringArray(R.array.tests)));
     }

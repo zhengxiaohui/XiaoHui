@@ -5,13 +5,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.karics.library.zxing.my.QRCodeManager;
+//import com.karics.library.zxing.my.QRCodeManager;
 import com.zdemo.R;
 
 /**
  * 创建人：郑晓辉
  * 创建日期：2016/9/13
- * 描述：
+ * 描述：二维码扫描，为了防止和facebook中引用的zxing冲突，暂时注释掉
  */
 public class QRCodeActivity extends BaseActivity {
 
@@ -43,7 +43,7 @@ public class QRCodeActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                QRCodeManager.scan(this);
+//                QRCodeManager.scan(this);
                 break;
         }
     }
@@ -51,11 +51,11 @@ public class QRCodeActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        QRCodeManager.onActivityResult(requestCode, resultCode, data, new QRCodeManager.OnQRCodeObtainListener() {
-            @Override
-            public void onQRCodeObtain(String content) {
-                textView.setText(content);
-            }
-        });
+//        QRCodeManager.onActivityResult(requestCode, resultCode, data, new QRCodeManager.OnQRCodeObtainListener() {
+//            @Override
+//            public void onQRCodeObtain(String content) {
+//                textView.setText(content);
+//            }
+//        });
     }
 }

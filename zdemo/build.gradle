@@ -45,6 +45,10 @@ android {
         // 防止在发布的时候出现因MissingTranslation导致Build Failed!
         disable 'MissingTranslation'
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 repositories {
@@ -69,7 +73,7 @@ dependencies {
     compile project(':jpush')
     compile project(':juhe')
     compile project(':baidumap')
-    compile project(':zxing')
+//    compile project(':zxing')
     compile project(':magicindicator-demo')
     compile project(':facebook')
     compile project(':twitter')
