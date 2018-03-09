@@ -1,6 +1,6 @@
 package com.zbase.common;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.lzy.okgo.OkGo;
@@ -39,8 +39,9 @@ import okhttp3.Protocol;
  * 创建人：郑晓辉
  * 创建日期：2016/4/27
  * 描述：Application全局配置的父类，给子类MyApplication继承使用
+ * MultiDexApplication解决5.0以下手机日志dalvikvm: Could not find class的问题
  */
-public abstract class BaseApplication extends Application {
+public abstract class BaseApplication extends MultiDexApplication {
 
     protected ActivityStackManager activityStack;
 

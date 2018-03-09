@@ -1,9 +1,6 @@
 package com.zdemo.global;
 
 
-import android.content.Context;
-import android.support.multidex.MultiDex;
-
 import com.oranllc.baidumap.BaiduMapConfig;
 import com.oranllc.jpush.JPushConfig;
 import com.oranllc.juhe.JuheConfig;
@@ -27,16 +24,6 @@ public class MyApplication extends BaseApplication {
 		BaiduMapConfig.init(this);//百度地图
 		JuheConfig.init(this);//聚合数据
 		Twitter.initialize(this);
-	}
-
-	/**
-	 * 解决5.0以下手机日志dalvikvm: Could not find class的问题
-	 * @param base
-	 */
-	@Override
-	protected void attachBaseContext(Context base) {
-		super.attachBaseContext(base);
-		MultiDex.install(this);
 	}
 
 	@Override

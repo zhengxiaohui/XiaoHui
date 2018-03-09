@@ -40,14 +40,6 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            if (variant.buildType.name.equals('release')) {
-                output.packageApplication.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".apk", "-" + defaultConfig.versionName + "-" + buildTime() + ".apk"))
-            }
-        }
-    }
-
     lintOptions {
         abortOnError false
         checkReleaseBuilds false
